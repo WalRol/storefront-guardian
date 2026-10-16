@@ -131,6 +131,10 @@ npm run eval -- --provider gemini --no-context   # sin el archivo de convencione
 
 Los resultados se guardan en [eval/results/](eval/results/).
 
+En modo replay solo se reemplazan las respuestas del modelo: typecheck, tests y la validación rojo → verde de cada
+fix se ejecutan de verdad en tu máquina. Los tiempos de replay no incluyen la latencia del modelo; los tiempos
+representativos son los de la corrida real ([eval/results/gemini.md](eval/results/gemini.md)).
+
 ## Configuración
 
 - [guardian.policy.yaml](guardian.policy.yaml): qué bloquea, qué va a revisión humana, qué se intenta
