@@ -1,0 +1,200 @@
+[
+  {
+    "id": "01-decimal-discount",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": true,
+    "seconds": 53.085,
+    "inputTokens": 6854,
+    "outputTokens": 1267,
+    "costUsd": 0.0052236999999999995
+  },
+  {
+    "id": "02-stacked-promos",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests",
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": true,
+    "seconds": 38.968,
+    "inputTokens": 5178,
+    "outputTokens": 1245,
+    "costUsd": 0.0046659
+  },
+  {
+    "id": "03-negative-stock",
+    "expectedVerdict": "BLOCK",
+    "verdict": "ERROR",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0,
+    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+  },
+  {
+    "id": "04-cross-store-price",
+    "expectedVerdict": "BLOCK",
+    "verdict": "ERROR",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0,
+    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+  },
+  {
+    "id": "05-sqli-category",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "static"
+    ],
+    "falsePositives": 0,
+    "fixValidated": true,
+    "seconds": 42.64,
+    "inputTokens": 10848,
+    "outputTokens": 1451,
+    "costUsd": 0.0068819
+  },
+  {
+    "id": "06-idor-order-history",
+    "expectedVerdict": "BLOCK",
+    "verdict": "ERROR",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0,
+    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+  },
+  {
+    "id": "07-hardcoded-secret",
+    "expectedVerdict": "BLOCK",
+    "verdict": "ERROR",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0,
+    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+  },
+  {
+    "id": "08-n-plus-one",
+    "expectedVerdict": "REVIEW",
+    "verdict": "ERROR",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0,
+    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+  },
+  {
+    "id": "09-error-leak",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "static"
+    ],
+    "falsePositives": 0,
+    "fixValidated": true,
+    "seconds": 54.19,
+    "inputTokens": 5843,
+    "outputTokens": 1428,
+    "costUsd": 0.005322899999999999
+  },
+  {
+    "id": "10-coupon-boundary",
+    "expectedVerdict": "REVIEW",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": true,
+    "seconds": 38.245,
+    "inputTokens": 4915,
+    "outputTokens": 1331,
+    "costUsd": 0.004802
+  },
+  {
+    "id": "11-clean-list-stores",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 16.569,
+    "inputTokens": 3772,
+    "outputTokens": 4,
+    "costUsd": 0.0011416
+  },
+  {
+    "id": "12-clean-pagination",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 16.915,
+    "inputTokens": 4015,
+    "outputTokens": 9,
+    "costUsd": 0.001227
+  },
+  {
+    "id": "13-clean-bearer-refactor",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 14.466,
+    "inputTokens": 1980,
+    "outputTokens": 4,
+    "costUsd": 0.000604
+  }
+]

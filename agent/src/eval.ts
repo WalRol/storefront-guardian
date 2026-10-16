@@ -135,6 +135,7 @@ async function main() {
       'no-fix': { type: 'boolean', default: false },
       only: { type: 'string' },
       'no-context': { type: 'boolean', default: false },
+      'retry-failed': { type: 'boolean', default: false },
     },
   });
 
@@ -153,11 +154,27 @@ async function main() {
     record: values.record,
   });
 
+  const outDir = path.join(repoDir, 'eval', 'results');
+  const file = path.join(outDir, `${providerName}${variant}${values.only ? `-${values.only}` : ''}`);
+
+  // Con --retry-failed se conservan los casos exitosos de la corrida anterior
+  // (con sus tiempos reales) y solo se reintentan los que fallaron, p. ej. por cuota.
+  const previous: CaseResult[] =
+    values['retry-failed'] && fs.existsSync(`${file}.json`)
+      ? JSON.parse(fs.readFileSync(`${file}.json`, 'utf8'))
+      : [];
+  const kept = new Map(previous.filter((r) => r.verdict !== 'ERROR').map((r) => [r.id, r]));
+
   const casesDir = path.join(repoDir, 'eval', 'cases');
   const ids = fs.readdirSync(casesDir).filter((id) => !values.only || id.includes(values.only)).sort();
   const results: CaseResult[] = [];
 
   for (const id of ids) {
+    const done = kept.get(id);
+    if (done) {
+      results.push(done);
+      continue;
+    }
     const c = JSON.parse(fs.readFileSync(path.join(casesDir, id, 'case.json'), 'utf8')) as EvalCase;
     process.stderr.write(`› ${id} … `);
     try {
@@ -188,9 +205,7 @@ async function main() {
 
   const providerLabel = `${providerName}${provider ? ` (${provider.model})` : ''}${variant}`;
   const summary = renderSummary(results, providerLabel);
-  const outDir = path.join(repoDir, 'eval', 'results');
   fs.mkdirSync(outDir, { recursive: true });
-  const file = path.join(outDir, `${providerName}${variant}${values.only ? `-${values.only}` : ''}`);
   fs.writeFileSync(`${file}.md`, summary);
   fs.writeFileSync(`${file}.json`, JSON.stringify(results, null, 2));
   console.log(summary);

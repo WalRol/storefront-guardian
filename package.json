@@ -1,0 +1,11 @@
+{
+  "name": "storefront-guardian-workspace",
+  "private": true,
+  "description": "Atajos para instalar, correr la demo y el eval",
+  "scripts": {
+    "setup": "npm ci --prefix storefront-demo && npm ci --prefix agent",
+    "demo": "npm run guardian --prefix agent -- review --case 06-idor-order-history --provider replay --cassettes cassettes/eval --exit-zero",
+    "eval": "npm run eval --prefix agent --",
+    "test": "npm test --prefix storefront-demo && npm test --prefix agent"
+  }
+}

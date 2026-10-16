@@ -6,10 +6,12 @@ import { git } from './exec';
 import { createProvider, PROVIDERS, type ProviderName } from './llm';
 import { runPipeline } from './pipeline';
 import { loadPolicy } from './policy';
+import { buildRunEvent, notifyWebhook } from './notify';
 import { renderMarkdown } from './report';
 
 const USAGE = `Uso:
   guardian review --base <ref> (--head <ref> | --patch <archivo>) [opciones]
+  guardian review --case <id>        Corre un caso de eval/cases (ideal para demos)
 
 Opciones:
   --provider <p>   ${PROVIDERS.join(' | ')}  (por defecto: GUARDIAN_PROVIDER o "replay")
@@ -20,6 +22,13 @@ Opciones:
   --label <l>      Identificador de la corrida (por defecto: hash del diff)
   --repo <dir>     Raíz del repo (por defecto: repo git actual)
   --out <dir>      Carpeta de salida (por defecto: <repo>/.guardian-out)
+  --cassettes <d>  Carpeta de grabaciones, relativa a agent/ (por defecto: cassettes)
+  --pr-number <n>  Número del PR (se incluye en el webhook)
+  --pr-url <url>   URL del PR (se incluye en el webhook)
+
+Variables de entorno:
+  GUARDIAN_WEBHOOK_URL    Si está definida, se envía el resultado de cada corrida (p. ej. a n8n)
+  GUARDIAN_WEBHOOK_TOKEN  Se envía en el header X-Guardian-Token para autenticar el evento
   --exit-zero      Devolver exit code 0 aunque el veredicto sea BLOCK`;
 
 async function main() {
@@ -37,17 +46,32 @@ async function main() {
       label: { type: 'string' },
       repo: { type: 'string' },
       out: { type: 'string' },
+      cassettes: { type: 'string', default: 'cassettes' },
+      case: { type: 'string' },
+      'pr-number': { type: 'string' },
+      'pr-url': { type: 'string' },
       'exit-zero': { type: 'boolean', default: false },
       help: { type: 'boolean', short: 'h', default: false },
     },
   });
+
+  const repoDir = values.repo ?? (await git(['rev-parse', '--show-toplevel'], process.cwd())).trim();
+
+  if (values.case) {
+    const caseDir = path.join(repoDir, 'eval', 'cases', values.case);
+    const meta = JSON.parse(fs.readFileSync(path.join(caseDir, 'case.json'), 'utf8'));
+    values.base ??= 'HEAD';
+    values.patch = path.join(caseDir, 'change.patch');
+    values.title ??= meta.title;
+    values.body ||= meta.body;
+    values.label ??= values.case;
+  }
 
   if (values.help || positionals[0] !== 'review' || !values.base || (!values.head && !values.patch)) {
     console.log(USAGE);
     process.exit(values.help ? 0 : 2);
   }
 
-  const repoDir = values.repo ?? (await git(['rev-parse', '--show-toplevel'], process.cwd())).trim();
   const envFile = path.join(repoDir, '.env');
   if (fs.existsSync(envFile)) process.loadEnvFile(envFile);
 
@@ -56,7 +80,7 @@ async function main() {
 
   const policy = loadPolicy(path.join(repoDir, 'guardian.policy.yaml'));
   const provider = createProvider(providerName, {
-    cassetteDir: path.join(repoDir, 'agent', 'cassettes'),
+    cassetteDir: path.join(repoDir, 'agent', values.cassettes),
     record: values.record,
   });
   const title =
@@ -77,10 +101,22 @@ async function main() {
   });
 
   const markdown = renderMarkdown(report, policy);
-  const outDir = path.join(values.out ?? path.join(repoDir, '.guardian-out'), report.label);
+  const outRoot = values.out ?? path.join(repoDir, '.guardian-out');
+  const outDir = path.join(outRoot, report.label);
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'report.md'), markdown);
   fs.writeFileSync(path.join(outDir, 'report.json'), JSON.stringify(report, null, 2));
+
+  // Historial de corridas: base para medir adopción, tiempos y valor generado.
+  const event = buildRunEvent(report, policy, {
+    repo: process.env.GITHUB_REPOSITORY,
+    number: values['pr-number'] ? Number(values['pr-number']) : undefined,
+    url: values['pr-url'],
+  });
+  fs.appendFileSync(path.join(outRoot, 'runs.jsonl'), JSON.stringify(event) + '\n');
+  if (process.env.GUARDIAN_WEBHOOK_URL) {
+    await notifyWebhook(process.env.GUARDIAN_WEBHOOK_URL, event, process.env.GUARDIAN_WEBHOOK_TOKEN);
+  }
 
   console.log(markdown);
   console.error(`› Reporte guardado en ${outDir}`);

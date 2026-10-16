@@ -48,6 +48,18 @@ const policySchema = z.object({
       reviewOn: z.object({ severities: z.array(severity).default(['medium']) }).default({}),
     })
     .default({}),
+  /**
+   * Supuestos para estimar el tiempo que el sistema le ahorra al equipo.
+   * Son hipótesis a validar midiendo con el equipo real, no datos.
+   */
+  value: z
+    .object({
+      /** Minutos que un desarrollador dedica a la primera pasada de revisión de un PR. */
+      reviewMinutes: z.number().default(15),
+      /** Minutos para reproducir, corregir y escribir el test de un bug ya detectado. */
+      fixMinutes: z.number().default(30),
+    })
+    .default({}),
   /** Precios de referencia (USD por millón de tokens) para estimar el costo equivalente pago. */
   pricing: z
     .object({ inputPerMTok: z.number().default(0.3), outputPerMTok: z.number().default(2.5) })

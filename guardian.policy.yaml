@@ -33,6 +33,11 @@ gate:
   reviewOn:
     severities: [medium]
 
+# Supuestos para estimar minutos ahorrados al equipo (validar con datos reales).
+value:
+  reviewMinutes: 15
+  fixMinutes: 30
+
 # Precio de referencia de un modelo pago equivalente (USD por millón de tokens),
 # para estimar cuánto costaría operar el sistema fuera del tier gratuito.
 pricing:

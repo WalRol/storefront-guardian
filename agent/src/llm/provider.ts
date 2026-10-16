@@ -35,6 +35,8 @@ export class LlmError extends Error {
 export class FallbackProvider implements LlmProvider {
   /** Índice del último modelo que respondió: las siguientes llamadas empiezan por él. */
   private active = 0;
+  /** Modelos sin cuota: no se reintentan hasta este instante (ms). */
+  private cooldownUntil = new Map<number, number>();
 
   constructor(private chain: LlmProvider[]) {}
 
@@ -50,6 +52,7 @@ export class FallbackProvider implements LlmProvider {
     const order = [...this.chain.keys()].map((i) => (this.active + i) % this.chain.length);
     for (const index of order) {
       const provider = this.chain[index];
+      if ((this.cooldownUntil.get(index) ?? 0) > Date.now()) continue;
       try {
         const res = await provider.complete(req);
         this.active = index;
@@ -57,11 +60,16 @@ export class FallbackProvider implements LlmProvider {
       } catch (err) {
         const unavailable = err instanceof LlmError && [404, 429, 503].includes(err.status ?? 0);
         if (!unavailable) throw err;
+        if (err.status === 429) {
+          // Cuota agotada: respetar el retryDelay que informa la API (puede ser horas en cuotas diarias).
+          const delay = Number(/"retryDelay":\s*"(\d+)s"/.exec(err.message)?.[1] ?? 60);
+          this.cooldownUntil.set(index, Date.now() + delay * 1000);
+        }
         console.error(`› ${provider.name}/${provider.model} no disponible (HTTP ${err.status}); probando el siguiente…`);
         lastError = err;
       }
     }
-    throw lastError;
+    throw lastError ?? new LlmError('Todos los modelos de la cadena están sin cuota por ahora', 429);
   }
 }
 
@@ -89,7 +97,7 @@ export async function postJson(
 
     const retryable = res.status === 429 || res.status >= 500;
     if (!retryable || attempt >= retries) {
-      const detail = (await res.text()).slice(0, 500);
+      const detail = (await res.text()).slice(0, 2000);
       throw new LlmError(`HTTP ${res.status} de ${new URL(url).host}: ${detail}`, res.status);
     }
     const retryAfter = Number(res.headers.get('retry-after'));

@@ -1,0 +1,12 @@
+{
+  "key": "05-sqli-category/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "0ab22f9d465b54f4c3a77d84523712a26e8acee2aef820c40c34be5b6232096b",
+  "response": {
+    "text": "{\"findings\":[{\"severity\":\"critical\",\"category\":\"security\",\"file\":\"storefront-demo/src/modules/catalog.ts\",\"line\":43,\"title\":\"Vulnerabilidad de Inyección SQL (SQL Injection) en el filtro de categoría\",\"explanation\":\"Se está interpolando directamente la variable `category` dentro de la consulta SQL (`WHERE p.name LIKE @pattern AND p.category = '${category}'`). Esto viola la regla de seguridad del equipo de usar siempre parámetros del driver y permite la ejecución de código SQL malicioso (SQLi).\",\"suggestion\":\"Reemplazar la interpolación de strings por un parámetro ligado, por ejemplo: `WHERE p.name LIKE @pattern AND p.category = @category`, y pasarlo en el objeto de parámetros `.all({ storeId: req.params.storeId, pattern: \\`%\\${q}%\\`, category })`.\",\"confidence\":1.0}]}",
+    "inputTokens": 4126,
+    "outputTokens": 187,
+    "latencyMs": 5450
+  }
+}
