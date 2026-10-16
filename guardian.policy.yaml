@@ -1,0 +1,40 @@
+# Política de Storefront Guardian. El equipo la ajusta sin tocar código.
+
+project:
+  dir: storefront-demo
+  install: npm ci
+  typecheck: npx tsc --noEmit
+  test: npx vitest run
+  testFile: npx vitest run {file}
+  testExample: test/api.test.ts
+
+# Reglas de negocio y convenciones que el revisor IA debe conocer.
+contextFile: storefront-demo/CONVENCIONES.md
+
+review:
+  # Límite de contexto enviado al modelo: acota costo y latencia.
+  maxContextChars: 60000
+  # Hallazgos con menor confianza no bloquean: pasan a revisión humana.
+  minConfidence: 0.6
+
+fix:
+  enabled: true
+  severities: [critical, high]
+  # Performance suele requerir decisiones de diseño: se reporta, no se autocorrige.
+  skipCategories: [performance]
+  maxAttempts: 2
+  maxFixes: 3
+
+gate:
+  blockOn:
+    typecheckFail: true
+    testsFail: true
+    severities: [critical, high]
+  reviewOn:
+    severities: [medium]
+
+# Precio de referencia de un modelo pago equivalente (USD por millón de tokens),
+# para estimar cuánto costaría operar el sistema fuera del tier gratuito.
+pricing:
+  inputPerMTok: 0.30
+  outputPerMTok: 2.50
