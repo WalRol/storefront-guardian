@@ -1,0 +1,196 @@
+[
+  {
+    "id": "01-decimal-discount",
+    "expectedVerdict": "BLOCK",
+    "verdict": "APPROVE",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 16.829,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "02-stacked-promos",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 10.517,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "03-negative-stock",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 9.271,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "04-cross-store-price",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 12.148,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "05-sqli-category",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "static"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 9.886,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "06-idor-order-history",
+    "expectedVerdict": "BLOCK",
+    "verdict": "APPROVE",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 22.071,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "07-hardcoded-secret",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "secrets"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 18.839,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "08-n-plus-one",
+    "expectedVerdict": "REVIEW",
+    "verdict": "APPROVE",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 25.399,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "09-error-leak",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "static"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 14.744,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "10-coupon-boundary",
+    "expectedVerdict": "REVIEW",
+    "verdict": "APPROVE",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 10.657,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "11-clean-list-stores",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 10.051,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "12-clean-pagination",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 10.453,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "13-clean-bearer-refactor",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 10.471,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  }
+]
