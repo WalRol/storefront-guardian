@@ -71,6 +71,10 @@ export async function fixFinding(finding: Finding, ctx: FixContext): Promise<Fix
       `# Problema detectado\n[${finding.severity}] ${finding.title}\nArchivo: ${finding.file}:${finding.line ?? '?'}\n${finding.explanation}\nSugerencia: ${finding.suggestion ?? '-'}`,
       ctx.context && `# Convenciones del equipo\n${ctx.context}`,
       `# Archivo actual: ${finding.file}\n\`\`\`ts\n${fileContent}\n\`\`\``,
+      !isSecret &&
+        policy.fix.contextFiles
+          .map((rel) => `# Referencia: ${policy.project.dir}/${rel} (esquema, datos de prueba)\n\`\`\`ts\n${read(path.join(projectDir, rel))}\n\`\`\``)
+          .join('\n\n'),
       !isSecret && exampleRel &&
         `# Test de ejemplo (${policy.project.dir}/${exampleRel}); tu test irá en ${policy.project.dir}/${testRel}\n\`\`\`ts\n${read(path.join(projectDir, exampleRel))}\n\`\`\``,
       feedback && `# Tu intento anterior falló\n${feedback}\nCorrige el problema y vuelve a intentarlo.`,

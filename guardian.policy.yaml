@@ -24,6 +24,8 @@ fix:
   skipCategories: [performance]
   maxAttempts: 2
   maxFixes: 3
+  # Referencia para que los tests de regresión usen datos que existen.
+  contextFiles: [src/db.ts]
 
 gate:
   blockOn:

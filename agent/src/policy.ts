@@ -34,6 +34,8 @@ const policySchema = z.object({
       skipCategories: z.array(z.enum(CATEGORIES)).default(['performance']),
       maxAttempts: z.number().int().min(1).max(5).default(2),
       maxFixes: z.number().int().min(0).default(3),
+      /** Archivos (relativos a project.dir) que el corrector recibe como referencia, p. ej. esquema y datos semilla. */
+      contextFiles: z.array(z.string()).default([]),
     })
     .default({}),
   gate: z

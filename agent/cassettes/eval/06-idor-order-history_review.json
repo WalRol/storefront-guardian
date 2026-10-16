@@ -1,0 +1,12 @@
+{
+  "key": "06-idor-order-history/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "b0dee83e3af00b90c2c448d6dd8872cd087c38c776acb2c519a1a9031dcf77bb",
+  "response": {
+    "text": "{\"findings\":[{\"severity\":\"critical\",\"category\":\"authz\",\"file\":\"storefront-demo/src/modules/orders.ts\",\"line\":135,\"title\":\"Brecha de autorización en historial de órdenes por parámetro userId\",\"explanation\":\"Cualquier usuario autenticado puede pasar el parámetro ?userId= en la petición GET /orders y ver el historial de órdenes de cualquier otro usuario, violando la regla de negocio que establece que un usuario solo puede acceder a sus propios recursos y que el id del usuario nunca debe salir de parámetros del request.\",\"suggestion\":\"Eliminar el uso de req.query.userId y usar siempre el id del usuario autenticado proveniente del token (req.user!.id). Para soporte, se debe implementar un mecanismo de autorización por roles verificado en el servidor.\",\"confidence\":1.0}]}",
+    "inputTokens": 5158,
+    "outputTokens": 169,
+    "latencyMs": 5909
+  }
+}

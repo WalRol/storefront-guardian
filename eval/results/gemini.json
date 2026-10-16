@@ -13,7 +13,8 @@
     "seconds": 53.085,
     "inputTokens": 6854,
     "outputTokens": 1267,
-    "costUsd": 0.0052236999999999995
+    "costUsd": 0.0052236999999999995,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "02-stacked-promos",
@@ -30,37 +31,44 @@
     "seconds": 38.968,
     "inputTokens": 5178,
     "outputTokens": 1245,
-    "costUsd": 0.0046659
+    "costUsd": 0.0046659,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "03-negative-stock",
     "expectedVerdict": "BLOCK",
-    "verdict": "ERROR",
+    "verdict": "BLOCK",
     "isBug": true,
-    "detected": false,
-    "detectedBy": [],
+    "detected": true,
+    "detectedBy": [
+      "tests",
+      "llm"
+    ],
     "falsePositives": 0,
-    "fixValidated": null,
-    "seconds": 0,
-    "inputTokens": 0,
-    "outputTokens": 0,
-    "costUsd": 0,
-    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+    "fixValidated": true,
+    "seconds": 72.438,
+    "inputTokens": 10190,
+    "outputTokens": 4085,
+    "costUsd": 0.0132695,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "04-cross-store-price",
     "expectedVerdict": "BLOCK",
-    "verdict": "ERROR",
+    "verdict": "BLOCK",
     "isBug": true,
-    "detected": false,
-    "detectedBy": [],
+    "detected": true,
+    "detectedBy": [
+      "tests",
+      "llm"
+    ],
     "falsePositives": 0,
-    "fixValidated": null,
-    "seconds": 0,
-    "inputTokens": 0,
-    "outputTokens": 0,
-    "costUsd": 0,
-    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+    "fixValidated": false,
+    "seconds": 51.582,
+    "inputTokens": 10653,
+    "outputTokens": 4007,
+    "costUsd": 0.0132134,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "05-sqli-category",
@@ -76,52 +84,59 @@
     "seconds": 42.64,
     "inputTokens": 10848,
     "outputTokens": 1451,
-    "costUsd": 0.0068819
+    "costUsd": 0.0068819,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "06-idor-order-history",
     "expectedVerdict": "BLOCK",
-    "verdict": "ERROR",
+    "verdict": "BLOCK",
     "isBug": true,
-    "detected": false,
-    "detectedBy": [],
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
     "falsePositives": 0,
-    "fixValidated": null,
-    "seconds": 0,
-    "inputTokens": 0,
-    "outputTokens": 0,
-    "costUsd": 0,
-    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+    "fixValidated": false,
+    "seconds": 17.71,
+    "inputTokens": 5158,
+    "outputTokens": 169,
+    "costUsd": 0.0019698999999999997,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "07-hardcoded-secret",
     "expectedVerdict": "BLOCK",
-    "verdict": "ERROR",
+    "verdict": "BLOCK",
     "isBug": true,
-    "detected": false,
-    "detectedBy": [],
+    "detected": true,
+    "detectedBy": [
+      "secrets"
+    ],
     "falsePositives": 0,
-    "fixValidated": null,
-    "seconds": 0,
-    "inputTokens": 0,
-    "outputTokens": 0,
-    "costUsd": 0,
-    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+    "fixValidated": true,
+    "seconds": 28.515,
+    "inputTokens": 2183,
+    "outputTokens": 365,
+    "costUsd": 0.0015674,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "08-n-plus-one",
     "expectedVerdict": "REVIEW",
-    "verdict": "ERROR",
+    "verdict": "BLOCK",
     "isBug": true,
-    "detected": false,
-    "detectedBy": [],
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
     "falsePositives": 0,
-    "fixValidated": null,
-    "seconds": 0,
-    "inputTokens": 0,
-    "outputTokens": 0,
-    "costUsd": 0,
-    "error": "HTTP 429 de generativelanguage.googleapis.com: {"
+    "fixValidated": false,
+    "seconds": 15.512,
+    "inputTokens": 1872,
+    "outputTokens": 200,
+    "costUsd": 0.0010616,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "09-error-leak",
@@ -137,7 +152,8 @@
     "seconds": 54.19,
     "inputTokens": 5843,
     "outputTokens": 1428,
-    "costUsd": 0.005322899999999999
+    "costUsd": 0.005322899999999999,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "10-coupon-boundary",
@@ -153,7 +169,8 @@
     "seconds": 38.245,
     "inputTokens": 4915,
     "outputTokens": 1331,
-    "costUsd": 0.004802
+    "costUsd": 0.004802,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "11-clean-list-stores",
@@ -167,7 +184,8 @@
     "seconds": 16.569,
     "inputTokens": 3772,
     "outputTokens": 4,
-    "costUsd": 0.0011416
+    "costUsd": 0.0011416,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "12-clean-pagination",
@@ -181,7 +199,8 @@
     "seconds": 16.915,
     "inputTokens": 4015,
     "outputTokens": 9,
-    "costUsd": 0.001227
+    "costUsd": 0.001227,
+    "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "13-clean-bearer-refactor",
@@ -195,6 +214,7 @@
     "seconds": 14.466,
     "inputTokens": 1980,
     "outputTokens": 4,
-    "costUsd": 0.000604
+    "costUsd": 0.000604,
+    "model": "gemini-3.5-flash-lite"
   }
 ]

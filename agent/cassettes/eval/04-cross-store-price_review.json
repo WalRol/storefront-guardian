@@ -1,0 +1,12 @@
+{
+  "key": "04-cross-store-price/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "6db7515751540f974651eb175b634dcc2c50cc1ab579cb28f24cfbcd614c32dc",
+  "response": {
+    "text": "{\"findings\":[{\"severity\":\"high\",\"category\":\"money\",\"file\":\"storefront-demo/src/modules/orders.ts\",\"line\":53,\"title\":\"Consulta de precio de producto sin filtrar por tienda\",\"explanation\":\"Al remover el filtro por store_id en la consulta findPricedProduct, la sentencia SQL realiza un JOIN con store_prices sin restringir la tienda. Si existen múltiples registros para un mismo SKU en distintas tiendas (lo cual es esperado en multitienda), la consulta puede retornar un precio incorrecto o arbitrario, afectando el monto cobrado al cliente.\",\"suggestion\":\"Restaurar el filtro por store_id en la consulta SQL utilizando sp.store_id = ? y pasar el storeId al invocar findPricedProduct.get(sku, storeId).\",\"confidence\":1.0}]}",
+    "inputTokens": 3576,
+    "outputTokens": 172,
+    "latencyMs": 6345
+  }
+}

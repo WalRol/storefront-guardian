@@ -107,6 +107,15 @@ El workflow [.github/workflows/guardian.yml](.github/workflows/guardian.yml) cor
 Configuración: agregar el secreto `GEMINI_API_KEY` en *Settings → Secrets and variables → Actions*.
 Sin el secreto (por ejemplo, PRs desde forks) corre solo la capa determinística.
 
+## Notificaciones y métricas (n8n)
+
+Si `GUARDIAN_WEBHOOK_URL` está definida, cada corrida envía su resultado (veredicto, hallazgos, fixes,
+tiempo, costo y minutos ahorrados estimados) a ese webhook, autenticado con `GUARDIAN_WEBHOOK_TOKEN`.
+Cada corrida también queda registrada localmente en `.guardian-out/runs.jsonl`.
+
+El workflow de n8n que notifica al equipo y arma el resumen semanal de valor está documentado en
+[docs/n8n/](docs/n8n/README.md).
+
 ## Evaluación
 
 El sistema se mide contra 13 PRs de prueba en [eval/cases/](eval/cases/): 10 con bugs típicos de e-commerce

@@ -44,6 +44,8 @@ interface CaseResult {
   inputTokens: number;
   outputTokens: number;
   costUsd: number;
+  /** Modelo que respondió (con la cadena de respaldo puede variar entre casos). */
+  model?: string;
   error?: string;
 }
 
@@ -52,6 +54,7 @@ function matches(f: Finding, e: EvalCase['expected']['findings'][number]) {
 }
 
 function evaluate(c: EvalCase, report: RunReport, costUsd: number): CaseResult {
+  const model = report.provider === 'none' ? undefined : report.model;
   const isBug = c.expected.findings.length > 0;
   const testsFailed = report.checks.some((ch) => ch.name === 'tests' && !ch.ok);
 
@@ -79,6 +82,7 @@ function evaluate(c: EvalCase, report: RunReport, costUsd: number): CaseResult {
     inputTokens: report.stages.reduce((s, m) => s + m.inputTokens, 0),
     outputTokens: report.stages.reduce((s, m) => s + m.outputTokens, 0),
     costUsd,
+    model,
   };
 }
 
@@ -90,7 +94,6 @@ function renderSummary(results: CaseResult[], providerLabel: string): string {
   const ok = results.filter((r) => r.verdict !== 'ERROR');
   const byLayer = (layer: string) => bugs.filter((r) => r.detectedBy.includes(layer)).length;
   const blockingBugs = bugs.filter((r) => r.expectedVerdict === 'BLOCK');
-  const fixable = bugs.filter((r) => r.fixValidated !== null);
   const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : 0);
 
   const lines = [
@@ -109,7 +112,7 @@ function renderSummary(results: CaseResult[], providerLabel: string): string {
     `| Bugs graves bloqueados | ${pct(blockingBugs.filter((r) => r.verdict === 'BLOCK').length, blockingBugs.length)} |`,
     `| PRs limpios aprobados | ${pct(clean.filter((r) => r.verdict === 'APPROVE').length, clean.length)} |`,
     `| Falsos positivos (medium+) en total | ${results.reduce((s, r) => s + r.falsePositives, 0)} |`,
-    `| Bugs con fix validado rojo→verde | ${pct(fixable.filter((r) => r.fixValidated).length, blockingBugs.length)} |`,
+    `| Bugs graves con fix validado rojo→verde | ${pct(blockingBugs.filter((r) => r.fixValidated).length, blockingBugs.length)} |`,
     `| Tiempo promedio por PR | ${avg(ok.map((r) => r.seconds)).toFixed(1)} s (máx ${Math.max(0, ...ok.map((r) => r.seconds)).toFixed(1)} s) |`,
     `| Tokens promedio por PR (entrada/salida) | ${Math.round(avg(ok.map((r) => r.inputTokens)))} / ${Math.round(avg(ok.map((r) => r.outputTokens)))} |`,
     `| Costo equivalente en tier pago, promedio por PR | US$ ${avg(ok.map((r) => r.costUsd)).toFixed(4)} |`,
@@ -203,7 +206,8 @@ async function main() {
     }
   }
 
-  const providerLabel = `${providerName}${provider ? ` (${provider.model})` : ''}${variant}`;
+  const models = [...new Set(results.map((r) => r.model).filter(Boolean))];
+  const providerLabel = `${providerName}${models.length ? ` (${models.join(', ')})` : ''}${variant}`;
   const summary = renderSummary(results, providerLabel);
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(`${file}.md`, summary);

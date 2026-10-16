@@ -1,0 +1,12 @@
+{
+  "key": "08-n-plus-one/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "21c94c93f39efbf85940b2befd157381d02d6ea42bc99fe964489122e7f1e574",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"performance\",\n      \"file\": \"storefront-demo/src/modules/catalog.ts\",\n      \"line\": 38,\n      \"title\": \"Consulta SQL ejecutada dentro de un loop (Problema N+1)\",\n      \"explanation\": \"Se está ejecutando `db.prepare(...).all(...)` dentro del método `map` por cada producto devuelto en la búsqueda. Esto viola la regla de performance del equipo de no ejecutar consultas dentro de loops y degrada severamente el rendimiento a medida que aumentan los resultados.\",\n      \"suggestion\": \"Preparar la sentencia fuera del router y utilizar un JOIN en la consulta principal de búsqueda, o realizar una sola consulta agrupada para obtener las promociones de todos los productos listados.\",\n      \"confidence\": 0.95\n    }\n  ]\n}",
+    "inputTokens": 1872,
+    "outputTokens": 200,
+    "latencyMs": 6371
+  }
+}
