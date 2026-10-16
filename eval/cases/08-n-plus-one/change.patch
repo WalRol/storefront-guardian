@@ -1,0 +1,19 @@
+diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts
+index 842e30a..e654308 100644
+--- a/storefront-demo/src/modules/catalog.ts
++++ b/storefront-demo/src/modules/catalog.ts
+@@ -33,7 +33,13 @@ export function catalogRouter(db: DB): Router {
+   router.get('/stores/:storeId/products', (req, res) => {
+     const q = typeof req.query.q === 'string' ? req.query.q : '';
+     const rows = search.all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];
+-    res.json({ items: rows });
++    const items = rows.map((row) => ({
++      ...row,
++      promotions: db
++        .prepare('SELECT type, percent FROM promotions WHERE store_id = ? AND category = ?')
++        .all(req.params.storeId, row.category),
++    }));
++    res.json({ items });
+   });
+ 
+   // GET /stores/:storeId/products/:sku

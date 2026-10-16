@@ -1,0 +1,18 @@
+{
+  "id": "06-idor-order-history",
+  "title": "feat(orders): endpoint de historial de órdenes",
+  "body": "Agrega GET /orders para que la app muestre el historial. Soporte puede consultar el historial de un cliente con ?userId=. Incluye test.",
+  "expected": {
+    "verdict": "BLOCK",
+    "findings": [
+      {
+        "category": "authz",
+        "file": "storefront-demo/src/modules/orders.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

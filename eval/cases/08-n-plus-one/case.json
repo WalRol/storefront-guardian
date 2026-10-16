@@ -1,0 +1,18 @@
+{
+  "id": "08-n-plus-one",
+  "title": "feat(catalog): mostrar promociones vigentes en el listado",
+  "body": "El front necesita mostrar el badge de promoción en cada producto del listado.",
+  "expected": {
+    "verdict": "REVIEW",
+    "findings": [
+      {
+        "category": "performance",
+        "file": "storefront-demo/src/modules/catalog.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

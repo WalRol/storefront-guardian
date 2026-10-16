@@ -1,0 +1,13 @@
+{
+  "id": "12-clean-pagination",
+  "title": "feat(catalog): paginación en la búsqueda de productos",
+  "body": "Agrega limit/offset (máx. 50) al listado de productos. Incluye test.",
+  "expected": {
+    "verdict": "APPROVE",
+    "findings": []
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

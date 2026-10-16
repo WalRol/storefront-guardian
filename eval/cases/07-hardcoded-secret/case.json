@@ -1,0 +1,18 @@
+{
+  "id": "07-hardcoded-secret",
+  "title": "feat(payments): cliente de la pasarela de pagos",
+  "body": "Primer paso de la integración con la pasarela: cliente HTTP para crear cobros.",
+  "expected": {
+    "verdict": "BLOCK",
+    "findings": [
+      {
+        "category": "secrets",
+        "file": "storefront-demo/src/payments.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

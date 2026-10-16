@@ -1,0 +1,17 @@
+diff --git a/storefront-demo/src/app.ts b/storefront-demo/src/app.ts
+index 0803e91..fe59dda 100644
+--- a/storefront-demo/src/app.ts
++++ b/storefront-demo/src/app.ts
+@@ -11,10 +11,10 @@ export function createApp(db: DB = createDb()) {
+   app.use(catalogRouter(db));
+   app.use(ordersRouter(db));
+ 
+-  // Manejo centralizado de errores: nunca exponer detalles internos al cliente.
++  // Manejo centralizado de errores: incluimos el detalle para facilitar el debugging.
+   app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+     console.error(err);
+-    res.status(500).json({ error: 'INTERNAL_ERROR' });
++    res.status(500).json({ error: 'INTERNAL_ERROR', message: err.message, stack: err.stack });
+   });
+ 
+   return app;

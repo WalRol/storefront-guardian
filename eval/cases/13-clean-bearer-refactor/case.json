@@ -1,0 +1,13 @@
+{
+  "id": "13-clean-bearer-refactor",
+  "title": "refactor(auth): extraer parseo del token Bearer",
+  "body": "Extrae el parseo del header Authorization a una función pura y la cubre con tests unitarios.",
+  "expected": {
+    "verdict": "APPROVE",
+    "findings": []
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

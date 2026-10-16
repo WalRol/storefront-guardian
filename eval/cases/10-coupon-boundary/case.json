@@ -1,0 +1,18 @@
+{
+  "id": "10-coupon-boundary",
+  "title": "refactor(pricing): extraer cálculo del cupón a una función",
+  "body": "Extrae la lógica del cupón para poder reutilizarla en el carrito. Sin cambios funcionales.",
+  "expected": {
+    "verdict": "REVIEW",
+    "findings": [
+      {
+        "category": "money",
+        "file": "storefront-demo/src/pricing.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

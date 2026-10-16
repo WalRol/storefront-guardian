@@ -1,0 +1,13 @@
+diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts
+index e3d4aff..0baedbe 100644
+--- a/storefront-demo/src/pricing.ts
++++ b/storefront-demo/src/pricing.ts
+@@ -43,7 +43,7 @@ export function priceCart(
+   const pricedLines: PricedLine[] = lines.map((line) => {
+     const best = categoryPromos
+       .filter((p) => p.category === line.category)
+-      .reduce((max, p) => Math.max(max, p.percent), 0);
++      .reduce((total, p) => total + p.percent, 0);
+     const gross = line.unitPriceCents * line.qty;
+     return { ...line, discountCents: Math.round((gross * best) / 100) };
+   });

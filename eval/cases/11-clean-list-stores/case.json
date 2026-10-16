@@ -1,0 +1,13 @@
+{
+  "id": "11-clean-list-stores",
+  "title": "feat(catalog): endpoint para listar tiendas",
+  "body": "Agrega GET /stores para el selector de tienda del front. Incluye test.",
+  "expected": {
+    "verdict": "APPROVE",
+    "findings": []
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

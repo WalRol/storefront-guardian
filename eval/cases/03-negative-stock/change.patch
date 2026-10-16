@@ -1,0 +1,13 @@
+diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts
+index 2dac633..4ff2b4a 100644
+--- a/storefront-demo/src/modules/orders.ts
++++ b/storefront-demo/src/modules/orders.ts
+@@ -58,7 +58,7 @@ export function ordersRouter(db: DB): Router {
+   `);
+   const reserveStock = db.prepare(`
+     UPDATE inventory SET qty = qty - @qty
+-    WHERE store_id = @storeId AND sku = @sku AND qty >= @qty
++    WHERE store_id = @storeId AND sku = @sku
+   `);
+   const findPromotions = db.prepare('SELECT * FROM promotions WHERE store_id = ?');
+   const insertOrder = db.prepare(`

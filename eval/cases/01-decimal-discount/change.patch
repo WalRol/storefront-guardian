@@ -1,0 +1,45 @@
+diff --git a/storefront-demo/src/db.ts b/storefront-demo/src/db.ts
+index f351cb1..4635431 100644
+--- a/storefront-demo/src/db.ts
++++ b/storefront-demo/src/db.ts
+@@ -40,7 +40,7 @@ const SCHEMA = `
+     store_id           TEXT NOT NULL REFERENCES stores(id),
+     type               TEXT NOT NULL CHECK (type IN ('CATEGORY_PERCENT', 'COUPON_FIXED')),
+     category           TEXT,
+-    percent            INTEGER,
++    percent            REAL,
+     code               TEXT,
+     amount_cents       INTEGER,
+     min_purchase_cents INTEGER
+@@ -103,7 +103,8 @@ const SEED = `
+   INSERT INTO promotions (store_id, type, category, percent) VALUES
+     ('online',      'CATEGORY_PERCENT', 'moda',   20),
+     ('online',      'CATEGORY_PERCENT', 'moda',   10),
+-    ('lima-centro', 'CATEGORY_PERCENT', 'electro', 15);
++    ('lima-centro', 'CATEGORY_PERCENT', 'electro', 15),
++    ('lima-centro', 'CATEGORY_PERCENT', 'moda', 12.5);
+ 
+   INSERT INTO promotions (store_id, type, code, amount_cents, min_purchase_cents) VALUES
+     ('online', 'COUPON_FIXED', 'BIENVENIDA', 5000, 20000);
+diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts
+index e3d4aff..e4f03f1 100644
+--- a/storefront-demo/src/pricing.ts
++++ b/storefront-demo/src/pricing.ts
+@@ -9,7 +9,7 @@ export interface CartLine {
+ }
+ 
+ export type Promotion =
+-  | { type: 'CATEGORY_PERCENT'; category: string; percent: number }
++  | { type: 'CATEGORY_PERCENT'; category: string; /** Admite decimales, ej. 12.5 */ percent: number }
+   | { type: 'COUPON_FIXED'; code: string; amountCents: number; minPurchaseCents: number };
+ 
+ export interface PricedLine extends CartLine {
+@@ -45,7 +45,7 @@ export function priceCart(
+       .filter((p) => p.category === line.category)
+       .reduce((max, p) => Math.max(max, p.percent), 0);
+     const gross = line.unitPriceCents * line.qty;
+-    return { ...line, discountCents: Math.round((gross * best) / 100) };
++    return { ...line, discountCents: (gross * best) / 100 };
+   });
+ 
+   const subtotalCents = pricedLines.reduce((sum, l) => sum + l.unitPriceCents * l.qty, 0);

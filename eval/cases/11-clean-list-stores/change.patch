@@ -1,0 +1,35 @@
+diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts
+index 842e30a..5b64d5a 100644
+--- a/storefront-demo/src/modules/catalog.ts
++++ b/storefront-demo/src/modules/catalog.ts
+@@ -29,6 +29,13 @@ export function catalogRouter(db: DB): Router {
+     WHERE p.sku = @sku
+   `);
+ 
++  const listStores = db.prepare('SELECT id, name FROM stores ORDER BY name');
++
++  // GET /stores
++  router.get('/stores', (_req, res) => {
++    res.json({ items: listStores.all() });
++  });
++
+   // GET /stores/:storeId/products?q=texto
+   router.get('/stores/:storeId/products', (req, res) => {
+     const q = typeof req.query.q === 'string' ? req.query.q : '';
+diff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts
+index a6878fc..9a60a1d 100644
+--- a/storefront-demo/test/api.test.ts
++++ b/storefront-demo/test/api.test.ts
+@@ -31,6 +31,12 @@ describe('catálogo', () => {
+     expect(res.body.items).toEqual([]);
+   });
+ 
++  it('lista las tiendas disponibles', async () => {
++    const res = await request(app).get('/stores');
++    expect(res.status).toBe(200);
++    expect(res.body.items.map((s: { id: string }) => s.id)).toEqual(['lima-centro', 'online']);
++  });
++
+   it('devuelve 404 para un SKU inexistente', async () => {
+     const res = await request(app).get('/stores/online/products/NOPE');
+     expect(res.status).toBe(404);

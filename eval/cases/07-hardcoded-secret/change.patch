@@ -1,0 +1,25 @@
+diff --git a/storefront-demo/src/payments.ts b/storefront-demo/src/payments.ts
+new file mode 100644
+index 0000000..5105941
+--- /dev/null
++++ b/storefront-demo/src/payments.ts
+@@ -0,0 +1,19 @@
++// Cliente de la pasarela de pagos.
++const PAYMENTS_API_URL = 'https://api.pagos-demo.example/v1';
++const PAYMENTS_API_KEY = 'pgw_live_9f8a7c6b5e4d3c2b1a0f9e8d7c6b5a4f';
++
++export interface ChargeRequest {
++  orderId: number;
++  amountCents: number;
++  currency: 'PEN';
++}
++
++export async function charge(req: ChargeRequest): Promise<{ id: string; status: string }> {
++  const res = await fetch(`${PAYMENTS_API_URL}/charges`, {
++    method: 'POST',
++    headers: { Authorization: `Bearer ${PAYMENTS_API_KEY}`, 'Content-Type': 'application/json' },
++    body: JSON.stringify(req),
++  });
++  if (!res.ok) throw new Error(`payment failed: ${res.status}`);
++  return res.json() as Promise<{ id: string; status: string }>;
++}

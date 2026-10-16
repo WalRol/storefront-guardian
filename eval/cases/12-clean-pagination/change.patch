@@ -1,0 +1,46 @@
+diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts
+index 842e30a..b96128b 100644
+--- a/storefront-demo/src/modules/catalog.ts
++++ b/storefront-demo/src/modules/catalog.ts
+@@ -19,6 +19,7 @@ export function catalogRouter(db: DB): Router {
+     JOIN inventory    i  ON i.sku  = p.sku AND i.store_id  = @storeId
+     WHERE p.name LIKE @pattern
+     ORDER BY p.name
++    LIMIT @limit OFFSET @offset
+   `);
+ 
+   const findOne = db.prepare(`
+@@ -32,7 +33,14 @@ export function catalogRouter(db: DB): Router {
+   // GET /stores/:storeId/products?q=texto
+   router.get('/stores/:storeId/products', (req, res) => {
+     const q = typeof req.query.q === 'string' ? req.query.q : '';
+-    const rows = search.all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];
++    const limit = Math.min(Math.max(Number(req.query.limit) || 20, 1), 50);
++    const offset = Math.max(Number(req.query.offset) || 0, 0);
++    const rows = search.all({
++      storeId: req.params.storeId,
++      pattern: `%${q}%`,
++      limit,
++      offset,
++    }) as ProductRow[];
+     res.json({ items: rows });
+   });
+ 
+diff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts
+index a6878fc..d7b79ad 100644
+--- a/storefront-demo/test/api.test.ts
++++ b/storefront-demo/test/api.test.ts
+@@ -31,6 +31,13 @@ describe('catálogo', () => {
+     expect(res.body.items).toEqual([]);
+   });
+ 
++  it('pagina los resultados', async () => {
++    const page1 = await request(app).get('/stores/online/products?limit=3');
++    const page2 = await request(app).get('/stores/online/products?limit=3&offset=3');
++    expect(page1.body.items).toHaveLength(3);
++    expect(page2.body.items).toHaveLength(1);
++  });
++
+   it('devuelve 404 para un SKU inexistente', async () => {
+     const res = await request(app).get('/stores/online/products/NOPE');
+     expect(res.status).toBe(404);

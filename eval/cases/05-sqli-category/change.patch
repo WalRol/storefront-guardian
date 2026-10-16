@@ -1,0 +1,42 @@
+diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts
+index 842e30a..7f4f433 100644
+--- a/storefront-demo/src/modules/catalog.ts
++++ b/storefront-demo/src/modules/catalog.ts
+@@ -32,6 +32,20 @@ export function catalogRouter(db: DB): Router {
+   // GET /stores/:storeId/products?q=texto
+   router.get('/stores/:storeId/products', (req, res) => {
+     const q = typeof req.query.q === 'string' ? req.query.q : '';
++    const category = typeof req.query.category === 'string' ? req.query.category : '';
++    if (category) {
++      const rows = db
++        .prepare(
++          `SELECT p.sku, p.name, p.category, sp.price_cents AS priceCents, i.qty AS stock
++           FROM products p
++           JOIN store_prices sp ON sp.sku = p.sku AND sp.store_id = @storeId
++           JOIN inventory    i  ON i.sku  = p.sku AND i.store_id  = @storeId
++           WHERE p.name LIKE @pattern AND p.category = '${category}'
++           ORDER BY p.name`,
++        )
++        .all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];
++      return res.json({ items: rows });
++    }
+     const rows = search.all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];
+     res.json({ items: rows });
+   });
+diff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts
+index a6878fc..2482bb6 100644
+--- a/storefront-demo/test/api.test.ts
++++ b/storefront-demo/test/api.test.ts
+@@ -23,6 +23,12 @@ describe('catálogo', () => {
+     ]);
+   });
+ 
++  it('filtra por categoría', async () => {
++    const res = await request(app).get('/stores/online/products?category=moda');
++    expect(res.status).toBe(200);
++    expect(res.body.items).toHaveLength(2);
++  });
++
+   it('trata la búsqueda como texto literal', async () => {
+     const res = await request(app).get(
+       `/stores/online/products?q=${encodeURIComponent("' OR '1'='1")}`,

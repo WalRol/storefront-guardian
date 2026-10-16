@@ -1,0 +1,18 @@
+{
+  "id": "05-sqli-category",
+  "title": "feat(catalog): filtro por categoría en la búsqueda",
+  "body": "Agrega el query param `category` al listado de productos para el nuevo menú por categorías. Incluye test.",
+  "expected": {
+    "verdict": "BLOCK",
+    "findings": [
+      {
+        "category": "security",
+        "file": "storefront-demo/src/modules/catalog.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

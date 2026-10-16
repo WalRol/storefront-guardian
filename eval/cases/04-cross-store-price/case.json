@@ -1,0 +1,18 @@
+{
+  "id": "04-cross-store-price",
+  "title": "refactor(orders): simplificar consulta de producto en checkout",
+  "body": "El SKU ya es único, así que no hace falta filtrar por tienda al buscar el producto.",
+  "expected": {
+    "verdict": "BLOCK",
+    "findings": [
+      {
+        "category": "money",
+        "file": "storefront-demo/src/modules/orders.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": false
+  }
+}

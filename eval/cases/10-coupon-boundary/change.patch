@@ -1,0 +1,39 @@
+diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts
+index e3d4aff..95b22b9 100644
+--- a/storefront-demo/src/pricing.ts
++++ b/storefront-demo/src/pricing.ts
+@@ -51,16 +51,7 @@ export function priceCart(
+   const subtotalCents = pricedLines.reduce((sum, l) => sum + l.unitPriceCents * l.qty, 0);
+   const lineDiscounts = pricedLines.reduce((sum, l) => sum + l.discountCents, 0);
+ 
+-  let couponDiscount = 0;
+-  if (couponCode) {
+-    const coupon = promotions.find(
+-      (p): p is Extract<Promotion, { type: 'COUPON_FIXED' }> =>
+-        p.type === 'COUPON_FIXED' && p.code === couponCode,
+-    );
+-    if (coupon && subtotalCents - lineDiscounts >= coupon.minPurchaseCents) {
+-      couponDiscount = coupon.amountCents;
+-    }
+-  }
++  const couponDiscount = couponDiscountFor(promotions, couponCode, subtotalCents - lineDiscounts);
+ 
+   const discountCents = Math.min(lineDiscounts + couponDiscount, subtotalCents);
+   return {
+@@ -70,3 +61,16 @@ export function priceCart(
+     totalCents: subtotalCents - discountCents,
+   };
+ }
++
++function couponDiscountFor(
++  promotions: Promotion[],
++  code: string | undefined,
++  eligibleCents: number,
++): number {
++  if (!code) return 0;
++  const coupon = promotions.find(
++    (p): p is Extract<Promotion, { type: 'COUPON_FIXED' }> =>
++      p.type === 'COUPON_FIXED' && p.code === code,
++  );
++  return coupon && eligibleCents > coupon.minPurchaseCents ? coupon.amountCents : 0;
++}

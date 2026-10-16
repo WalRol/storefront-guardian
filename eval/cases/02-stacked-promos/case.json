@@ -1,0 +1,18 @@
+{
+  "id": "02-stacked-promos",
+  "title": "refactor(pricing): simplificar cálculo de descuento por categoría",
+  "body": "Simplifica el reduce del cálculo de descuentos por categoría. Sin cambios funcionales esperados.",
+  "expected": {
+    "verdict": "BLOCK",
+    "findings": [
+      {
+        "category": "money",
+        "file": "storefront-demo/src/pricing.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": false
+  }
+}

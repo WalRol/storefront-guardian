@@ -1,0 +1,22 @@
+diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts
+index 2dac633..9c2dea9 100644
+--- a/storefront-demo/src/modules/orders.ts
++++ b/storefront-demo/src/modules/orders.ts
+@@ -54,7 +54,7 @@ export function ordersRouter(db: DB): Router {
+     SELECT p.sku, p.category, sp.price_cents AS unitPriceCents
+     FROM products p
+     JOIN store_prices sp ON sp.sku = p.sku
+-    WHERE p.sku = ? AND sp.store_id = ?
++    WHERE p.sku = ?
+   `);
+   const reserveStock = db.prepare(`
+     UPDATE inventory SET qty = qty - @qty
+@@ -77,7 +77,7 @@ export function ordersRouter(db: DB): Router {
+   const checkout = db.transaction(
+     (userId: number, storeId: string, input: z.infer<typeof checkoutSchema>) => {
+       const lines: CartLine[] = input.items.map(({ sku, qty }) => {
+-        const product = findPricedProduct.get(sku, storeId) as
++        const product = findPricedProduct.get(sku) as
+           | Omit<CartLine, 'qty'>
+           | undefined;
+         if (!product) throw new CheckoutError(404, 'PRODUCT_NOT_FOUND');

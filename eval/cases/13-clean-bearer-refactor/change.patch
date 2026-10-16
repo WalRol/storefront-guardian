@@ -1,0 +1,43 @@
+diff --git a/storefront-demo/src/auth.ts b/storefront-demo/src/auth.ts
+index ce2842b..0ce544e 100644
+--- a/storefront-demo/src/auth.ts
++++ b/storefront-demo/src/auth.ts
+@@ -15,12 +15,17 @@ declare global {
+   }
+ }
+ 
++/** Devuelve el token de un header "Bearer <token>", o cadena vacía si no aplica. */
++export function extractBearerToken(header: string | undefined): string {
++  if (!header?.startsWith('Bearer ')) return '';
++  return header.slice(7).trim();
++}
++
+ /** Autenticación simplificada por token Bearer (suficiente para la demo). */
+ export function requireAuth(db: DB) {
+   const findUser = db.prepare('SELECT id, name FROM users WHERE token = ?');
+   return (req: Request, res: Response, next: NextFunction) => {
+-    const header = req.header('authorization') ?? '';
+-    const token = header.startsWith('Bearer ') ? header.slice(7) : '';
++    const token = extractBearerToken(req.header('authorization'));
+     const user = token ? (findUser.get(token) as AuthUser | undefined) : undefined;
+     if (!user) {
+       return res.status(401).json({ error: 'UNAUTHORIZED' });
+diff --git a/storefront-demo/test/auth.test.ts b/storefront-demo/test/auth.test.ts
+new file mode 100644
+index 0000000..2cb5351
+--- /dev/null
++++ b/storefront-demo/test/auth.test.ts
+@@ -0,0 +1,13 @@
++import { describe, expect, it } from 'vitest';
++import { extractBearerToken } from '../src/auth';
++
++describe('extractBearerToken', () => {
++  it('extrae el token', () => {
++    expect(extractBearerToken('Bearer abc')).toBe('abc');
++  });
++
++  it('devuelve vacío si falta o no es Bearer', () => {
++    expect(extractBearerToken(undefined)).toBe('');
++    expect(extractBearerToken('Basic abc')).toBe('');
++  });
++});

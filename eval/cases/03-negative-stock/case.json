@@ -1,0 +1,18 @@
+{
+  "id": "03-negative-stock",
+  "title": "perf(orders): simplificar UPDATE de reserva de stock",
+  "body": "La condición sobre qty en el WHERE impide usar el índice de forma óptima. Se simplifica el UPDATE de reserva.",
+  "expected": {
+    "verdict": "BLOCK",
+    "findings": [
+      {
+        "category": "inventory",
+        "file": "storefront-demo/src/modules/orders.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": false
+  }
+}

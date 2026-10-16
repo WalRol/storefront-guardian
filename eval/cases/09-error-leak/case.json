@@ -1,0 +1,18 @@
+{
+  "id": "09-error-leak",
+  "title": "chore: mejorar diagnóstico de errores 500",
+  "body": "Cuando hay un 500 en QA no sabemos qué pasó. Se agrega el detalle del error a la respuesta.",
+  "expected": {
+    "verdict": "BLOCK",
+    "findings": [
+      {
+        "category": "security",
+        "file": "storefront-demo/src/app.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}

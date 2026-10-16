@@ -1,0 +1,18 @@
+{
+  "id": "01-decimal-discount",
+  "title": "feat(promos): soportar porcentajes decimales en promociones de categoría",
+  "body": "Marketing necesita lanzar promociones de 12.5%. Se cambia la columna percent a REAL y se agrega la promo de moda en Lima Centro.",
+  "expected": {
+    "verdict": "BLOCK",
+    "findings": [
+      {
+        "category": "money",
+        "file": "storefront-demo/src/pricing.ts"
+      }
+    ]
+  },
+  "measured": {
+    "typecheck": true,
+    "testsPass": true
+  }
+}
