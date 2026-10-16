@@ -2,7 +2,7 @@ import { RecordingProvider, ReplayProvider } from './cassette';
 import { GeminiProvider } from './gemini';
 import { OllamaProvider } from './ollama';
 import { OpenAICompatibleProvider } from './openai-compatible';
-import type { LlmProvider } from './provider';
+import { FallbackProvider, type LlmProvider } from './provider';
 
 export type ProviderName = 'gemini' | 'groq' | 'ollama' | 'replay' | 'none';
 export const PROVIDERS: ProviderName[] = ['gemini', 'groq', 'ollama', 'replay', 'none'];
@@ -22,12 +22,16 @@ export function createProvider(
   switch (name) {
     case 'none':
       return null;
-    case 'gemini':
-      provider = new GeminiProvider(
-        requireEnv('GEMINI_API_KEY'),
-        process.env.GEMINI_MODEL ?? 'gemini-2.5-flash',
-      );
+    case 'gemini': {
+      // GEMINI_MODEL admite una lista separada por comas: el primero es el preferido.
+      const apiKey = requireEnv('GEMINI_API_KEY');
+      const models = (process.env.GEMINI_MODEL ?? 'gemini-3.5-flash,gemini-3.8-flash,gemini-3.5-flash-lite')
+        .split(',')
+        .map((m) => m.trim())
+        .filter(Boolean);
+      provider = new FallbackProvider(models.map((m) => new GeminiProvider(apiKey, m)));
       break;
+    }
     case 'groq':
       provider = new OpenAICompatibleProvider(
         'groq',
