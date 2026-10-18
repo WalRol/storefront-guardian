@@ -1,0 +1,12 @@
+{
+  "key": "06-idor-order-history/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "edaa316fe1b92e1312537945808077c0705a3581c01c0c12a90ef111d6a80a57",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"authz\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 135,\n      \"title\": \"Falla de autorización en el parámetro userId del historial de órdenes\",\n      \"explanation\": \"Cualquier usuario autenticado puede pasar el parámetro query `?userId=X` y consultar el historial de órdenes de cualquier otro usuario, ya que no se valida si el usuario actual tiene rol de soporte o si es el dueño del ID solicitado.\",\n      \"suggestion\": \"Validar que el usuario autenticado tenga permisos de soporte o que el `userId` solicitado coincida obligatoriamente con el ID del usuario en sesión (`req.user!.id`).\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 4807,
+    "outputTokens": 192,
+    "latencyMs": 1495
+  }
+}

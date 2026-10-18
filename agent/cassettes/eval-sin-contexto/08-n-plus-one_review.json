@@ -1,0 +1,12 @@
+{
+  "key": "08-n-plus-one/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "5a6667f8c6fcff02aced5cca52fd695ea0fe954f26e50fa5560c97a4d1240b71",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"medium\",\n      \"category\": \"performance\",\n      \"file\": \"storefront-demo/src/modules/catalog.ts\",\n      \"line\": 38,\n      \"title\": \"Consulta SQL dentro de un bucle (N+1 query problem)\",\n      \"explanation\": \"Se está preparando y ejecutando una consulta a la base de datos por cada producto devuelto en la búsqueda dentro del método `map`. Esto causará una degradación severa del rendimiento (problema N+1) cuando el listado tenga muchos productos.\",\n      \"suggestion\": \"Mueve la preparación de la consulta fuera de la ruta y realiza un único JOIN o una consulta agrupada para obtener las promociones de todos los productos en una sola pasada.\",\n      \"confidence\": 0.95\n    }\n  ]\n}",
+    "inputTokens": 1521,
+    "outputTokens": 191,
+    "latencyMs": 1357
+  }
+}

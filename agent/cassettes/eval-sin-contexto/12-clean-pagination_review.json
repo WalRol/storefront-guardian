@@ -1,0 +1,12 @@
+{
+  "key": "12-clean-pagination/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "01adab9a1f751a88ff8f5b6ccdd1c8e60dee0ee14767a42a737d44dbf943905e",
+  "response": {
+    "text": "{\"findings\": []}",
+    "inputTokens": 3664,
+    "outputTokens": 5,
+    "latencyMs": 1453
+  }
+}

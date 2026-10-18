@@ -1,0 +1,220 @@
+[
+  {
+    "id": "01-decimal-discount",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 26.226,
+    "inputTokens": 3951,
+    "outputTokens": 178,
+    "costUsd": 0.0016303,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "02-stacked-promos",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests",
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 23.115,
+    "inputTokens": 2309,
+    "outputTokens": 212,
+    "costUsd": 0.0012226999999999997,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "03-negative-stock",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests",
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 28.836,
+    "inputTokens": 2945,
+    "outputTokens": 203,
+    "costUsd": 0.001391,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "04-cross-store-price",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests",
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 21.617,
+    "inputTokens": 3225,
+    "outputTokens": 234,
+    "costUsd": 0.0015525,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "05-sqli-category",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "static"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 58.624,
+    "inputTokens": 3775,
+    "outputTokens": 203,
+    "costUsd": 0.00164,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "06-idor-order-history",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 20.208,
+    "inputTokens": 4807,
+    "outputTokens": 192,
+    "costUsd": 0.0019221,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "07-hardcoded-secret",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "secrets"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 16.098,
+    "inputTokens": 1053,
+    "outputTokens": 4,
+    "costUsd": 0.00032589999999999995,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "08-n-plus-one",
+    "expectedVerdict": "REVIEW",
+    "verdict": "REVIEW",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 13.103,
+    "inputTokens": 1521,
+    "outputTokens": 191,
+    "costUsd": 0.0009337999999999999,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "09-error-leak",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "static"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 15.132,
+    "inputTokens": 1035,
+    "outputTokens": 161,
+    "costUsd": 0.000713,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "10-coupon-boundary",
+    "expectedVerdict": "REVIEW",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 15.816,
+    "inputTokens": 1998,
+    "outputTokens": 190,
+    "costUsd": 0.0010744,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "11-clean-list-stores",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 14.496,
+    "inputTokens": 3421,
+    "outputTokens": 4,
+    "costUsd": 0.0010363,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "12-clean-pagination",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 15.054,
+    "inputTokens": 3664,
+    "outputTokens": 5,
+    "costUsd": 0.0011117,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "13-clean-bearer-refactor",
+    "expectedVerdict": "APPROVE",
+    "verdict": "APPROVE",
+    "isBug": false,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": null,
+    "seconds": 17.707,
+    "inputTokens": 1629,
+    "outputTokens": 4,
+    "costUsd": 0.0004987,
+    "model": "gemini-3.5-flash-lite"
+  }
+]

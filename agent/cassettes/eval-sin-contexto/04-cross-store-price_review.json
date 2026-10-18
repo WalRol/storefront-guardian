@@ -1,0 +1,12 @@
+{
+  "key": "04-cross-store-price/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "64e8bc4ed49ea36791bb60310ae4ca114266b9904b2118ff3d56cca64b11bac0",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 53,\n      \"title\": \"Eliminar el filtro de tienda al buscar el precio del producto causa cobros incorrectos\",\n      \"explanation\": \"Al quitar `sp.store_id = ?` en la consulta `findPricedProduct`, se devuelve un precio arbitrario (o el primero que coincida) para el SKU, ignorando los precios específicos configurados para la tienda actual (`storeId`). Esto genera discrepancias en los subtotales y totales cobrados a los clientes en comparación con los precios esperados por la tienda.\",\n      \"suggestion\": \"Restaurar el filtro por tienda en la consulta SQL para asegurar que se obtenga el precio correspondiente a la tienda donde se realiza el checkout: `WHERE p.sku = ? AND sp.store_id = ?`.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 3225,
+    "outputTokens": 234,
+    "latencyMs": 1590
+  }
+}

@@ -4,9 +4,9 @@
   "model": "gemini-3.5-flash-lite",
   "promptSha256": "7c5c00adf8223edc4a8f5f104599de35711659e7a17e9375a844e87e0363a0f7",
   "response": {
-    "text": "{\"findings\":[{\"severity\":\"high\",\"category\":\"security\",\"file\":\"storefront-demo/src/app.ts\",\"line\":17,\"title\":\"Exposición de detalles internos y stack traces en errores 500\",\"explanation\":\"El código del diff añade `message` y `stack` del error a la respuesta HTTP en caso de fallos internos. Esto viola la regla de seguridad que prohíbe exponer mensajes internos o stack traces, permitiendo que atacantes obtengan información sensible sobre la estructura interna de la aplicación. Nota: Aunque las herramientas determinísticas detectaron el stack trace, este hallazgo cubre la inclusión del mensaje y el riesgo general de la modificación introducida en el PR.\",\"suggestion\":\"Remover `message` y `stack` de la respuesta JSON para mantener únicamente el código de error genérico ('INTERNAL_ERROR').\",\"confidence\":0.95}]}",
+    "text": "{\"findings\":[{\"severity\":\"high\",\"category\":\"security\",\"file\":\"storefront-demo/src/app.ts\",\"line\":17,\"title\":\"Exposición de mensajes de error y stack traces en producción\",\"explanation\":\"El código del PR modifica el manejador de errores global para exponer err.message y err.stack en la respuesta HTTP. Esto viola la regla de seguridad del equipo que indica que las respuestas de error no deben exponer mensajes internos ni stack traces, lo cual puede filtrar información sensible del sistema a usuarios malintencionados.\",\"suggestion\":\"Remover err.message y err.stack de la respuesta JSON enviada al cliente, manteniendo únicamente un identificador genérico de error o utilizarlos exclusivamente para los logs del servidor (console.error).\",\"confidence\":1.0}]}",
     "inputTokens": 1386,
-    "outputTokens": 180,
-    "latencyMs": 5006
+    "outputTokens": 160,
+    "latencyMs": 1606
   }
 }

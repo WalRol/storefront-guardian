@@ -4,9 +4,9 @@
   "model": "gemini-3.5-flash-lite",
   "promptSha256": "1242c845358e1826e90dc0c6ed9e039bf18172ff34080ba7dc1b9583f47ccfd5",
   "response": {
-    "text": "{\n  \"findings\": []\n}",
+    "text": "{\"findings\":[]}",
     "inputTokens": 4015,
-    "outputTokens": 9,
-    "latencyMs": 7483
+    "outputTokens": 4,
+    "latencyMs": 1426
   }
 }

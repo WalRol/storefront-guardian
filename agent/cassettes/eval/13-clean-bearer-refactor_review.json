@@ -7,6 +7,6 @@
     "text": "{\"findings\":[]}",
     "inputTokens": 1980,
     "outputTokens": 4,
-    "latencyMs": 6582
+    "latencyMs": 1445
   }
 }

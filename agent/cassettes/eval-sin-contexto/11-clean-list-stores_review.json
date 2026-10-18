@@ -1,0 +1,12 @@
+{
+  "key": "11-clean-list-stores/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "1dc43bddee804451cd4687ea06f1c0db2411ecc24041e32e1a585b36574ca7ec",
+  "response": {
+    "text": "{\"findings\":[]}",
+    "inputTokens": 3421,
+    "outputTokens": 4,
+    "latencyMs": 1494
+  }
+}

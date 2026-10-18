@@ -4,9 +4,9 @@
   "model": "gemini-3.5-flash-lite",
   "promptSha256": "b0dee83e3af00b90c2c448d6dd8872cd087c38c776acb2c519a1a9031dcf77bb",
   "response": {
-    "text": "{\"findings\":[{\"severity\":\"critical\",\"category\":\"authz\",\"file\":\"storefront-demo/src/modules/orders.ts\",\"line\":135,\"title\":\"Brecha de autorización en historial de órdenes por parámetro userId\",\"explanation\":\"Cualquier usuario autenticado puede pasar el parámetro ?userId= en la petición GET /orders y ver el historial de órdenes de cualquier otro usuario, violando la regla de negocio que establece que un usuario solo puede acceder a sus propios recursos y que el id del usuario nunca debe salir de parámetros del request.\",\"suggestion\":\"Eliminar el uso de req.query.userId y usar siempre el id del usuario autenticado proveniente del token (req.user!.id). Para soporte, se debe implementar un mecanismo de autorización por roles verificado en el servidor.\",\"confidence\":1.0}]}",
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"authz\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 134,\n      \"title\": \"Violación de control de acceso en historial de órdenes mediante parámetros\",\n      \"explanation\": \"Cualquier usuario autenticado puede pasar el parámetro `userId` en la query string (ej: ?userId=1) y consultar el historial de órdenes de cualquier otro cliente, infringiendo la regla de negocio que establece que un usuario solo puede acceder a sus propios recursos y que el ID debe obtenerse estrictamente del token.\",\n      \"suggestion\": \"Eliminar la lectura de `req.query.userId` y usar siempre `req.user!.id` para filtrar las órdenes del usuario autenticado.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
     "inputTokens": 5158,
-    "outputTokens": 169,
-    "latencyMs": 5909
+    "outputTokens": 201,
+    "latencyMs": 1538
   }
 }

@@ -4,9 +4,9 @@
   "model": "gemini-3.5-flash-lite",
   "promptSha256": "790001e5bd26092035376cb2ff80c3ec6f1ab980e60d778e147c11b933d95ed3",
   "response": {
-    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"logic\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 75,\n      \"title\": \"Condición de compra mínima incorrecta para el cupón\",\n      \"explanation\": \"El refactor cambió la validación de la compra mínima de `>=` (mayor o igual) a `>` (estrictamente mayor). Según las reglas de negocio, el cupón debe aplicarse si el subtotal ya descontado es mayor o igual a la compra mínima.\",\n      \"suggestion\": \"Cambiar el operador `>` por `>=` en la línea 75: `coupon && eligibleCents >= coupon.minPurchaseCents ? coupon.amountCents : 0`\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"logic\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 75,\n      \"title\": \"Validación incorrecta de la compra mínima en el cupón\",\n      \"explanation\": \"Al extraer la función, se cambió la condición de mayor o igual (>=) a estrictamente mayor (>). Según las reglas de negocio, el cupón debe aplicarse si el subtotal ya descontado es mayor o igual a la compra mínima.\",\n      \"suggestion\": \"Cambiar la condición `eligibleCents > coupon.minPurchaseCents` por `eligibleCents >= coupon.minPurchaseCents` en la función `couponDiscountFor`.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
     "inputTokens": 2349,
-    "outputTokens": 195,
-    "latencyMs": 10728
+    "outputTokens": 188,
+    "latencyMs": 1837
   }
 }

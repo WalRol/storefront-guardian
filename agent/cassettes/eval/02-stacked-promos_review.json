@@ -4,9 +4,9 @@
   "model": "gemini-3.5-flash-lite",
   "promptSha256": "760cdc75f6aef90a0207b69df4e88282daef4ae9b000aeefc6276cb7dc81955a",
   "response": {
-    "text": "{\"findings\":[{\"severity\":\"high\",\"category\":\"logic\",\"file\":\"storefront-demo/src/pricing.ts\",\"line\":46,\"title\":\"Las promociones por categoría se están acumulando en lugar de tomar la mayor\",\"explanation\":\"El refactor cambió el cálculo de la promoción por categoría de `Math.max` a una suma (`total + p.percent`), lo cual viola la regla de negocio que indica que las promociones por categoría no son acumulables y solo debe aplicarse el mayor porcentaje vigente.\",\"suggestion\":\"Revertir el cambio en el reduce para utilizar `Math.max` y obtener únicamente el mayor porcentaje de descuento aplicable por categoría.\",\"confidence\":1.0}]}",
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 46,\n      \"title\": \"Las promociones por categoría se están acumulando en lugar de tomar la mayor\",\n      \"explanation\": \"El cambio en el reduce reemplazó la obtención del porcentaje máximo por una suma de todos los porcentajes de la categoría. Esto viola la regla de negocio que indica que las promociones por categoría no son acumulables y otorga descuentos incorrectos a los clientes.\",\n      \"suggestion\": \"Revertir el cambio del reduce para utilizar Math.max y obtener únicamente el mayor porcentaje vigente por categoría: `.reduce((max, p) => Math.max(max, p.percent), 0)`\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
     "inputTokens": 2660,
-    "outputTokens": 143,
-    "latencyMs": 10185
+    "outputTokens": 200,
+    "latencyMs": 1925
   }
 }

@@ -1,0 +1,12 @@
+{
+  "key": "10-coupon-boundary/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "471c51a3a9c5bc80a086ecbfc30756f10826343f8ea3baa8d25be743737d1e34",
+  "response": {
+    "text": "{\"findings\":[{\"severity\":\"high\",\"category\":\"logic\",\"file\":\"storefront-demo/src/pricing.ts\",\"line\":75,\"title\":\"Cambio involuntario en la validación de la compra mínima del cupón\",\"explanation\":\"El código original utilizaba `>=` (`subtotalCents - lineDiscounts >= coupon.minPurchaseCents`) para verificar si se cumplía el requisito de compra mínima, permitiendo aplicar el cupón cuando el monto era exactamente igual al mínimo. La refactorización cambió este operador por `>`, lo que rechaza el cupón si el monto es exactamente igual a la compra mínima, afectando la lógica de negocio y causando que los carritos elegibles ya no reciban el descuento.\",\"suggestion\":\"Cambiar el operador estrictamente mayor (`>`) por mayor o igual (`>=`) en la función `couponDiscountFor` (línea 75).\",\"confidence\":1.0}]}",
+    "inputTokens": 1998,
+    "outputTokens": 190,
+    "latencyMs": 1209
+  }
+}

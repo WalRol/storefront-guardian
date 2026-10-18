@@ -4,9 +4,9 @@
   "model": "gemini-3.5-flash-lite",
   "promptSha256": "102b5ac21041c14e0d37fccd834993a0fadc6f37ce0bb9d0fb9f9a583c8df1cf",
   "response": {
-    "text": "{\"findings\":[{\"severity\":\"critical\",\"category\":\"inventory\",\"file\":\"storefront-demo/src/modules/orders.ts\",\"line\":59,\"title\":\"Eliminación de validación de stock suficiente permite stock negativo\",\"explanation\":\"Al remover la condición `qty >= @qty` del UPDATE de reserva, la consulta ahora permite que el stock disminuya por debajo de cero, violando directamente la regla de negocio que establece que el stock nunca puede quedar negativo. Además, esto rompe la validación que lanza un error 409 (como se ve en los tests automáticos fallidos).\",\"suggestion\":\"Restaurar la condición `AND qty >= @qty` en la cláusula WHERE del query `reserveStock` para asegurar que solo se actualice el registro si hay suficiente stock disponible.\",\"confidence\":1.0}]}",
+    "text": "{\"findings\":[{\"severity\":\"critical\",\"category\":\"inventory\",\"file\":\"storefront-demo/src/modules/orders.ts\",\"line\":59,\"title\":\"Eliminación de validación de stock en UPDATE permite stock negativo\",\"explanation\":\"Al remover la condición `qty >= @qty` del `UPDATE`, la sentencia ahora descuenta stock incluso si este resulta en un valor negativo, violando directamente la regla de negocio de que el stock nunca puede quedar negativo. Además, esto rompe la validación de stock y causa que los tests fallen.\",\"suggestion\":\"Restaurar la condición `AND qty >= @qty` en el WHERE de la sentencia `reserveStock` para garantizar que no se permita un inventario negativo.\",\"confidence\":1.0}]}",
     "inputTokens": 3296,
-    "outputTokens": 170,
-    "latencyMs": 7134
+    "outputTokens": 154,
+    "latencyMs": 1306
   }
 }

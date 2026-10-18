@@ -4,9 +4,9 @@
   "model": "gemini-3.5-flash-lite",
   "promptSha256": "9b9297fd5dcd3ef7ce714e0e448fa004f0b2cdf412752140e60f6f877e5ca18e",
   "response": {
-    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 48,\n      \"title\": \"Omisión de redondeo en el cálculo de descuento por porcentaje\",\n      \"explanation\": \"Las convenciones del equipo exigen que todo cálculo que pueda producir fracciones (porcentajes) se redondee con `Math.round` en el momento de calcularlo. Al remover `Math.round`, el campo `discountCents` puede resultar en números con decimales, rompiendo la regla de negocio de manejar todos los montos estrictamente en céntimos enteros.\",\n      \"suggestion\": \"Restaurar `Math.round` alrededor del cálculo del descuento: `Math.round((gross * best) / 100)`.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 48,\n      \"title\": \"Falta redondeo con Math.round en el cálculo de descuentos por porcentaje\",\n      \"explanation\": \"Según las convenciones del equipo, todo cálculo que pueda producir fracciones (porcentajes) debe redondearse con `Math.round` en el momento de calcularlo. Al remover `Math.round` en el diff, los montos de descuento pueden resultar en números decimales (ej. fracciones de céntimos), lo que puede generar discrepancias y errores monetarios al sumar y redondear los totales.\",\n      \"suggestion\": \"Restaurar `Math.round` en el cálculo del descuento de la línea: `discountCents: Math.round((gross * best) / 100)`.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
     "inputTokens": 4302,
-    "outputTokens": 208,
-    "latencyMs": 17038
+    "outputTokens": 226,
+    "latencyMs": 2387
   }
 }

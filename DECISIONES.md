@@ -46,8 +46,9 @@ El eval lo confirma: la capa determinística sola detecta 6 de 10 bugs; la IA ci
   menos predecible, sin una ganancia clara para este problema.
 - **Un fix no vale nada si no está probado.** El corrector propone el cambio y un test. El sistema primero corre el test
   sobre el código con el bug y exige que falle **por una aserción** (no por un error de import o de datos). Recién
-  después aplica el fix y exige typecheck y la suite completa en verde. En el eval este guardarraíl rechazó un test
-  que fallaba por una clave foránea y no por el bug: sin él, habríamos presentado como "validado" un fix sin evidencia.
+  después aplica el fix y exige typecheck y la suite completa en verde. En el eval este guardarraíl rechazó tests
+  mal planteados (uno fallaba por una clave foránea y no por el bug): sin él, habríamos presentado como "validado" un
+  fix sin evidencia.
 - **El agente no puede tocar lo que no debe.** Trabaja en un `git worktree` temporal, nunca en el directorio del
   desarrollador. Solo puede modificar archivos que el PR ya tocaba, y entrega patches para revisar, no commits ni
   pushes. La decisión de aplicar el fix es humana.
@@ -81,7 +82,7 @@ costo es irrelevante y elimina la incertidumbre de cuota.
 
 **Tiempo de respuesta — objetivo: menos de 2 minutos por PR.** Lo considero razonable porque es el orden de un
 pipeline de CI: el resultado llega mientras el desarrollador todavía tiene el contexto del cambio. Una revisión humana
-suele tardar horas en empezar. Medido en una laptop de 2018 (i5, 8 GB): **35 s en promedio, 72 s el peor caso**; la
+suele tardar horas en empezar. Medido en una laptop de 2018 (i5, 8 GB): **32 s en promedio, 91 s el peor caso**; la
 capa determinística sola tarda ~14 s. La validación rojo→verde agrega ~20–30 s por fix. Ahí la tensión fue tiempo
 contra confianza, y elegí confianza: un fix sin validar le traslada el trabajo de verificación al desarrollador.
 
@@ -119,18 +120,35 @@ limpios para medir falsos positivos.
 | Bugs graves bloqueados | 6/8 | **8/8** |
 | PRs limpios aprobados (sin falsos positivos) | 3/3 | **3/3** |
 | Veredicto exacto | 9/13 | 11/13 |
-| Bugs graves con fix validado rojo→verde | — | 6/8 |
-| Tiempo promedio por PR | 14 s | 35 s |
+| Bugs graves con fix validado rojo→verde | — | 7/8 |
+| Tiempo promedio por PR | 14 s | 32 s |
 
-Lectura honesta de los resultados:
-- Las dos diferencias de veredicto son casos que etiqueté como "revisión humana" (un N+1 y un error de borde en la
-  compra mínima de un cupón) y que el modelo consideró graves. Es discutible quién tiene razón, y el umbral se ajusta
-  en la política.
-- De los dos fixes no validados, uno falló por el guardarraíl descrito arriba (después agregué el esquema de datos como
-  contexto del corrector) y el otro porque se agotó la cuota diaria a mitad del caso.
-- **Sesgo a considerar:** los bugs y el archivo de convenciones los escribí yo. El experimento que falta es correr el
-  eval sin `CONVENCIONES.md` (`--no-context`) para medir cuánto aporta ese contexto. El modo existe; quedó pendiente
-  por la cuota diaria.
+**¿El archivo de convenciones "sopla" las respuestas?** Los bugs y `CONVENCIONES.md` los escribí yo, así que corrí
+el mismo eval sin ese archivo para medir su efecto:
+
+| | Con convenciones | Sin convenciones |
+|---|---|---|
+| Bugs detectados | 10/10 | 10/10 |
+| Falsos positivos | 0 | 0 |
+| Veredicto exacto | 11/13 | 12/13 |
+| Tokens de entrada por revisión | ~5.900 | ~2.700 |
+
+La detección **no depende** del archivo. Lo que cambia es la severidad: con la regla escrita ("no ejecutar consultas
+dentro de loops") el modelo escala el N+1 de *medium* a *high*. El contexto vuelve al modelo más estricto con las
+normas del equipo, no más perspicaz. Para un equipo real eso es lo deseable (que se cumplan sus reglas), pero conviene
+calibrar severidades con su feedback.
+
+Lectura honesta del resto:
+- Las diferencias de veredicto son casos que etiqueté como "revisión humana" (el N+1 y un error de borde en la compra
+  mínima de un cupón) y que el modelo consideró graves. Es discutible quién tiene razón, y el umbral se ajusta en la
+  política.
+- El fix no validado es un caso donde el modelo escribió un test mal planteado (registraba una ruta después del
+  manejador de errores de Express). En una corrida anterior el mismo caso sí se validó: los modelos varían entre
+  corridas, y por eso cada fix se valida en vez de confiar en él.
+- En esa corrida anterior, el guardarraíl de "rojo válido" rechazó un test que fallaba por una clave foránea y no por
+  el bug. A partir de eso agregué el esquema de datos como contexto del corrector.
+- Los casos son chicos y sintéticos. El resultado muestra que el diseño funciona, no la precisión esperable en un
+  repositorio real (ver sección 6).
 
 ## 6. Qué haría con más tiempo
 

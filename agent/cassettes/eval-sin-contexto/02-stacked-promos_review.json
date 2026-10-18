@@ -1,0 +1,12 @@
+{
+  "key": "02-stacked-promos/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "80f3d246286f0827ef6d65263f5c9c00ce2ec846a8d943f5cf5294775894f5a6",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 46,\n      \"title\": \"Cálculo incorrecto de descuentos por categoría (acumula porcentajes en lugar de tomar el mayor)\",\n      \"explanation\": \"El cambio en el reduce reemplaza la lógica para obtener el porcentaje máximo (`Math.max`) por una suma acumulativa de los porcentajes de promoción. Esto viola la regla de negocio que indica que las promociones por categoría no son acumulables y calcula descuentos excesivos a los clientes, afectando directamente los ingresos de la tienda.\",\n      \"suggestion\": \"Revertir el cambio en el reduce para utilizar nuevamente Math.max: `.reduce((max, p) => Math.max(max, p.percent), 0)`\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 2309,
+    "outputTokens": 212,
+    "latencyMs": 2193
+  }
+}

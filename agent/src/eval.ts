@@ -88,7 +88,7 @@ function evaluate(c: EvalCase, report: RunReport, costUsd: number): CaseResult {
 
 const pct = (n: number, d: number) => (d === 0 ? '-' : `${Math.round((100 * n) / d)}% (${n}/${d})`);
 
-function renderSummary(results: CaseResult[], providerLabel: string): string {
+function renderSummary(results: CaseResult[], providerLabel: string, fixEnabled: boolean): string {
   const bugs = results.filter((r) => r.isBug);
   const clean = results.filter((r) => !r.isBug);
   const ok = results.filter((r) => r.verdict !== 'ERROR');
@@ -112,7 +112,7 @@ function renderSummary(results: CaseResult[], providerLabel: string): string {
     `| Bugs graves bloqueados | ${pct(blockingBugs.filter((r) => r.verdict === 'BLOCK').length, blockingBugs.length)} |`,
     `| PRs limpios aprobados | ${pct(clean.filter((r) => r.verdict === 'APPROVE').length, clean.length)} |`,
     `| Falsos positivos (medium+) en total | ${results.reduce((s, r) => s + r.falsePositives, 0)} |`,
-    `| Bugs graves con fix validado rojo→verde | ${pct(blockingBugs.filter((r) => r.fixValidated).length, blockingBugs.length)} |`,
+    `| Bugs graves con fix validado rojo→verde | ${fixEnabled ? pct(blockingBugs.filter((r) => r.fixValidated).length, blockingBugs.length) : 'no aplica (--no-fix)'} |`,
     `| Tiempo promedio por PR | ${avg(ok.map((r) => r.seconds)).toFixed(1)} s (máx ${Math.max(0, ...ok.map((r) => r.seconds)).toFixed(1)} s) |`,
     `| Tokens promedio por PR (entrada/salida) | ${Math.round(avg(ok.map((r) => r.inputTokens)))} / ${Math.round(avg(ok.map((r) => r.outputTokens)))} |`,
     `| Costo equivalente en tier pago, promedio por PR | US$ ${avg(ok.map((r) => r.costUsd)).toFixed(4)} |`,
@@ -122,7 +122,7 @@ function renderSummary(results: CaseResult[], providerLabel: string): string {
     '|---|---|---|---|---|---|---|',
     ...results.map(
       (r) =>
-        `| ${r.id} | ${r.expectedVerdict} | ${r.verdict === r.expectedVerdict ? '✅' : '❌'} ${r.verdict} | ${r.detectedBy.join(', ') || '-'} | ${r.fixValidated === null ? '-' : r.fixValidated ? '✅' : '❌'} | ${r.falsePositives} | ${r.seconds.toFixed(1)} s |`,
+        `| ${r.id} | ${r.expectedVerdict} | ${r.verdict === r.expectedVerdict ? '✅' : '❌'} ${r.verdict} | ${r.detectedBy.join(', ') || '-'} | ${r.fixValidated === null || !fixEnabled ? '-' : r.fixValidated ? '✅' : '❌'} | ${r.falsePositives} | ${r.seconds.toFixed(1)} s |`,
     ),
   ];
   const errors = results.filter((r) => r.error);
@@ -208,7 +208,7 @@ async function main() {
 
   const models = [...new Set(results.map((r) => r.model).filter(Boolean))];
   const providerLabel = `${providerName}${models.length ? ` (${models.join(', ')})` : ''}${variant}`;
-  const summary = renderSummary(results, providerLabel);
+  const summary = renderSummary(results, providerLabel, !values['no-fix']);
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(`${file}.md`, summary);
   fs.writeFileSync(`${file}.json`, JSON.stringify(results, null, 2));

@@ -1,0 +1,12 @@
+{
+  "key": "09-error-leak/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "bdf2c17e6e6e3a15913cb59eae767d82dd18f6ca12f20bb569fd0e6bfac30aa8",
+  "response": {
+    "text": "{\"findings\":[{\"severity\":\"high\",\"category\":\"security\",\"file\":\"storefront-demo/src/app.ts\",\"line\":17,\"title\":\"Exposición de detalles sensibles del error y stack trace en producción\",\"explanation\":\"El middleware de errores expone `err.message` y `err.stack` en las respuestas HTTP de error 500. Esto filtra información interna de la aplicación, rutas del servidor y detalles de la infraestructura a cualquier usuario, facilitando ataques de reconocimiento.\",\"suggestion\":\"Restringe la exposición de `err.message` y `err.stack` únicamente a entornos de desarrollo o QA (por ejemplo, verificando `process.env.NODE_ENV !== 'production'`), y devuelve un mensaje genérico en producción.\",\"confidence\":1.0}]}",
+    "inputTokens": 1035,
+    "outputTokens": 161,
+    "latencyMs": 1912
+  }
+}

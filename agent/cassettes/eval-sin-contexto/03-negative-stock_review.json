@@ -1,0 +1,12 @@
+{
+  "key": "03-negative-stock/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "27f493f0389c1ef13dba3359ef5a5e509735cd730a926281824f30d77fa67f7d",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"inventory\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 59,\n      \"title\": \"Permite sobreventa de inventario al eliminar la validación de stock en el UPDATE\",\n      \"explanation\": \"Al remover la condición `qty >= @qty` de la cláusula WHERE en la sentencia SQL, el UPDATE descontará stock permitiendo que el inventario quede en valores negativos. Esto rompe la lógica de negocio y permite realizar compras sin stock suficiente, como lo demuestra el test fallido.\",\n      \"suggestion\": \"Restaurar la condición de validación en la consulta SQL agregando nuevamente `AND qty >= @qty` al WHERE para asegurar que solo se actualice si hay suficiente stock disponible.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 2945,
+    "outputTokens": 203,
+    "latencyMs": 2306
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "key": "05-sqli-category/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "83dac6ef386895b703306c66598372fe6e1568224ad4739c928df3e64cf4ce5e",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"security\",\n      \"file\": \"storefront-demo/src/modules/catalog.ts\",\n      \"line\": 43,\n      \"title\": \"Vulnerabilidad de Inyección SQL (SQLi)\",\n      \"explanation\": \"La variable 'category' se interpola directamente dentro de la cadena SQL de la consulta en la línea 43. Esto permite que un atacante inyecte comandos SQL maliciosos a través del parámetro de consulta 'category'.\",\n      \"suggestion\": \"Utiliza parámetros seguros en lugar de interpolación de strings, por ejemplo, agregando 'AND p.category = @category' al objeto de parámetros pasado a .all({ storeId: req.params.storeId, pattern: `%${q}%`, category })\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 3775,
+    "outputTokens": 203,
+    "latencyMs": 2091
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "key": "01-decimal-discount/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "539c07fa2c1df36b3dc2729e0dbb43e4f7408d9668d602a851e17392ff807fd4",
+  "response": {
+    "text": "{\"findings\": [{\"severity\": \"high\", \"category\": \"money\", \"file\": \"storefront-demo/src/pricing.ts\", \"line\": 48, \"title\": \"Cálculo de descuento sin redondeo genera fracciones de céntimos\", \"explanation\": \"Al remover Math.round() del cálculo de discountCents, el resultado puede contener decimales (fracciones de céntimo). Como la moneda se maneja en enteros (céntimos) y order_items.discount_cents es un entero en la base de datos, esto causará problemas de redondeo, discrepancias en los totales y fallos al persistir las órdenes.\", \"suggestion\": \"Envuelve el cálculo del descuento nuevamente en Math.round(): Math.round((gross * best) / 100).\", \"confidence\": 1.0}]}",
+    "inputTokens": 3951,
+    "outputTokens": 178,
+    "latencyMs": 2270
+  }
+}
