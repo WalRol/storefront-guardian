@@ -26,13 +26,25 @@ Evento de ejemplo: [ejemplo-evento.json](ejemplo-evento.json).
 
 ## Paso 0 — Levantar n8n
 
-Opción local con Docker:
+Cualquiera de las dos opciones sirve; el workflow exportado se importa igual en ambas.
+
+**Opción A — npx** (más liviana; requiere una versión de Node compatible con n8n):
+
+```bash
+npx n8n@<versión>   # fijar la versión evita sorpresas por actualizaciones automáticas
+```
+
+Los datos quedan en `~/.n8n`. Para detenerlo: `Ctrl+C`.
+
+**Opción B — Docker** (aislado, no depende del Node local):
 
 ```bash
 docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n
 ```
 
-Abrir http://localhost:5678 y crear el usuario owner. Al terminar de trabajar: `docker stop n8n`.
+Para detenerlo: `docker stop n8n`.
+
+En ambos casos, abrir http://localhost:5678 y crear el usuario owner.
 
 > GitHub Actions no puede llegar a `localhost`. Para conectarlo con PRs reales: usar n8n Cloud, o exponer
 > el n8n local con un túnel temporal (`cloudflared tunnel --url http://localhost:5678`).
