@@ -47,7 +47,9 @@ export async function runPipeline(opts: PipelineOptions): Promise<RunReport> {
 
   try {
     const changedFiles = parseDiff(ws.diff);
-    const context = loadContext(policy, ws.dir);
+    // Las convenciones son instrucciones para el modelo: se leen del repo base,
+    // no del PR, para que el cambio revisado no pueda reescribirlas.
+    const context = loadContext(policy, opts.repoDir);
 
     log('Chequeos determinísticos (typecheck, tests, secretos, reglas)…');
     let checks: CheckResult[] = [];

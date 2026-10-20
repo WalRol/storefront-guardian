@@ -6,7 +6,8 @@ interface StaticRule {
   category: Category;
   severity: Severity;
   appliesTo: RegExp;
-  pattern: RegExp;
+  /** Basta con que matchee uno. */
+  patterns: RegExp[];
   title: string;
   explanation: string;
   suggestion: string;
@@ -21,7 +22,12 @@ const RULES: StaticRule[] = [
     category: 'security',
     severity: 'critical',
     appliesTo: /\.[cm]?[jt]s$/,
-    pattern: /\b(?:SELECT|INSERT|UPDATE|DELETE|WHERE|AND|OR|VALUES|SET)\b.*\$\{/i,
+    // Keywords en mayúsculas (convención SQL), o en minúsculas solo con forma de consulta.
+    // Así `Error(`Store or product ${id}`)` o `.set(`${...}`)` no se marcan como SQL.
+    patterns: [
+      /\b(?:SELECT|INSERT|UPDATE|DELETE|WHERE|AND|OR|VALUES|SET)\b.*\$\{/,
+      /\b(?:select\b.*\bfrom|insert\s+into|delete\s+from|update\s+\w+\s+set\s+\w+\s*=).*\$\{/i,
+    ],
     title: 'SQL construido con interpolación de strings',
     explanation:
       'Interpolar valores en una consulta SQL permite inyección SQL si el valor viene del usuario.',
@@ -32,7 +38,7 @@ const RULES: StaticRule[] = [
     category: 'security',
     severity: 'high',
     appliesTo: /\.[cm]?[jt]s$/,
-    pattern: /\.(?:json|send)\(.*\b(?:err|error)\.stack\b/,
+    patterns: [/\.(?:json|send)\(.*\b(?:err|error)\.stack\b/],
     title: 'Stack trace expuesto en la respuesta HTTP',
     explanation:
       'El stack revela rutas internas, versiones y estructura del código a cualquier cliente.',
@@ -46,7 +52,7 @@ export function scanStaticRules(files: ChangedFile[]): Finding[] {
     for (const rule of RULES) {
       if (!rule.appliesTo.test(file.path)) continue;
       for (const { line, text } of file.added) {
-        if (!rule.pattern.test(text)) continue;
+        if (!rule.patterns.some((p) => p.test(text))) continue;
         findings.push({
           id: `static-${findings.length + 1}`,
           source: 'static',

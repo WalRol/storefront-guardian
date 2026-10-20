@@ -59,4 +59,21 @@ describe('reglas estáticas', () => {
       expect.stringContaining('stack-in-response'),
     ]);
   });
+
+  const scanLine = (text: string) =>
+    scanStaticRules([{ path: 'src/x.ts', added: [{ line: 1, text }], deleted: false }]).map((f) => f.title);
+
+  it('no confunde texto común con SQL', () => {
+    expect(scanLine('throw new Error(`Store or product ${id} not found`);')).toEqual([]);
+    expect(scanLine('await request(app).get(`/orders/${id}`).set(BRUNO);')).toEqual([]);
+    expect(scanLine('log(`Update and set ${n} items`);')).toEqual([]);
+  });
+
+  it('detecta SQL en minúsculas cuando tiene forma de consulta', () => {
+    expect(scanLine("db.prepare(`select * from orders where id = '${id}'`)")).toEqual([
+      expect.stringContaining('sql-interpolation'),
+    ]);
+    expect(scanLine("db.run(`update stock set qty = ${qty}`)")).toEqual([expect.stringContaining('sql-interpolation')]);
+    expect(scanLine('`  AND p.category = ${category}`')).toEqual([expect.stringContaining('sql-interpolation')]);
+  });
 });

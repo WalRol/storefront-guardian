@@ -17,9 +17,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      # El agente, la política y las convenciones salen de la rama base: un PR no
+      # puede cambiar las reglas con las que se lo evalúa (p. ej. apagar blockOn).
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.base.sha }}
           fetch-depth: 0
+
+      # El código del PR solo entra como ref (el merge con la base, igual que el checkout
+      # por defecto): el agente lo revisa en un worktree aislado.
+      - name: Traer el código del PR
+        env:
+          PR: ${{ github.event.pull_request.number }}
+        run: git fetch --no-tags origin "+refs/pull/$PR/merge:refs/remotes/pr/merge"
 
       - uses: actions/setup-node@v4
         with:
@@ -40,14 +50,14 @@ jobs:
           # de entorno, nunca interpolados en el script, para evitar inyección de comandos.
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY: ${{ github.event.pull_request.body }}
-          BASE_REF: origin/${{ github.base_ref }}
+          BASE_REF: ${{ github.event.pull_request.base.sha }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_URL: ${{ github.event.pull_request.html_url }}
           # Opcional: webhook de n8n que recibe el resultado (notificaciones y métricas).
           GUARDIAN_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
           GUARDIAN_WEBHOOK_TOKEN: ${{ secrets.N8N_WEBHOOK_TOKEN }}
         run: |
-          npx tsx src/cli.ts review --base "$BASE_REF" --head HEAD \
+          npx tsx src/cli.ts review --base "$BASE_REF" --head pr/merge \
             --title "$PR_TITLE" --body "$PR_BODY" --label "pr-$PR_NUMBER" \
             --pr-number "$PR_NUMBER" --pr-url "$PR_URL" --exit-zero
 

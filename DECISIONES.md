@@ -55,6 +55,10 @@ El eval lo confirma: la capa determinística sola detecta 6 de 10 bugs; la IA ci
 - **La decisión final no la toma el modelo.** El gate es código determinístico que lee `guardian.policy.yaml`: qué
   severidades bloquean, cuáles van a revisión humana, umbral de confianza. Un hallazgo grave con confianza baja no
   bloquea solo: pasa a revisión humana. Así la decisión es explicable y auditable, y el equipo la ajusta sin programar.
+- **Un PR no puede cambiar las reglas con las que se lo evalúa.** En la Action, el agente, la política y
+  `CONVENCIONES.md` se leen de la rama base; el código del PR solo entra al worktree. Un PR que ponga `blockOn` en
+  `false` no se aprueba solo: se lo evalúa con la política vigente. Y como los tests del PR se ejecutan, corren con un
+  entorno sin credenciales (API key, token del webhook) para que no las puedan leer.
 - **El conocimiento del equipo es un archivo, no un prompt escondido.** `CONVENCIONES.md` contiene las reglas de negocio
   (céntimos enteros, promociones no acumulables, filtrar siempre por tienda). El equipo lo mantiene y el revisor lo lee
   en cada PR. Es la respuesta concreta a "el conocimiento está disperso".

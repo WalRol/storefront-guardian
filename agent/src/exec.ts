@@ -8,6 +8,13 @@ export interface ExecResult {
 }
 
 const ANSI = /\x1b\[[0-9;]*m/g;
+const SECRET_VAR = /KEY|TOKEN|SECRET|PASSWORD|WEBHOOK/i;
+
+/** El código del PR corre con este entorno: sin credenciales que pueda exfiltrar. */
+function projectEnv(): NodeJS.ProcessEnv {
+  const env = Object.fromEntries(Object.entries(process.env).filter(([name]) => !SECRET_VAR.test(name)));
+  return { ...env, CI: '1', FORCE_COLOR: '0', NO_COLOR: '1' };
+}
 
 /**
  * Ejecuta un comando de shell del proyecto (npm, npx, etc.). Nunca lanza
@@ -19,7 +26,7 @@ export function runShell(command: string, cwd: string, timeoutMs = 180_000): Pro
     const child = spawn(command, {
       cwd,
       shell: true,
-      env: { ...process.env, CI: '1', FORCE_COLOR: '0', NO_COLOR: '1' },
+      env: projectEnv(),
     });
     let output = '';
     const onData = (chunk: Buffer) => (output += chunk.toString());
