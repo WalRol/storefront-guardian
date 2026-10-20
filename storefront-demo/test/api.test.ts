@@ -101,4 +101,18 @@ describe('órdenes', () => {
     const other = await request(app).get(`/orders/${created.body.orderId}`).set(BRUNO);
     expect(other.status).toBe(404);
   });
+
+  it('cancelar una orden devuelve el stock', async () => {
+    const stock = () =>
+      (db.prepare("SELECT qty FROM inventory WHERE store_id = 'online' AND sku = 'TV-55-4K'").get() as { qty: number }).qty;
+    const before = stock();
+    const created = await request(app)
+      .post('/stores/online/orders')
+      .set(ANA)
+      .send({ items: [{ sku: 'TV-55-4K', qty: 1 }] });
+
+    const res = await request(app).post(`/orders/${created.body.orderId}/cancel`).set(ANA);
+    expect(res.status).toBe(200);
+    expect(stock()).toBe(before);
+  });
 });

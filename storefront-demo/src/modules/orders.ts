@@ -129,5 +129,24 @@ export function ordersRouter(db: DB): Router {
     res.json({ ...order, items: findOrderItems.all(Number(req.params.id)) });
   });
 
+  // POST /orders/:id/cancel — cancela la orden y devuelve el stock a la tienda.
+  const restock = db.prepare('UPDATE inventory SET qty = qty + @qty WHERE store_id = @storeId AND sku = @sku');
+  const deleteItems = db.prepare('DELETE FROM order_items WHERE order_id = ?');
+  const deleteOrder = db.prepare('DELETE FROM orders WHERE id = ?');
+  const cancel = db.transaction((orderId: number, storeId: string) => {
+    const items = findOrderItems.all(orderId) as { sku: string; qty: number }[];
+    for (const item of items) restock.run({ storeId, sku: item.sku, qty: item.qty });
+    deleteItems.run(orderId);
+    deleteOrder.run(orderId);
+  });
+  router.post('/orders/:id/cancel', (req, res) => {
+    const order = findOrder.get(Number(req.params.id)) as { id: number; store_id: string } | undefined;
+    if (!order) {
+      return res.status(404).json({ error: 'ORDER_NOT_FOUND' });
+    }
+    cancel(order.id, order.store_id);
+    res.json({ cancelled: order.id });
+  });
+
   return router;
 }
