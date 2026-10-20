@@ -19,6 +19,10 @@ Resultado con Gemini (`gemini-3.5-flash-lite`, tier gratuito), 20/10/2026:
 
 **Para la demo usar 04, 05 y 01**: detección y fix validado, y 05 no está en las convenciones.
 
+La detección es estable; el fix validado no siempre. En el PR real del caso 04 (#4, en CI) el hallazgo salió igual
+(critical) pero el fix no validó en 2 intentos. Si pasa en vivo, es el argumento a favor del diseño: el bot no
+presenta como corregido algo que no pudo probar.
+
 **El 02 es la respuesta honesta a "¿los casos están hechos a medida?"**: no, y acá el sistema falla. El modelo no
 infiere que el precio nunca debe venir del cliente. La corrección es la que haría un equipo real: agregar a
 `CONVENCIONES.md` "el precio siempre sale de `store_prices`, nunca del request" y medir de nuevo.

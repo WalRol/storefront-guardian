@@ -38,7 +38,7 @@ trap 'git worktree remove --force "$worktree" >/dev/null 2>&1 || true; rm -f "$p
 git worktree add -q -b "$branch" "$worktree" origin/main
 git -C "$worktree" apply --index "$patch"
 git -C "$worktree" commit -q -m "$title"
-git -C "$worktree" push -q -u origin "$branch"
+git -C "$worktree" push -q -u origin "$branch" 2>&1 | grep -v '^remote:' || true
 
 url=$(gh pr create --base main --head "$branch" --title "$title" --body-file "$body_file")
 echo "PR abierto: $url"
@@ -46,7 +46,8 @@ started=$(date +%s)
 
 # El check tarda unos segundos en registrarse después de abrir el PR.
 for _ in $(seq 1 12); do
-  gh pr checks "$url" 2>&1 | grep -q "no checks reported" || break
+  status=$(gh pr checks "$url" 2>&1 || true)
+  [[ "$status" == *"no checks reported"* ]] || break
   sleep 5
 done
 gh pr checks "$url" --watch --interval 10 || true
