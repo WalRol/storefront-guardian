@@ -62,7 +62,7 @@ export function priceCart(
     }
   }
 
-  const discountCents = Math.min(lineDiscounts + couponDiscount, subtotalCents);
+  const discountCents = lineDiscounts + couponDiscount;
   return {
     lines: pricedLines,
     subtotalCents,
