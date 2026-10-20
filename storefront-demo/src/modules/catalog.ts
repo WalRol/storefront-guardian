@@ -29,6 +29,13 @@ export function catalogRouter(db: DB): Router {
     WHERE p.sku = @sku
   `);
 
+  const listStores = db.prepare('SELECT id, name FROM stores ORDER BY name');
+
+  // GET /stores
+  router.get('/stores', (_req, res) => {
+    res.json({ items: listStores.all() });
+  });
+
   // GET /stores/:storeId/products?q=texto
   router.get('/stores/:storeId/products', (req, res) => {
     const q = typeof req.query.q === 'string' ? req.query.q : '';
