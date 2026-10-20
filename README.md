@@ -10,7 +10,7 @@ de los 15 PRs revisados y, para cada uno, qué hizo cada agente, sin instalar na
           PR (diff)
               │
               ▼
-┌──────────────────────────────┐   sin IA · $0 · ~10 s
+┌──────────────────────────────┐   sin IA · $0 · ~8 s 
 │ 1. Chequeos determinísticos  │   typecheck · tests · secretos · reglas estáticas
 └──────────────┬───────────────┘
                ▼
