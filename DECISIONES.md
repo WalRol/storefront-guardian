@@ -165,7 +165,6 @@ Lectura honesta del resto:
 
 ## 7. Qué resolví con IA y qué es mío
 
-<!-- COMPLETAR CON TUS PALABRAS: esta sección tiene que ser 100% honesta y reflejar lo que efectivamente hiciste. -->
 
 Trabajé con Claude Code como asistente de programación durante todo el proyecto, de la misma forma en que lo uso en mi
 trabajo diario.
@@ -173,9 +172,7 @@ trabajo diario.
 **Decisiones mías:** qué parte del ciclo atacar y qué capacidad descartar; usar mi experiencia en plataformas
 multitienda para elegir los bugs; TypeScript como stack; la restricción de costo cero y cómo resolverla (replay,
 cadena de respaldo); el principio "determinístico primero"; que el gate no dependa del modelo; y el workflow de n8n,
-que construí yo. <!-- ajustar -->
+que construí yo. 
 
 **Con apoyo de IA:** la discusión de la estrategia inicial, la generación de la mayor parte del código y de los tests
-a partir de mis definiciones, y la redacción de la documentación, que revisé y ajusté. <!-- ajustar -->
-
-Revisé todo el código entregado y puedo explicar y modificar cualquier parte en la presentación.
+a partir de mis definiciones, y la redacción de la documentación, que revisé y ajusté.
