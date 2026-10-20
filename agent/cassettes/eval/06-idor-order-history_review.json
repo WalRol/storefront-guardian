@@ -1,12 +1,12 @@
 {
   "key": "06-idor-order-history/review",
   "provider": "gemini",
-  "model": "gemini-3.5-flash-lite",
-  "promptSha256": "b0dee83e3af00b90c2c448d6dd8872cd087c38c776acb2c519a1a9031dcf77bb",
+  "model": "gemini-3.8-flash",
+  "promptSha256": "2b439f5f164eb361e830ea04ff62a195704f79bc59df68b7e0049635f6755859",
   "response": {
-    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"authz\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 134,\n      \"title\": \"Violación de control de acceso en historial de órdenes mediante parámetros\",\n      \"explanation\": \"Cualquier usuario autenticado puede pasar el parámetro `userId` en la query string (ej: ?userId=1) y consultar el historial de órdenes de cualquier otro cliente, infringiendo la regla de negocio que establece que un usuario solo puede acceder a sus propios recursos y que el ID debe obtenerse estrictamente del token.\",\n      \"suggestion\": \"Eliminar la lectura de `req.query.userId` y usar siempre `req.user!.id` para filtrar las órdenes del usuario autenticado.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
-    "inputTokens": 5158,
-    "outputTokens": 201,
-    "latencyMs": 1538
+    "text": "{\"findings\":[{\"severity\":\"critical\",\"category\":\"authz\",\"file\":\"storefront-demo/src/modules/orders.ts\",\"line\":135,\"title\":\"Vulnerabilidad IDOR al permitir consultar órdenes ajenas mediante req.query.userId\",\"explanation\":\"Cualquier usuario autenticado puede consultar el historial de órdenes de cualquier otro cliente pasando `?userId=<id>` en la URL. Esto expone datos personales y de compras sin control de acceso o roles, violando la regla del equipo: 'Un usuario solo puede acceder a sus propios recursos (órdenes, historial). El id del usuario sale del token, nunca de parámetros del request'.\",\"suggestion\":\"Eliminar el uso de `req.query.userId` y utilizar exclusivamente `req.user!.id` para filtrar las órdenes (`const userId = req.user!.id;`), o restringir el uso de parámetros de consulta a usuarios con rol administrativo/soporte explícitamente validado.\",\"confidence\":1.0}]}",
+    "inputTokens": 5266,
+    "outputTokens": 1131,
+    "latencyMs": 87774
   }
 }

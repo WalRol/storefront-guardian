@@ -2,11 +2,11 @@
   "key": "05-sqli-category/review",
   "provider": "gemini",
   "model": "gemini-3.5-flash-lite",
-  "promptSha256": "0ab22f9d465b54f4c3a77d84523712a26e8acee2aef820c40c34be5b6232096b",
+  "promptSha256": "b310fa64b15d84d7e47aa1c2b8356dfad3ec23f398cc758a2cc4786e879093c5",
   "response": {
-    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"security\",\n      \"file\": \"storefront-demo/src/modules/catalog.ts\",\n      \"line\": 43,\n      \"title\": \"Inyección SQL por interpolación de variable en parámetro category\",\n      \"explanation\": \"La variable 'category' se interpola directamente dentro de la consulta SQL (`WHERE p.name LIKE @pattern AND p.category = '${category}'`). Esto permite inyección SQL si se envía un payload malicioso a través del query param `category`.\",\n      \"suggestion\": \"Utiliza un parámetro ligado (bind parameter) en lugar de interpolación de strings, por ejemplo añadiendo `AND p.category = @category` y pasándolo en el objeto de parámetros de `.all()`, siguiendo las reglas de seguridad del equipo.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
-    "inputTokens": 4126,
-    "outputTokens": 204,
-    "latencyMs": 1346
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"security\",\n      \"file\": \"storefront-demo/src/modules/catalog.ts\",\n      \"line\": 43,\n      \"title\": \"Vulnerabilidad de inyección SQL (SQL Injection)\",\n      \"explanation\": \"Se está interpolando directamente la variable `category` dentro de la consulta SQL (`AND p.category = '${category}'`). Esto viola la regla de seguridad del equipo que prohíbe la interpolación de strings y permite ataques de inyección SQL.\",\n      \"suggestion\": \"Utilizar parámetros vinculados en la sentencia SQL, por ejemplo cambiando a `AND p.category = @category` y pasándolo en el objeto de parámetros de `.all({ storeId: req.params.storeId, pattern: `%${q}%`, category })`.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 4234,
+    "outputTokens": 207,
+    "latencyMs": 4464
   }
 }

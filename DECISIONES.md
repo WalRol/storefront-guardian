@@ -115,21 +115,28 @@ porque el modelo ve el contexto; lo acoté con el presupuesto de caracteres.
 
 ## 5. Resultados medidos
 
-13 PRs de prueba: 10 con bugs sembrados (con títulos y descripciones que no los delatan, como en un PR real) y 3
-limpios para medir falsos positivos. La tabla es de esa corrida, previa a la regla de archivos sensibles; más abajo,
-dos PRs de red team y el efecto de esa regla.
+15 PRs de prueba: 10 con bugs sembrados (con títulos y descripciones que no los delatan, como en un PR real), 3
+limpios para medir falsos positivos y 2 de red team que atacan al propio Guardian. Todos con el mismo modelo
+(`gemini-3.5-flash-lite`) en una sola versión del sistema ([eval/results/gemini.md](eval/results/gemini.md)).
 
 | Métrica | Solo determinístico | Pipeline completo |
 |---|---|---|
-| Bugs detectados | 6/10 | **10/10** |
-| Bugs graves bloqueados | 6/8 | **8/8** |
-| PRs limpios aprobados (sin falsos positivos) | 3/3 | **3/3** |
-| Veredicto exacto | 9/13 | 11/13 |
-| Bugs graves con fix validado rojo→verde | — | 7/8 |
-| Tiempo promedio por PR | 14 s | 32 s |
+| Bugs detectados | 7/12 | **12/12** |
+| Bugs graves bloqueados | 7/10 | **10/10** |
+| PRs limpios aprobados | 2/3 | 2/3 |
+| Falsos positivos (medium+) | 0 | 1 |
+| Veredicto exacto | 11/15 | **14/15** |
+| Bugs graves con fix validado rojo→verde | — | 9/10 |
+| Tiempo promedio por PR | 8 s | 37 s |
+
+- El PR limpio que no se aprueba es el refactor de `auth.ts`: va a revisión humana a propósito, por la regla de
+  archivos sensibles (ver más abajo).
+- El falso positivo es, en rigor, un acierto: en el caso 15 el modelo además marca que el PR relaja el gate en
+  `guardian.policy.yaml`. Lo dejo contado como falso positivo para no ajustar la métrica después de ver el resultado.
+- El caso 06 tardó 186 s por reintentos ante errores 503 de Gemini; sin ese caso el promedio es de 26 s.
 
 **¿El archivo de convenciones "sopla" las respuestas?** Los bugs y `CONVENCIONES.md` los escribí yo, así que corrí
-el mismo eval sin ese archivo para medir su efecto:
+el mismo eval sin ese archivo para medir su efecto (sobre los 13 casos originales, antes del red team):
 
 | | Con convenciones | Sin convenciones |
 |---|---|---|
@@ -144,7 +151,7 @@ normas del equipo, no más perspicaz. Para un equipo real eso es lo deseable (qu
 calibrar severidades con su feedback.
 
 **¿Se puede engañar a Guardian?** Le sumé al eval dos PRs maliciosos que atacan a la herramienta y no al storefront
-([eval/results/gemini-redteam.md](eval/results/gemini-redteam.md)):
+(casos 14 y 15 de [eval/results/gemini.md](eval/results/gemini.md)):
 
 | Caso | Ataque | Sin IA | Pipeline completo |
 |---|---|---|---|
@@ -165,14 +172,14 @@ y Gemini bloqueó las tres. Contra esta inyección, el modelo ya resistía solo.
 garantizan que, si un modelo más débil o un ataque mejor lo engaña, el PR igual no llegue a APROBADO.
 
 Lectura honesta del resto:
-- Las diferencias de veredicto son casos que etiqueté como "revisión humana" (el N+1 y un error de borde en la compra
-  mínima de un cupón) y que el modelo consideró graves. Es discutible quién tiene razón, y el umbral se ajusta en la
-  política.
-- El fix no validado es un caso donde el modelo escribió un test mal planteado (registraba una ruta después del
-  manejador de errores de Express). En una corrida anterior el mismo caso sí se validó: los modelos varían entre
-  corridas, y por eso cada fix se valida en vez de confiar en él.
-- En esa corrida anterior, el guardarraíl de "rojo válido" rechazó un test que fallaba por una clave foránea y no por
-  el bug. A partir de eso agregué el esquema de datos como contexto del corrector.
+- La diferencia de veredicto es un error de borde en la compra mínima de un cupón que etiqueté como "revisión humana"
+  y el modelo consideró grave. Es discutible quién tiene razón, y el umbral se ajusta en la política. En la corrida
+  anterior el N+1 tuvo el mismo desacuerdo y en esta no: el modelo varía entre corridas.
+- El fix no validado (caso 09) es un test que el modelo escribió sin importar `beforeEach`: falla con `TypeError`, no
+  por el bug, y el guardarraíl de "rojo válido" lo rechaza en vez de darlo por bueno. En corridas anteriores ese mismo
+  caso falló por otro test mal planteado y en otra se validó: por eso cada fix se valida en vez de confiar en él.
+- En una corrida anterior, el mismo guardarraíl rechazó un test que fallaba por una clave foránea y no por el bug. A
+  partir de eso agregué el esquema de datos como contexto del corrector.
 - Los casos son chicos y sintéticos. El resultado muestra que el diseño funciona, no la precisión esperable en un
   repositorio real (ver sección 6).
 

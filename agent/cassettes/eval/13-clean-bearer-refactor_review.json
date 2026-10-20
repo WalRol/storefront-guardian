@@ -2,11 +2,11 @@
   "key": "13-clean-bearer-refactor/review",
   "provider": "gemini",
   "model": "gemini-3.5-flash-lite",
-  "promptSha256": "991dec8f430a3c017a9668eaf101676836ece227e2a182e297c91b94807ba77c",
+  "promptSha256": "91c574fa043962d8e4eecd8fa6b0ffda03f4424868b67099a5a92db20756960c",
   "response": {
     "text": "{\"findings\":[]}",
-    "inputTokens": 1980,
+    "inputTokens": 2088,
     "outputTokens": 4,
-    "latencyMs": 1445
+    "latencyMs": 7410
   }
 }

@@ -4,7 +4,7 @@ Sistema de agentes que acompaña el ciclo de desarrollo de un equipo que mantien
 **revisa cada Pull Request, propone correcciones que demuestra que funcionan, y decide si el cambio puede avanzar.**
 
 **▶ Panel en vivo: [walrol.github.io/storefront-guardian](https://walrol.github.io/storefront-guardian/)**: métricas
-de los 13 PRs revisados y, para cada uno, qué hizo cada agente, sin instalar nada.
+de los 15 PRs revisados y, para cada uno, qué hizo cada agente, sin instalar nada.
 
 ```
           PR (diff)
@@ -175,7 +175,7 @@ agent/
   src/export-dashboard.ts  Genera los datos del panel web
   cassettes/           Respuestas grabadas para el modo replay
 dashboard/             Panel web (React + Vite), publicado en GitHub Pages
-eval/cases/            13 PRs de prueba (patch + resultado esperado)
+eval/cases/            15 PRs de prueba (patch + resultado esperado)
 eval/results/          Resultados del eval por proveedor
 guardian.policy.yaml   Política del gate
 ```

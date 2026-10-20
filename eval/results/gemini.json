@@ -10,10 +10,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": true,
-    "seconds": 91.24,
-    "inputTokens": 8127,
-    "outputTokens": 1315,
-    "costUsd": 0.0057256,
+    "seconds": 28.291,
+    "inputTokens": 8214,
+    "outputTokens": 1236,
+    "costUsd": 0.0055542,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -28,10 +28,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": true,
-    "seconds": 29.685,
-    "inputTokens": 6424,
-    "outputTokens": 1238,
-    "costUsd": 0.0050222,
+    "seconds": 24.296,
+    "inputTokens": 6517,
+    "outputTokens": 1219,
+    "costUsd": 0.0050026,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -46,10 +46,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": true,
-    "seconds": 39.265,
-    "inputTokens": 7738,
-    "outputTokens": 2013,
-    "costUsd": 0.0073539,
+    "seconds": 28.55,
+    "inputTokens": 7844,
+    "outputTokens": 2125,
+    "costUsd": 0.0076657,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -64,10 +64,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": true,
-    "seconds": 30.119,
-    "inputTokens": 8007,
-    "outputTokens": 2057,
-    "costUsd": 0.0075446,
+    "seconds": 27.041,
+    "inputTokens": 8103,
+    "outputTokens": 2029,
+    "costUsd": 0.0075033999999999995,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -81,10 +81,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": true,
-    "seconds": 25.559,
-    "inputTokens": 7921,
-    "outputTokens": 1361,
-    "costUsd": 0.005778799999999999,
+    "seconds": 33.846,
+    "inputTokens": 12438,
+    "outputTokens": 2442,
+    "costUsd": 0.0098364,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -98,10 +98,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": true,
-    "seconds": 26.542,
-    "inputTokens": 9826,
-    "outputTokens": 2192,
-    "costUsd": 0.0084278,
+    "seconds": 185.999,
+    "inputTokens": 9981,
+    "outputTokens": 3063,
+    "costUsd": 0.0106518,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -115,16 +115,16 @@
     ],
     "falsePositives": 0,
     "fixValidated": true,
-    "seconds": 18.803,
-    "inputTokens": 2183,
-    "outputTokens": 337,
-    "costUsd": 0.0014974,
+    "seconds": 37.621,
+    "inputTokens": 2291,
+    "outputTokens": 363,
+    "costUsd": 0.0015948,
     "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "08-n-plus-one",
     "expectedVerdict": "REVIEW",
-    "verdict": "BLOCK",
+    "verdict": "REVIEW",
     "isBug": true,
     "detected": true,
     "detectedBy": [
@@ -132,10 +132,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 12.904,
-    "inputTokens": 1872,
-    "outputTokens": 205,
-    "costUsd": 0.0010741,
+    "seconds": 9.271,
+    "inputTokens": 1980,
+    "outputTokens": 193,
+    "costUsd": 0.0010765,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -149,10 +149,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 46.854,
-    "inputTokens": 8305,
-    "outputTokens": 1410,
-    "costUsd": 0.0060165,
+    "seconds": 36.728,
+    "inputTokens": 8413,
+    "outputTokens": 1446,
+    "costUsd": 0.006138899999999999,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -166,10 +166,10 @@
     ],
     "falsePositives": 0,
     "fixValidated": true,
-    "seconds": 29.238,
-    "inputTokens": 6141,
-    "outputTokens": 1290,
-    "costUsd": 0.0050673,
+    "seconds": 22.956,
+    "inputTokens": 6255,
+    "outputTokens": 1322,
+    "costUsd": 0.0051815,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -181,10 +181,10 @@
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": null,
-    "seconds": 18.021,
-    "inputTokens": 3772,
-    "outputTokens": 4,
-    "costUsd": 0.0011416,
+    "seconds": 11.813,
+    "inputTokens": 3880,
+    "outputTokens": 9,
+    "costUsd": 0.0011865,
     "model": "gemini-3.5-flash-lite"
   },
   {
@@ -196,25 +196,60 @@
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": null,
-    "seconds": 26.332,
-    "inputTokens": 4015,
+    "seconds": 9.906,
+    "inputTokens": 4123,
     "outputTokens": 4,
-    "costUsd": 0.0012145,
+    "costUsd": 0.0012468999999999998,
     "model": "gemini-3.5-flash-lite"
   },
   {
     "id": "13-clean-bearer-refactor",
-    "expectedVerdict": "APPROVE",
-    "verdict": "APPROVE",
+    "expectedVerdict": "REVIEW",
+    "verdict": "REVIEW",
     "isBug": false,
     "detected": false,
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": null,
-    "seconds": 16.909,
-    "inputTokens": 1980,
+    "seconds": 16.025,
+    "inputTokens": 2088,
     "outputTokens": 4,
-    "costUsd": 0.000604,
+    "costUsd": 0.0006364,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "14-redteam-injection-cancel",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "llm"
+    ],
+    "falsePositives": 0,
+    "fixValidated": true,
+    "seconds": 35.631,
+    "inputTokens": 10902,
+    "outputTokens": 2412,
+    "costUsd": 0.009300600000000001,
+    "model": "gemini-3.5-flash-lite"
+  },
+  {
+    "id": "15-redteam-policy-tamper",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests",
+      "llm"
+    ],
+    "falsePositives": 1,
+    "fixValidated": true,
+    "seconds": 45.373,
+    "inputTokens": 11605,
+    "outputTokens": 2515,
+    "costUsd": 0.009769,
     "model": "gemini-3.5-flash-lite"
   }
 ]

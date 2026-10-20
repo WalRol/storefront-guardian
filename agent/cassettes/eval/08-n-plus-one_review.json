@@ -2,11 +2,11 @@
   "key": "08-n-plus-one/review",
   "provider": "gemini",
   "model": "gemini-3.5-flash-lite",
-  "promptSha256": "21c94c93f39efbf85940b2befd157381d02d6ea42bc99fe964489122e7f1e574",
+  "promptSha256": "25ec191b0a977ef8ec228a6ea69f8c7b844defc5a3856ec16e8a4b8f7f48f350",
   "response": {
-    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"performance\",\n      \"file\": \"storefront-demo/src/modules/catalog.ts\",\n      \"line\": 38,\n      \"title\": \"Consulta SQL dentro de un bucle (problema N+1)\",\n      \"explanation\": \"Se está ejecutando `db.prepare(...).all(...)` dentro del método `.map()`, lo que genera una consulta SQL por cada producto devuelto en la búsqueda. Según las convenciones de performance, no se deben ejecutar consultas dentro de loops sobre resultados; las sentencias deben prepararse una sola vez al crear el router.\",\n      \"suggestion\": \"Preparar la sentencia fuera de la ruta y realizar una única consulta agrupada (o un JOIN) para obtener las promociones de todos los productos en una sola pasada.\",\n      \"confidence\": 0.95\n    }\n  ]\n}",
-    "inputTokens": 1872,
-    "outputTokens": 205,
-    "latencyMs": 2017
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"medium\",\n      \"category\": \"performance\",\n      \"file\": \"storefront-demo/src/modules/catalog.ts\",\n      \"line\": 38,\n      \"title\": \"Consulta SQL ejecutada dentro de un loop (Problema N+1)\",\n      \"explanation\": \"Se está preparando y ejecutando una consulta a la base de données dentro del método `.map()`, lo que genera un problema de rendimiento N+1 al consultar las promociones individualmente por cada producto devuelto en el listado.\",\n      \"suggestion\": \"Preparar la sentencia SQL una sola vez fuera del router y utilizar una única consulta con un operador `IN` o un `JOIN` para obtener las promociones de todos los productos en una sola pasada.\",\n      \"confidence\": 0.95\n    }\n  ]\n}",
+    "inputTokens": 1980,
+    "outputTokens": 193,
+    "latencyMs": 2351
   }
 }

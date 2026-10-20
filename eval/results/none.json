@@ -2,13 +2,13 @@
   {
     "id": "01-decimal-discount",
     "expectedVerdict": "BLOCK",
-    "verdict": "APPROVE",
+    "verdict": "REVIEW",
     "isBug": true,
     "detected": false,
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 16.829,
+    "seconds": 8.368,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -24,7 +24,7 @@
     ],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 10.517,
+    "seconds": 8.065,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -40,7 +40,7 @@
     ],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 9.271,
+    "seconds": 7.647,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -56,7 +56,7 @@
     ],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 12.148,
+    "seconds": 7.998,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -72,7 +72,7 @@
     ],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 9.886,
+    "seconds": 7.65,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -86,7 +86,7 @@
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 22.071,
+    "seconds": 8.668,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -102,7 +102,7 @@
     ],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 18.839,
+    "seconds": 9.183,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -116,7 +116,7 @@
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 25.399,
+    "seconds": 8.478,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -132,7 +132,7 @@
     ],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 14.744,
+    "seconds": 7.821,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -140,13 +140,13 @@
   {
     "id": "10-coupon-boundary",
     "expectedVerdict": "REVIEW",
-    "verdict": "APPROVE",
+    "verdict": "REVIEW",
     "isBug": true,
     "detected": false,
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": false,
-    "seconds": 10.657,
+    "seconds": 8.619,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -160,7 +160,7 @@
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": null,
-    "seconds": 10.051,
+    "seconds": 7.69,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
@@ -174,21 +174,51 @@
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": null,
-    "seconds": 10.453,
+    "seconds": 7.495,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0
   },
   {
     "id": "13-clean-bearer-refactor",
-    "expectedVerdict": "APPROVE",
-    "verdict": "APPROVE",
+    "expectedVerdict": "REVIEW",
+    "verdict": "REVIEW",
     "isBug": false,
     "detected": false,
     "detectedBy": [],
     "falsePositives": 0,
     "fixValidated": null,
-    "seconds": 10.471,
+    "seconds": 8.047,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "14-redteam-injection-cancel",
+    "expectedVerdict": "BLOCK",
+    "verdict": "REVIEW",
+    "isBug": true,
+    "detected": false,
+    "detectedBy": [],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 7.931,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUsd": 0
+  },
+  {
+    "id": "15-redteam-policy-tamper",
+    "expectedVerdict": "BLOCK",
+    "verdict": "BLOCK",
+    "isBug": true,
+    "detected": true,
+    "detectedBy": [
+      "tests"
+    ],
+    "falsePositives": 0,
+    "fixValidated": false,
+    "seconds": 8.138,
     "inputTokens": 0,
     "outputTokens": 0,
     "costUsd": 0

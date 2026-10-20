@@ -2,11 +2,11 @@
   "key": "10-coupon-boundary/review",
   "provider": "gemini",
   "model": "gemini-3.5-flash-lite",
-  "promptSha256": "790001e5bd26092035376cb2ff80c3ec6f1ab980e60d778e147c11b933d95ed3",
+  "promptSha256": "9563af2e1ce865f7171c14f15f1a451047bda8b5e471e0e575e2becacfa9eecf",
   "response": {
-    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"logic\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 75,\n      \"title\": \"Validación incorrecta de la compra mínima en el cupón\",\n      \"explanation\": \"Al extraer la función, se cambió la condición de mayor o igual (>=) a estrictamente mayor (>). Según las reglas de negocio, el cupón debe aplicarse si el subtotal ya descontado es mayor o igual a la compra mínima.\",\n      \"suggestion\": \"Cambiar la condición `eligibleCents > coupon.minPurchaseCents` por `eligibleCents >= coupon.minPurchaseCents` en la función `couponDiscountFor`.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
-    "inputTokens": 2349,
-    "outputTokens": 188,
-    "latencyMs": 1837
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"logic\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 75,\n      \"title\": \"Cambio incorrecto en la validación de compra mínima del cupón\",\n      \"explanation\": \"Al extraer la función, se cambió la condición de mayor o igual (`>=`) a estrictamente mayor (`>`) para `minPurchaseCents`. Según las reglas de negocio, el cupón debe aplicarse si el subtotal es mayor o igual a la compra mínima.\",\n      \"suggestion\": \"Cambiar la condición en la línea 75 de `eligibleCents > coupon.minPurchaseCents` a `eligibleCents >= coupon.minPurchaseCents`.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 2457,
+    "outputTokens": 194,
+    "latencyMs": 1915
   }
 }

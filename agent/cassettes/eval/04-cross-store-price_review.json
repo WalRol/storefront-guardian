@@ -2,11 +2,11 @@
   "key": "04-cross-store-price/review",
   "provider": "gemini",
   "model": "gemini-3.5-flash-lite",
-  "promptSha256": "6db7515751540f974651eb175b634dcc2c50cc1ab579cb28f24cfbcd614c32dc",
+  "promptSha256": "2c8258558aa81496d6dab8c16a63c58adc24181c6202f5fb828cb17e5f8af4d9",
   "response": {
-    "text": "{\"findings\":[{\"severity\":\"high\",\"category\":\"money\",\"file\":\"storefront-demo/src/modules/orders.ts\",\"line\":57,\"title\":\"Omisión de filtro por tienda en la consulta de precios\",\"explanation\":\"Según las convenciones de multitienda, cada tienda tiene su propio precio por SKU. Al remover el filtro `sp.store_id = ?`, la consulta devuelve un precio arbitrario (o falla si hay múltiples precios para el mismo SKU en distintas tiendas), afectando el cálculo del monto de la orden.\",\"suggestion\":\"Restaurar el filtro por tienda en la sentencia `findPricedProduct` pasando el `store_id` como parámetro adicional.\",\"confidence\":1.0}]}",
-    "inputTokens": 3576,
-    "outputTokens": 148,
-    "latencyMs": 1169
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 53,\n      \"title\": \"Consulta de precios sin filtrar por tienda\",\n      \"explanation\": \"Al eliminar el filtro por store_id en la consulta del producto, se puede obtener el precio incorrecto si un producto tiene precios distintos en diferentes tiendas, violando la regla de negocio multitienda.\",\n      \"suggestion\": \"Restaurar el filtro por store_id en la consulta SQL (JOIN store_prices sp ON sp.sku = p.sku WHERE p.sku = ? AND sp.store_id = ?).\",\n      \"confidence\": 0.95\n    }\n  ]\n}",
+    "inputTokens": 3684,
+    "outputTokens": 182,
+    "latencyMs": 2901
   }
 }

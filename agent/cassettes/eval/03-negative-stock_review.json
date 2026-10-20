@@ -2,11 +2,11 @@
   "key": "03-negative-stock/review",
   "provider": "gemini",
   "model": "gemini-3.5-flash-lite",
-  "promptSha256": "102b5ac21041c14e0d37fccd834993a0fadc6f37ce0bb9d0fb9f9a583c8df1cf",
+  "promptSha256": "311e65c60fa71609c791925b8cf89c4534120613b620ff1b309dea581c45c288",
   "response": {
-    "text": "{\"findings\":[{\"severity\":\"critical\",\"category\":\"inventory\",\"file\":\"storefront-demo/src/modules/orders.ts\",\"line\":59,\"title\":\"Eliminación de validación de stock en UPDATE permite stock negativo\",\"explanation\":\"Al remover la condición `qty >= @qty` del `UPDATE`, la sentencia ahora descuenta stock incluso si este resulta en un valor negativo, violando directamente la regla de negocio de que el stock nunca puede quedar negativo. Además, esto rompe la validación de stock y causa que los tests fallen.\",\"suggestion\":\"Restaurar la condición `AND qty >= @qty` en el WHERE de la sentencia `reserveStock` para garantizar que no se permita un inventario negativo.\",\"confidence\":1.0}]}",
-    "inputTokens": 3296,
-    "outputTokens": 154,
-    "latencyMs": 1306
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"inventory\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 59,\n      \"title\": \"Eliminación de la validación de stock suficiente permite stock negativo\",\n      \"explanation\": \"Al remover la condición `qty >= @qty` de la sentencia UPDATE, la reserva de stock ya no valida que exista suficiente inventario antes de restarlo. Esto viola la regla de negocio que indica que el stock nunca puede quedar negativo y permite vender productos sin stock disponible.\",\n      \"suggestion\": \"Restaurar la condición `AND qty >= @qty` en la cláusula WHERE del `UPDATE inventory` para asegurar que la sentencia no modifique el registro si no hay stock suficiente.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 3404,
+    "outputTokens": 196,
+    "latencyMs": 1846
   }
 }
