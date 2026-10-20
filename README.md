@@ -47,7 +47,7 @@ Requisitos: **Node.js 20+** y **git**. Alternativa sin instalar nada: abrir el r
 (incluye un devcontainer listo).
 
 ```bash
-git clone <url-del-repo> storefront-guardian
+git clone https://github.com/WalRol/storefront-guardian.git
 cd storefront-guardian
 npm run setup     # instala dependencias de storefront-demo y del agente
 npm run demo      # revisa un PR de ejemplo con respuestas de IA grabadas (modo replay)

@@ -116,6 +116,7 @@ Desde **Normalizar**, otra salida hacia un nodo **Switch** (modo *Rules*) sobre 
 Canal sugerido para la demo: **Telegram** (gratis, llega al celular).
 Crear el bot con `@BotFather`, guardar el token como credencial de Telegram en n8n, y obtener el chat id
 enviándole un mensaje al bot y abriendo `https://api.telegram.org/bot<TOKEN>/getUpdates`.
+En el workflow exportado los nodos de Telegram traen `TU_CHAT_ID`: reemplazarlo por ese chat id.
 
 Nodo **Telegram → Send Message** en la salida `BLOCK`:
 
@@ -195,3 +196,13 @@ Prueba de punta a punta con el sistema real: en `.env` poner
 2. En GitHub: *Settings → Secrets and variables → Actions* → `N8N_WEBHOOK_URL` y `N8N_WEBHOOK_TOKEN`.
 3. Exportar el workflow (*⋯ → Download*) y guardarlo como `docs/n8n/guardian-workflow.json`.
    Las credenciales no se incluyen en la exportación.
+
+### Importar el workflow exportado
+
+En vez de armarlo a mano: *Workflows → Import from File* → [guardian-workflow.json](guardian-workflow.json).
+Después de importar:
+
+1. En el nodo **Webhook**, seleccionar la credencial Header Auth (paso 1).
+2. En **Insert row** y **Get row(s)**, volver a seleccionar la tabla `guardian_runs` (los ids de tabla son
+   propios de cada instancia de n8n).
+3. En los tres nodos de **Telegram**, seleccionar la credencial del bot y reemplazar `TU_CHAT_ID` (paso 6).

@@ -1,0 +1,585 @@
+{
+  "name": "Storefront Guardian — Alertas y métricas",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "guardian",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e127c862-3a32-403e-b1b7-c98fdb95ce2a",
+      "name": "Webhook",
+      "webhookId": "a1dd0771-26d7-460b-b726-8a65bec4470d",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "0dXZ72vKAbRbLIJL",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "20d7502d-a75b-4ed2-8f90-2ab13d86e21d",
+              "name": "at",
+              "value": "={{ $json.body.at }}",
+              "type": "string"
+            },
+            {
+              "id": "3da1384e-c1f2-4c11-bca6-9aa76ed5a30c",
+              "name": "repo",
+              "value": "={{ $json.body.repo ?? 'local' }}",
+              "type": "string"
+            },
+            {
+              "id": "351901b5-d33a-4301-9f77-8a8205839444",
+              "name": "pr",
+              "value": "={{ $json.body.pr.number ?? $json.body.label }}",
+              "type": "string"
+            },
+            {
+              "id": "b2c37ffb-7990-4776-bb24-06a96085e152",
+              "name": "title",
+              "value": "={{ $json.body.pr.title }}",
+              "type": "string"
+            },
+            {
+              "id": "9962201e-d73e-4870-a3bd-8199599ee1e0",
+              "name": "url",
+              "value": "={{ $json.body.pr.url ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "0bd3e601-84ef-48f5-85fc-be3e49cfa48c",
+              "name": "verdict",
+              "value": "={{ $json.body.verdict }}",
+              "type": "string"
+            },
+            {
+              "id": "e67346ab-48c8-47a7-b104-530d5280c277",
+              "name": "reasons",
+              "value": "={{ $json.body.reasons.join('\\n• ') }}",
+              "type": "string"
+            },
+            {
+              "id": "d4f4858f-13e6-483a-a6fe-c66f6d4e44f8",
+              "name": "findings",
+              "value": "={{ $json.body.counts.findings }}",
+              "type": "number"
+            },
+            {
+              "id": "c891b661-762f-465a-ab4c-206caa6a2170",
+              "name": "critical",
+              "value": "={{ $json.body.counts.critical }}",
+              "type": "number"
+            },
+            {
+              "id": "a01a11d1-e5d0-4b87-a5eb-42ce06ff1c57",
+              "name": "fixesValidated",
+              "value": "={{ $json.body.counts.fixesValidated }}",
+              "type": "number"
+            },
+            {
+              "id": "92cbe0fd-9410-48d3-bc09-fe48ea0f19b9",
+              "name": "seconds",
+              "value": "={{ $json.body.seconds }}",
+              "type": "number"
+            },
+            {
+              "id": "d4bcb2c9-37a5-4441-a13f-80361f3778a6",
+              "name": "minutesSaved",
+              "value": "={{ $json.body.minutesSavedEstimate }}",
+              "type": "number"
+            },
+            {
+              "id": "711bf4fa-1c83-4024-8450-aae743c8405f",
+              "name": "costUsd",
+              "value": "={{ $json.body.costUsd }}",
+              "type": "number"
+            },
+            {
+              "id": "3205f755-5dba-469f-9eba-afaee6a055ce",
+              "name": "model",
+              "value": "={{ $json.body.model }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7979de11-10f5-4a3d-b9e9-2944f2675980",
+      "name": "Normalizar"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.verdict }}",
+                    "rightValue": "BLOCK",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "bd94fc58-9ebc-4a92-9e24-44d380f972e7"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "BLOCK"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d2a98e0f-6e7e-4af4-be8a-21224072814d",
+                    "leftValue": "={{ $json.verdict }}",
+                    "rightValue": "REVIEW",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "REVIEW"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        -128
+      ],
+      "id": "dc45f2ec-b5e6-46e5-b3fb-b198f1da7fd4",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "TU_CHAT_ID",
+        "text": "=⛔ PR BLOQUEADO — {{ $json.repo }} #{{ $json.pr }}\n{{ $json.title }}\n\n• {{ $json.reasons }}\n\nFixes validados listos para aplicar: {{ $json.fixesValidated }}\n{{ $json.url }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        768,
+        -96
+      ],
+      "id": "f50ce2c4-7470-404d-a76e-b53607bfa37f",
+      "name": "Send a text message",
+      "webhookId": "05b7114f-8f1d-42fc-8a75-8b24a09cf05e",
+      "credentials": {
+        "telegramApi": {
+          "id": "0WBAxYtrEFUkX86U",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "TU_CHAT_ID",
+        "text": "=🟡 PR requiere revisión humana — {{ $json.repo }} #{{ $json.pr }}\n{{ $json.title }}\n\n• {{ $json.reasons }}\n{{ $json.url }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        768,
+        96
+      ],
+      "id": "fec2628c-b591-4ef2-b1d9-463d935a22e8",
+      "name": "Send a text message1",
+      "webhookId": "9f6df9ce-1610-4013-a4d1-d2706ae205e3",
+      "credentials": {
+        "telegramApi": {
+          "id": "0WBAxYtrEFUkX86U",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "fAUWtNrPf1xrOiL3",
+          "mode": "list",
+          "cachedResultName": "guardian_runs",
+          "cachedResultUrl": "/projects/9PyQUqFvA7Q9H2Nx/datatables/fAUWtNrPf1xrOiL3"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "findings": "={{ $json.findings }}",
+            "critical": "={{ $json.critical }}",
+            "fixesValidated": "={{ $json.fixesValidated }}",
+            "seconds": "={{ $json.seconds }}",
+            "minutesSaved": "={{ $json.minutesSaved }}",
+            "costUsd": "={{ $json.costUsd }}",
+            "at": "={{ $json.at }}",
+            "repo": "={{ $json.repo }}",
+            "pr": "={{ $json.pr }}",
+            "url": "={{ $json.url }}",
+            "verdict": "={{ $json.verdict }}",
+            "reasons": "={{ $json.reasons }}",
+            "model": "={{ $json.model }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "at",
+              "displayName": "at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "repo",
+              "displayName": "repo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pr",
+              "displayName": "pr",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "verdict",
+              "displayName": "verdict",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "reasons",
+              "displayName": "reasons",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "findings",
+              "displayName": "findings",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "critical",
+              "displayName": "critical",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "fixesValidated",
+              "displayName": "fixesValidated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "seconds",
+              "displayName": "seconds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "minutesSaved",
+              "displayName": "minutesSaved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "costUsd",
+              "displayName": "costUsd",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "model",
+              "displayName": "model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        80
+      ],
+      "id": "2c0a3ed3-3e21-43cd-8dd1-736e2ee58e60",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        32,
+        -464
+      ],
+      "id": "18003e3a-48a5-4568-80b5-8be0743accb0",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "fAUWtNrPf1xrOiL3",
+          "mode": "list",
+          "cachedResultName": "guardian_runs",
+          "cachedResultUrl": "/projects/9PyQUqFvA7Q9H2Nx/datatables/fAUWtNrPf1xrOiL3"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        -464
+      ],
+      "id": "f8789760-e5bf-45ec-8db4-9ae6255bd0f3",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;\nconst runs = $input.all().map((i) => i.json).filter((r) => new Date(r.at).getTime() >= weekAgo);\nconst count = (v) => runs.filter((r) => r.verdict === v).length;\nconst sum = (k) => runs.reduce((s, r) => s + Number(r[k] || 0), 0);\nreturn [{\n  json: {\n    total: runs.length,\n    blocked: count('BLOCK'),\n    review: count('REVIEW'),\n    approved: count('APPROVE'),\n    fixes: sum('fixesValidated'),\n    hoursSaved: (sum('minutesSaved') / 60).toFixed(1),\n    costUsd: sum('costUsd').toFixed(4),\n    avgSeconds: runs.length ? Math.round(sum('seconds') / runs.length) : 0,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -464
+      ],
+      "id": "50f44ffb-2698-4c97-8d55-ca15d59c28ba",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "chatId": "TU_CHAT_ID",
+        "text": "=📊 Storefront Guardian — última semana\nPRs revisados: {{ $json.total }} (⛔ {{ $json.blocked }} · 🟡 {{ $json.review }} · ✅ {{ $json.approved }})\nFixes validados entregados: {{ $json.fixes }}\nHoras estimadas ahorradas: {{ $json.hoursSaved }}\nTiempo promedio por PR: {{ $json.avgSeconds }} s · Costo: US$ {{ $json.costUsd }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        608,
+        -464
+      ],
+      "id": "7adb7d3d-d7a4-4989-9833-2ea289b22354",
+      "name": "Send a text message2",
+      "webhookId": "8c993406-d86d-4f31-a88c-716b55a8c2a9",
+      "credentials": {
+        "telegramApi": {
+          "id": "0WBAxYtrEFUkX86U",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "9df2d5b1-bcba-48c4-9bea-81fb828e1739",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "51a53325eb0d272923bf2776a1fb09ea6d7eaa36daf82bcaddcf1a31786edc51"
+  },
+  "id": "IiSK69CtkbEhgppF",
+  "tags": []
+}

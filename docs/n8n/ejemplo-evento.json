@@ -1,11 +1,11 @@
 {
   "event": "guardian.run",
   "at": "2026-10-16T17:29:52.426Z",
-  "repo": "tu-usuario/storefront-guardian",
+  "repo": "WalRol/storefront-guardian",
   "pr": {
     "number": 42,
     "title": "feat(promos): soportar porcentajes decimales en promociones de categoría",
-    "url": "https://github.com/tu-usuario/storefront-guardian/pull/42"
+    "url": "https://github.com/WalRol/storefront-guardian/pull/42"
   },
   "label": "pr-42",
   "verdict": "BLOCK",
