@@ -53,4 +53,26 @@ describe('gate', () => {
   it('ignora hallazgos low', () => {
     expect(decide(green, [finding({ severity: 'low' })], [], policy).verdict).toBe('APPROVE');
   });
+
+  describe('archivos sensibles', () => {
+    const strict = {
+      ...policy,
+      gate: { ...policy.gate, sensitivePaths: ['guardian.policy.yaml', 'agent/**', 'src/auth.ts'] },
+    } as Policy;
+
+    it('no aprueba solo un PR que toca un archivo sensible', () => {
+      const decision = decide(green, [], [], strict, ['src/auth.ts', 'src/app.ts']);
+      expect(decision.verdict).toBe('REVIEW');
+      expect(decision.reasons[0]).toContain('src/auth.ts');
+    });
+
+    it('resuelve ** en cualquier profundidad y no confunde nombres parecidos', () => {
+      expect(decide(green, [], [], strict, ['agent/src/gate.ts']).verdict).toBe('REVIEW');
+      expect(decide(green, [], [], strict, ['src/auth.tsx', 'docs/guardian.policy.yaml']).verdict).toBe('APPROVE');
+    });
+
+    it('si ya bloquea, sigue bloqueando', () => {
+      expect(decide(green, [finding({})], [], strict, ['guardian.policy.yaml']).verdict).toBe('BLOCK');
+    });
+  });
 });

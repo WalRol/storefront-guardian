@@ -11,8 +11,9 @@ export function decide(
   findings: Finding[],
   fixes: FixResult[],
   policy: Policy,
+  changedPaths: string[] = [],
 ): GateDecision {
-  const { blockOn, reviewOn } = policy.gate;
+  const { blockOn, reviewOn, sensitivePaths = [] } = policy.gate;
   const block: string[] = [];
   const review: string[] = [];
 
@@ -35,8 +36,24 @@ export function decide(
     }
   }
 
+  // Si el PR toca un archivo sensible, ni un prompt injection exitoso ni una IA caída
+  // lo llevan a APROBADO: que el revisor no encuentre nada no alcanza.
+  const sensitive = changedPaths.filter((p) => sensitivePaths.some((glob) => globToRegExp(glob).test(p)));
+  if (block.length === 0 && sensitive.length > 0) {
+    review.push(`Toca archivos sensibles (${sensitive.join(', ')}): requieren revisión humana aunque no haya hallazgos.`);
+  }
+
   const verdict: Verdict = block.length > 0 ? 'BLOCK' : review.length > 0 ? 'REVIEW' : 'APPROVE';
   const reasons = [...block, ...review];
   if (verdict === 'APPROVE') reasons.push('Compila, los tests pasan y no se encontraron problemas relevantes.');
   return { verdict, reasons };
+}
+
+/** Glob mínimo: `**` cualquier ruta, `*` cualquier nombre dentro de una carpeta. */
+function globToRegExp(glob: string): RegExp {
+  const source = glob
+    .split('**')
+    .map((part) => part.split('*').map((s) => s.replace(/[.+?^${}()|[\]\\]/g, '\\$&')).join('[^/]*'))
+    .join('.*');
+  return new RegExp(`^${source}$`);
 }

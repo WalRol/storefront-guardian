@@ -1,6 +1,7 @@
 import { dedupe, review } from './agents/reviewer';
 import { fixFinding, selectFixable } from './agents/fixer';
 import { runProjectChecks } from './checks/project';
+import { scanPromptInjection } from './checks/prompt-injection';
 import { scanSecrets } from './checks/secrets';
 import { scanStaticRules } from './checks/static-rules';
 import { parseDiff } from './diff';
@@ -55,7 +56,11 @@ export async function runPipeline(opts: PipelineOptions): Promise<RunReport> {
     let checks: CheckResult[] = [];
     let deterministic: Finding[] = [];
     await meter.stage('chequeos determinísticos', async () => {
-      deterministic = [...scanSecrets(changedFiles), ...scanStaticRules(changedFiles)];
+      deterministic = [
+        ...scanSecrets(changedFiles),
+        ...scanStaticRules(changedFiles),
+        ...scanPromptInjection(opts.title, opts.body, changedFiles),
+      ];
       checks = await runProjectChecks(ws.dir, policy);
     });
 
@@ -94,7 +99,7 @@ export async function runPipeline(opts: PipelineOptions): Promise<RunReport> {
       });
     }
 
-    const decision = decide(checks, findings, fixes, policy);
+    const decision = decide(checks, findings, fixes, policy, changedFiles.map((f) => f.path));
     return {
       label,
       title: opts.title,

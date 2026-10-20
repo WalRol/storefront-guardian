@@ -48,6 +48,8 @@ const policySchema = z.object({
         })
         .default({}),
       reviewOn: z.object({ severities: z.array(severity).default(['medium']) }).default({}),
+      /** Globs (desde la raíz del repo) que nunca se aprueban solos: como mínimo, van a revisión humana. */
+      sensitivePaths: z.array(z.string()).default([]),
     })
     .default({}),
   /**
