@@ -1,0 +1,8 @@
+{
+  "id": "05-coupon-per-line",
+  "title": "feat(pricing): mostrar el descuento del cupón por producto",
+  "body": "El detalle de la orden ahora muestra cuánto descontó el cupón en cada línea, para que atención al cliente pueda explicar el total.",
+  "expected": "BLOCK",
+  "bug": "El cupón de S/ 50 se descuenta una vez por línea: con 3 productos distintos descuenta S/ 150.",
+  "inConventions": false
+}

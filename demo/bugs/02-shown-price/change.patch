@@ -1,0 +1,30 @@
+diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts
+index 2dac633..42d85f6 100644
+--- a/storefront-demo/src/modules/orders.ts
++++ b/storefront-demo/src/modules/orders.ts
+@@ -10,6 +10,8 @@ const checkoutSchema = z.object({
+       z.object({
+         sku: z.string().min(1),
+         qty: z.number().int().positive().max(20),
++        /** Precio que el cliente vio en la vitrina; evita cobrar distinto si cambió durante la compra. */
++        shownPriceCents: z.number().int().positive().optional(),
+       }),
+     )
+     .min(1),
+@@ -76,14 +78,14 @@ export function ordersRouter(db: DB): Router {
+   // descuenta stock de ningún otro.
+   const checkout = db.transaction(
+     (userId: number, storeId: string, input: z.infer<typeof checkoutSchema>) => {
+-      const lines: CartLine[] = input.items.map(({ sku, qty }) => {
++      const lines: CartLine[] = input.items.map(({ sku, qty, shownPriceCents }) => {
+         const product = findPricedProduct.get(sku, storeId) as
+           | Omit<CartLine, 'qty'>
+           | undefined;
+         if (!product) throw new CheckoutError(404, 'PRODUCT_NOT_FOUND');
+         const { changes } = reserveStock.run({ storeId, sku, qty });
+         if (changes === 0) throw new CheckoutError(409, 'OUT_OF_STOCK');
+-        return { ...product, qty };
++        return { ...product, unitPriceCents: shownPriceCents ?? product.unitPriceCents, qty };
+       });
+ 
+       const promotions = (findPromotions.all(storeId) as PromotionRow[]).map(toPromotion);

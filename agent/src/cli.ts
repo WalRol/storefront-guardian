@@ -12,6 +12,7 @@ import { renderMarkdown } from './report';
 const USAGE = `Uso:
   guardian review --base <ref> (--head <ref> | --patch <archivo>) [opciones]
   guardian review --case <id>        Corre un caso de eval/cases (ideal para demos)
+  guardian review --demo <id>        Corre un bug de demo/bugs (respuestas grabadas en cassettes/demo)
 
 Opciones:
   --provider <p>   ${PROVIDERS.join(' | ')}  (por defecto: GUARDIAN_PROVIDER o "replay")
@@ -48,6 +49,7 @@ async function main() {
       out: { type: 'string' },
       cassettes: { type: 'string', default: 'cassettes' },
       case: { type: 'string' },
+      demo: { type: 'string' },
       'pr-number': { type: 'string' },
       'pr-url': { type: 'string' },
       'exit-zero': { type: 'boolean', default: false },
@@ -56,6 +58,17 @@ async function main() {
   });
 
   const repoDir = values.repo ?? (await git(['rev-parse', '--show-toplevel'], process.cwd())).trim();
+
+  if (values.demo) {
+    const demoDir = path.join(repoDir, 'demo', 'bugs', values.demo);
+    const meta = JSON.parse(fs.readFileSync(path.join(demoDir, 'bug.json'), 'utf8'));
+    values.base ??= 'HEAD';
+    values.patch = path.join(demoDir, 'change.patch');
+    values.title ??= meta.title;
+    values.body ||= meta.body;
+    values.label ??= values.demo;
+    if (values.cassettes === 'cassettes') values.cassettes = 'cassettes/demo';
+  }
 
   if (values.case) {
     const caseDir = path.join(repoDir, 'eval', 'cases', values.case);

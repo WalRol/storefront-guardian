@@ -1,0 +1,8 @@
+{
+  "id": "04-internal-header",
+  "title": "feat(auth): identificación de servicios internos",
+  "body": "El backoffice y los jobs nocturnos necesitan actuar en nombre de un usuario sin su token. Se acepta el header x-user-id.",
+  "expected": "BLOCK",
+  "bug": "Bypass de autenticación: cualquier cliente que mande x-user-id: 1 entra como Ana.",
+  "inConventions": false
+}

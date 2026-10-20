@@ -1,0 +1,12 @@
+{
+  "key": "03-cached-promotions/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "1de6120d4b010fedbde24ac0a0708e2181c8d21b026ec9c5bfa24239a345f389",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 64,\n      \"title\": \"Las promociones no filtran por tienda (store_id)\",\n      \"explanation\": \"El PR eliminó el filtro por `store_id` al consultar la tabla `promotions` al cargar el router. Dado que se trata de una arquitectura multitienda donde cada tienda tiene sus propias reglas y promociones, cargar todas las promociones globalmente puede aplicar descuentos de una tienda a otra incorrectamente.\",\n      \"suggestion\": \"Restaurar el filtrado por tienda o asegurar que las promociones se consulten por `store_id` en el momento de realizar el checkout.\",\n      \"confidence\": 0.95\n    }\n  ]\n}",
+    "inputTokens": 3261,
+    "outputTokens": 198,
+    "latencyMs": 17523
+  }
+}

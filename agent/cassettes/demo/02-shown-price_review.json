@@ -1,0 +1,12 @@
+{
+  "key": "02-shown-price/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "458cfd0b637575ce14d84dbaa5c2dfe88ef0f8bcdce4f4531590d0bd2bc56664",
+  "response": {
+    "text": "{\"findings\":[]}",
+    "inputTokens": 3413,
+    "outputTokens": 4,
+    "latencyMs": 23140
+  }
+}

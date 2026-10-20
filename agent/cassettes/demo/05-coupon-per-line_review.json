@@ -1,0 +1,12 @@
+{
+  "key": "05-coupon-per-line/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "c6d5ac039de49adae1d4ee7aa340236233232cddf64515656930be26461605a8",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 61,\n      \"title\": \"Aplicación incorrecta de cupón de monto fijo por línea\",\n      \"explanation\": \"El código suma `coupon.amountCents` a `discountCents` de **cada línea** del carrito en lugar de aplicarlo una única vez al total. Si un carrito tiene 3 líneas, un cupón de $10.00 (1000 céntimos) terminará descontando $30.00 (3000 céntimos) en total, lo que genera una pérdida directa de dinero.\",\n      \"suggestion\": \"Distribuir el monto fijo del cupón proporcionalmente entre las líneas o mantener el descuento del cupón a nivel global sin modificar los descuentos individuales de las líneas de forma aditiva por cada ítem.\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 2365,
+    "outputTokens": 233,
+    "latencyMs": 17751
+  }
+}

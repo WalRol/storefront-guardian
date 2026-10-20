@@ -1,0 +1,24 @@
+diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts
+index 2dac633..ed24217 100644
+--- a/storefront-demo/src/modules/orders.ts
++++ b/storefront-demo/src/modules/orders.ts
+@@ -60,7 +60,8 @@ export function ordersRouter(db: DB): Router {
+     UPDATE inventory SET qty = qty - @qty
+     WHERE store_id = @storeId AND sku = @sku AND qty >= @qty
+   `);
+-  const findPromotions = db.prepare('SELECT * FROM promotions WHERE store_id = ?');
++  // Las promociones cambian poco: se cargan una vez al crear el router en vez de en cada checkout.
++  const allPromotions = (db.prepare('SELECT * FROM promotions').all() as PromotionRow[]).map(toPromotion);
+   const insertOrder = db.prepare(`
+     INSERT INTO orders (user_id, store_id, subtotal_cents, discount_cents, total_cents)
+     VALUES (@userId, @storeId, @subtotalCents, @discountCents, @totalCents)
+@@ -86,8 +87,7 @@ export function ordersRouter(db: DB): Router {
+         return { ...product, qty };
+       });
+ 
+-      const promotions = (findPromotions.all(storeId) as PromotionRow[]).map(toPromotion);
+-      const totals = priceCart(lines, promotions, input.couponCode);
++      const totals = priceCart(lines, allPromotions, input.couponCode);
+ 
+       const { lastInsertRowid } = insertOrder.run({
+         userId,

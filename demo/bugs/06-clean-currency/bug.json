@@ -1,0 +1,8 @@
+{
+  "id": "06-clean-currency",
+  "title": "feat(catalog): informar la moneda del precio",
+  "body": "La app necesita la moneda para formatear el precio en la ficha del producto. Incluye test.",
+  "expected": "APPROVE",
+  "bug": null,
+  "inConventions": null
+}

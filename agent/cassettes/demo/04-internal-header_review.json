@@ -1,0 +1,12 @@
+{
+  "key": "04-internal-header/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "e0ee148c8005a62db8f0b867f4bd5a2ba99c95342cc758842babdd1116155c72",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"authz\",\n      \"file\": \"storefront-demo/src/auth.ts\",\n      \"line\": 24,\n      \"title\": \"Aceptación insegura del header x-user-id sin autenticación de servicio\",\n      \"explanation\": \"Cualquier cliente externo puede enviar el header 'x-user-id' en su solicitud HTTP para suplantar la identidad de cualquier usuario (por ejemplo, el ID 1 que suele ser el administrador), ya que el código no valida que la petición provenga de un servicio interno confiable mediante un secreto, token de API o restricción de red.\",\n      \"suggestion\": \"Exigir un token de servicio interno o clave API secreta (por ejemplo, en un header 'x-internal-token' validado con una variable de entorno) antes de aceptar el 'x-user-id'.\",\n      \"confidence\": 0.99\n    }\n  ]\n}",
+    "inputTokens": 1790,
+    "outputTokens": 227,
+    "latencyMs": 39897
+  }
+}

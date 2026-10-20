@@ -1,0 +1,12 @@
+{
+  "key": "06-clean-currency/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "49894f3ca70ee052172e3168f489cda8f8022a25856c1575f050d0f8c135e94c",
+  "response": {
+    "text": "{\"findings\":[]}",
+    "inputTokens": 3775,
+    "outputTokens": 4,
+    "latencyMs": 108386
+  }
+}

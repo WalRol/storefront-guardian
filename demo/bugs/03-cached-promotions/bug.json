@@ -1,0 +1,8 @@
+{
+  "id": "03-cached-promotions",
+  "title": "perf(orders): cargar promociones una sola vez",
+  "body": "Las promociones cambian poco: se cargan al crear el router en vez de consultarlas en cada checkout.",
+  "expected": "BLOCK",
+  "bug": "Se cargan las promociones de todas las tiendas: la promo de moda de la tienda online se aplica en Lima Centro. Además, una promo nueva no se ve hasta reiniciar.",
+  "inConventions": true
+}

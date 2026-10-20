@@ -1,0 +1,8 @@
+{
+  "id": "02-shown-price",
+  "title": "feat(checkout): respetar el precio mostrado en vitrina",
+  "body": "Si el precio cambia mientras el cliente está en el checkout, hoy le cobramos el nuevo y genera reclamos. Ahora se respeta el precio que vio (shownPriceCents).",
+  "expected": "BLOCK",
+  "bug": "El cliente elige el precio que paga: puede mandar shownPriceCents: 1.",
+  "inConventions": false
+}

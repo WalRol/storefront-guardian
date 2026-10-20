@@ -119,7 +119,7 @@ export async function runPipeline(opts: PipelineOptions): Promise<RunReport> {
       title: opts.title,
       base: opts.base,
       provider: provider?.name ?? 'none',
-      model: provider?.model ?? 'sin IA',
+      model: !provider ? 'sin IA' : aiUnavailable ? 'ninguno respondió' : provider.model,
       decision,
       checks,
       findings,

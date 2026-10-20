@@ -1,0 +1,27 @@
+diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts
+index e3d4aff..4782924 100644
+--- a/storefront-demo/src/pricing.ts
++++ b/storefront-demo/src/pricing.ts
+@@ -51,18 +51,19 @@ export function priceCart(
+   const subtotalCents = pricedLines.reduce((sum, l) => sum + l.unitPriceCents * l.qty, 0);
+   const lineDiscounts = pricedLines.reduce((sum, l) => sum + l.discountCents, 0);
+ 
+-  let couponDiscount = 0;
+   if (couponCode) {
+     const coupon = promotions.find(
+       (p): p is Extract<Promotion, { type: 'COUPON_FIXED' }> =>
+         p.type === 'COUPON_FIXED' && p.code === couponCode,
+     );
+     if (coupon && subtotalCents - lineDiscounts >= coupon.minPurchaseCents) {
+-      couponDiscount = coupon.amountCents;
++      // El cupón se registra en cada línea para que el detalle de la orden muestre el descuento por producto.
++      for (const line of pricedLines) line.discountCents += coupon.amountCents;
+     }
+   }
+ 
+-  const discountCents = Math.min(lineDiscounts + couponDiscount, subtotalCents);
++  const totalDiscounts = pricedLines.reduce((sum, l) => sum + l.discountCents, 0);
++  const discountCents = Math.min(totalDiscounts, subtotalCents);
+   return {
+     lines: pricedLines,
+     subtotalCents,

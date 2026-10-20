@@ -1,0 +1,12 @@
+{
+  "key": "01-assisted-checkout/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "dee24f923aa031988336510ccec969d35b23fd57840ae969e303c048653af0f1",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"high\",\n      \"category\": \"authz\",\n      \"file\": \"storefront-demo/src/modules/orders.ts\",\n      \"line\": 115,\n      \"title\": \"Falta validación de autorización para el parámetro userId en compras asistidas\",\n      \"explanation\": \"Cualquier usuario autenticado puede enviar el campo `userId` en el body del request y crear una orden a nombre de otro usuario, ya que no se valida si el usuario actual tiene permisos de soporte o rol de agente antes de usar el `userId` provisto.\",\n      \"suggestion\": \"Validar que el usuario autenticado (`req.user`) tenga permisos o rol de soporte antes de permitir el uso de un `userId` diferente al propio.\",\n      \"confidence\": 0.95\n    }\n  ]\n}",
+    "inputTokens": 3228,
+    "outputTokens": 194,
+    "latencyMs": 19257
+  }
+}

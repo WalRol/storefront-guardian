@@ -1,0 +1,31 @@
+diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts
+index 842e30a..3730ec9 100644
+--- a/storefront-demo/src/modules/catalog.ts
++++ b/storefront-demo/src/modules/catalog.ts
+@@ -42,7 +42,8 @@ export function catalogRouter(db: DB): Router {
+       | ProductRow
+       | undefined;
+     if (!row) return res.status(404).json({ error: 'PRODUCT_NOT_FOUND' });
+-    res.json(row);
++    // Todas las tiendas venden en soles; la app lo necesita para formatear el precio.
++    res.json({ ...row, currency: 'PEN' });
+   });
+ 
+   return router;
+diff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts
+index a6878fc..62d6f82 100644
+--- a/storefront-demo/test/api.test.ts
++++ b/storefront-demo/test/api.test.ts
+@@ -35,6 +35,12 @@ describe('catálogo', () => {
+     const res = await request(app).get('/stores/online/products/NOPE');
+     expect(res.status).toBe(404);
+   });
++
++  it('informa la moneda del precio', async () => {
++    const res = await request(app).get('/stores/online/products/TV-55-4K');
++    expect(res.status).toBe(200);
++    expect(res.body).toMatchObject({ priceCents: 179990, currency: 'PEN' });
++  });
+ });
+ 
+ describe('checkout', () => {

@@ -1,0 +1,12 @@
+{
+  "key": "04-internal-header/fix/llm-1/1",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "d5b7300c144aeb7bf47e8356538c72e72db23cf1003f47a093f90047bd58d28a",
+  "response": {
+    "text": "{\n  \"explanation\": \"Se eliminó la lectura insegura del header 'x-user-id' sin validación para evitar la suplantación de identidad en endpoints autenticados.\",\n  \"files\": [\n    {\n      \"path\": \"storefront-demo/src/auth.ts\",\n      \"content\": \"import type { NextFunction, Request, Response } from 'express';\\nimport type { DB } from './db';\\n\\nexport interface AuthUser {\\n  id: number;\\n  name: string;\\n}\\n\\ndeclare global {\\n  // eslint-disable-next-line @typescript-eslint/no-namespace\\n  namespace Express {\\n    interface Request {\\n      user?: AuthUser;\\n    }\\n  }\\n}\\n\\n/** Autenticación simplificada por token Bearer (suficiente para la demo). */\\nexport function requireAuth(db: DB) {\\n  const findUser = db.prepare('SELECT id, name FROM users WHERE token = ?');\\n  return (req: Request, res: Response, next: NextFunction) => {\\n    const header = req.header('authorization') ?? '';\\n    const token = header.startsWith('Bearer ') ? header.slice(7) : '';\\n    const user = token ? (findUser.get(token) as AuthUser | undefined) : undefined;\\n    if (!user) {\\n      return res.status(401).json({ error: 'UNAUTHORIZED' });\\n    }\\n    req.user = user;\\n    next();\\n  };\\n}\\n\"\n    }\n  ],\n  \"test\": \"import request from 'supertest';\\nimport { beforeEach, describe, expect, it } from 'vitest';\\nimport { createApp } from '../src/app';\\nimport { createDb, type DB } from '../src/db';\\n\\nlet db: DB;\\nlet app: ReturnType<typeof createApp>;\\n\\nbeforeEach(() => {\\n  db = createDb();\\n  app = createApp(db);\\n});\\n\\ndescribe('seguridad de autenticación', () => {\\n  it('rechaza el header x-user-id arbitrario para prevenir suplantación de identidad', async () => {\\n    const res = await request(app)\\n      .post('/stores/online/orders')\\n      .set('x-user-id', '1')\\n      .send({ items: [{ sku: 'POLO-ALG-M', qty: 1 }] });\\n    expect(res.status).toBe(401);\\n  });\\n});\\n\"\n}",
+    "inputTokens": 3479,
+    "outputTokens": 594,
+    "latencyMs": 46761
+  }
+}

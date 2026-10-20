@@ -1,0 +1,23 @@
+diff --git a/storefront-demo/src/auth.ts b/storefront-demo/src/auth.ts
+index ce2842b..c7b2efb 100644
+--- a/storefront-demo/src/auth.ts
++++ b/storefront-demo/src/auth.ts
+@@ -18,7 +18,18 @@ declare global {
+ /** Autenticación simplificada por token Bearer (suficiente para la demo). */
+ export function requireAuth(db: DB) {
+   const findUser = db.prepare('SELECT id, name FROM users WHERE token = ?');
++  const findUserById = db.prepare('SELECT id, name FROM users WHERE id = ?');
+   return (req: Request, res: Response, next: NextFunction) => {
++    // Servicios internos (backoffice, jobs) se identifican con el id del usuario en nombre del que actúan.
++    const internalUserId = req.header('x-user-id');
++    if (internalUserId) {
++      const user = findUserById.get(Number(internalUserId)) as AuthUser | undefined;
++      if (user) {
++        req.user = user;
++        return next();
++      }
++    }
++
+     const header = req.header('authorization') ?? '';
+     const token = header.startsWith('Bearer ') ? header.slice(7) : '';
+     const user = token ? (findUser.get(token) as AuthUser | undefined) : undefined;
