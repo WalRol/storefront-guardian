@@ -11,7 +11,8 @@
     "guardian": "tsx src/cli.ts",
     "eval": "tsx src/eval.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "export-dashboard": "tsx src/export-dashboard.ts"
   },
   "dependencies": {
     "yaml": "^2.6.1",

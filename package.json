@@ -3,9 +3,11 @@
   "private": true,
   "description": "Atajos para instalar, correr la demo y el eval",
   "scripts": {
-    "setup": "npm ci --prefix storefront-demo && npm ci --prefix agent",
+    "setup": "npm ci --prefix storefront-demo && npm ci --prefix agent && npm ci --prefix dashboard",
     "demo": "npm run guardian --prefix agent -- review --case 06-idor-order-history --provider replay --cassettes cassettes/eval --exit-zero",
     "eval": "npm run eval --prefix agent --",
-    "test": "npm test --prefix storefront-demo && npm test --prefix agent"
+    "test": "npm test --prefix storefront-demo && npm test --prefix agent",
+    "dashboard:data": "npm run export-dashboard --prefix agent",
+    "dashboard": "npm run dev --prefix dashboard"
   }
 }

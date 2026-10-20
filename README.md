@@ -3,6 +3,9 @@
 Sistema de agentes que acompaña el ciclo de desarrollo de un equipo que mantiene tiendas online:
 **revisa cada Pull Request, propone correcciones que demuestra que funcionan, y decide si el cambio puede avanzar.**
 
+**▶ Panel en vivo: [walrol.github.io/storefront-guardian](https://walrol.github.io/storefront-guardian/)**: métricas
+de los 13 PRs revisados y, para cada uno, qué hizo cada agente, sin instalar nada.
+
 ```
           PR (diff)
               │
@@ -116,6 +119,21 @@ Cada corrida también queda registrada localmente en `.guardian-out/runs.jsonl`.
 El workflow de n8n que notifica al equipo y arma el resumen semanal de valor está documentado en
 [docs/n8n/](docs/n8n/README.md).
 
+## Panel web
+
+[dashboard/](dashboard/) es un sitio estático (React + Vite) que muestra las métricas del eval y, para cada PR,
+el recorrido por el pipeline: chequeos, hallazgos, fixes con su patch y el veredicto del gate. Se publica en
+GitHub Pages con [.github/workflows/dashboard.yml](.github/workflows/dashboard.yml) en cada push a `main`.
+
+```bash
+npm run dashboard:data   # regenera dashboard/public/data.json corriendo los 13 casos en modo replay
+npm run dashboard        # servidor local en http://localhost:5173
+```
+
+Los datos no requieren servidor ni API key: tiempos, tokens y costos salen de la corrida real con Gemini
+([eval/results/gemini.json](eval/results/gemini.json)); el detalle de cada PR, del modo replay, donde typecheck,
+tests y la validación rojo → verde se ejecutan de verdad.
+
 ## Evaluación
 
 El sistema se mide contra 13 PRs de prueba en [eval/cases/](eval/cases/): 10 con bugs típicos de e-commerce
@@ -153,7 +171,9 @@ agent/
   src/gate.ts          Decisión APROBADO / REVISIÓN / BLOQUEADO
   src/pipeline.ts      Orquestación
   src/eval.ts          Runner del eval
+  src/export-dashboard.ts  Genera los datos del panel web
   cassettes/           Respuestas grabadas para el modo replay
+dashboard/             Panel web (React + Vite), publicado en GitHub Pages
 eval/cases/            13 PRs de prueba (patch + resultado esperado)
 eval/results/          Resultados del eval por proveedor
 guardian.policy.yaml   Política del gate

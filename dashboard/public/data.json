@@ -1,0 +1,2061 @@
+{
+  "generatedAt": "2026-10-20T02:08:30.360Z",
+  "policy": {
+    "value": {
+      "reviewMinutes": 15,
+      "fixMinutes": 30
+    },
+    "pricing": {
+      "inputPerMTok": 0.3,
+      "outputPerMTok": 2.5
+    },
+    "gate": {
+      "blockOn": {
+        "typecheckFail": true,
+        "testsFail": true,
+        "severities": [
+          "critical",
+          "high"
+        ]
+      },
+      "reviewOn": {
+        "severities": [
+          "medium"
+        ]
+      }
+    }
+  },
+  "evalRuns": {
+    "gemini": [
+      {
+        "id": "01-decimal-discount",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 91.24,
+        "inputTokens": 8127,
+        "outputTokens": 1315,
+        "costUsd": 0.0057256,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "02-stacked-promos",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 29.685,
+        "inputTokens": 6424,
+        "outputTokens": 1238,
+        "costUsd": 0.0050222,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "03-negative-stock",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 39.265,
+        "inputTokens": 7738,
+        "outputTokens": 2013,
+        "costUsd": 0.0073539,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "04-cross-store-price",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 30.119,
+        "inputTokens": 8007,
+        "outputTokens": 2057,
+        "costUsd": 0.0075446,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "05-sqli-category",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "static"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 25.559,
+        "inputTokens": 7921,
+        "outputTokens": 1361,
+        "costUsd": 0.005778799999999999,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "06-idor-order-history",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 26.542,
+        "inputTokens": 9826,
+        "outputTokens": 2192,
+        "costUsd": 0.0084278,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "07-hardcoded-secret",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "secrets"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 18.803,
+        "inputTokens": 2183,
+        "outputTokens": 337,
+        "costUsd": 0.0014974,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "08-n-plus-one",
+        "expectedVerdict": "REVIEW",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 12.904,
+        "inputTokens": 1872,
+        "outputTokens": 205,
+        "costUsd": 0.0010741,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "09-error-leak",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "static"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 46.854,
+        "inputTokens": 8305,
+        "outputTokens": 1410,
+        "costUsd": 0.0060165,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "10-coupon-boundary",
+        "expectedVerdict": "REVIEW",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 29.238,
+        "inputTokens": 6141,
+        "outputTokens": 1290,
+        "costUsd": 0.0050673,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "11-clean-list-stores",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 18.021,
+        "inputTokens": 3772,
+        "outputTokens": 4,
+        "costUsd": 0.0011416,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "12-clean-pagination",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 26.332,
+        "inputTokens": 4015,
+        "outputTokens": 4,
+        "costUsd": 0.0012145,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "13-clean-bearer-refactor",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 16.909,
+        "inputTokens": 1980,
+        "outputTokens": 4,
+        "costUsd": 0.000604,
+        "model": "gemini-3.5-flash-lite"
+      }
+    ],
+    "none": [
+      {
+        "id": "01-decimal-discount",
+        "expectedVerdict": "BLOCK",
+        "verdict": "APPROVE",
+        "isBug": true,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 16.829,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "02-stacked-promos",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 10.517,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "03-negative-stock",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 9.271,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "04-cross-store-price",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 12.148,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "05-sqli-category",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "static"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 9.886,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "06-idor-order-history",
+        "expectedVerdict": "BLOCK",
+        "verdict": "APPROVE",
+        "isBug": true,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 22.071,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "07-hardcoded-secret",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "secrets"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 18.839,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "08-n-plus-one",
+        "expectedVerdict": "REVIEW",
+        "verdict": "APPROVE",
+        "isBug": true,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 25.399,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "09-error-leak",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "static"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 14.744,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "10-coupon-boundary",
+        "expectedVerdict": "REVIEW",
+        "verdict": "APPROVE",
+        "isBug": true,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 10.657,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "11-clean-list-stores",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 10.051,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "12-clean-pagination",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 10.453,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      },
+      {
+        "id": "13-clean-bearer-refactor",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 10.471,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUsd": 0
+      }
+    ],
+    "noContext": [
+      {
+        "id": "01-decimal-discount",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 26.226,
+        "inputTokens": 3951,
+        "outputTokens": 178,
+        "costUsd": 0.0016303,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "02-stacked-promos",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 23.115,
+        "inputTokens": 2309,
+        "outputTokens": 212,
+        "costUsd": 0.0012226999999999997,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "03-negative-stock",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 28.836,
+        "inputTokens": 2945,
+        "outputTokens": 203,
+        "costUsd": 0.001391,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "04-cross-store-price",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 21.617,
+        "inputTokens": 3225,
+        "outputTokens": 234,
+        "costUsd": 0.0015525,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "05-sqli-category",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "static"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 58.624,
+        "inputTokens": 3775,
+        "outputTokens": 203,
+        "costUsd": 0.00164,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "06-idor-order-history",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 20.208,
+        "inputTokens": 4807,
+        "outputTokens": 192,
+        "costUsd": 0.0019221,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "07-hardcoded-secret",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "secrets"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 16.098,
+        "inputTokens": 1053,
+        "outputTokens": 4,
+        "costUsd": 0.00032589999999999995,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "08-n-plus-one",
+        "expectedVerdict": "REVIEW",
+        "verdict": "REVIEW",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 13.103,
+        "inputTokens": 1521,
+        "outputTokens": 191,
+        "costUsd": 0.0009337999999999999,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "09-error-leak",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "static"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 15.132,
+        "inputTokens": 1035,
+        "outputTokens": 161,
+        "costUsd": 0.000713,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "10-coupon-boundary",
+        "expectedVerdict": "REVIEW",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 15.816,
+        "inputTokens": 1998,
+        "outputTokens": 190,
+        "costUsd": 0.0010744,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "11-clean-list-stores",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 14.496,
+        "inputTokens": 3421,
+        "outputTokens": 4,
+        "costUsd": 0.0010363,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "12-clean-pagination",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 15.054,
+        "inputTokens": 3664,
+        "outputTokens": 5,
+        "costUsd": 0.0011117,
+        "model": "gemini-3.5-flash-lite"
+      },
+      {
+        "id": "13-clean-bearer-refactor",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 17.707,
+        "inputTokens": 1629,
+        "outputTokens": 4,
+        "costUsd": 0.0004987,
+        "model": "gemini-3.5-flash-lite"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "01-decimal-discount",
+      "title": "feat(promos): soportar porcentajes decimales en promociones de categoría",
+      "body": "Marketing necesita lanzar promociones de 12.5%. Se cambia la columna percent a REAL y se agrega la promo de moda en Lima Centro.",
+      "expected": {
+        "verdict": "BLOCK",
+        "findings": [
+          {
+            "category": "money",
+            "file": "storefront-demo/src/pricing.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/db.ts b/storefront-demo/src/db.ts\nindex f351cb1..4635431 100644\n--- a/storefront-demo/src/db.ts\n+++ b/storefront-demo/src/db.ts\n@@ -40,7 +40,7 @@ const SCHEMA = `\n     store_id           TEXT NOT NULL REFERENCES stores(id),\n     type               TEXT NOT NULL CHECK (type IN ('CATEGORY_PERCENT', 'COUPON_FIXED')),\n     category           TEXT,\n-    percent            INTEGER,\n+    percent            REAL,\n     code               TEXT,\n     amount_cents       INTEGER,\n     min_purchase_cents INTEGER\n@@ -103,7 +103,8 @@ const SEED = `\n   INSERT INTO promotions (store_id, type, category, percent) VALUES\n     ('online',      'CATEGORY_PERCENT', 'moda',   20),\n     ('online',      'CATEGORY_PERCENT', 'moda',   10),\n-    ('lima-centro', 'CATEGORY_PERCENT', 'electro', 15);\n+    ('lima-centro', 'CATEGORY_PERCENT', 'electro', 15),\n+    ('lima-centro', 'CATEGORY_PERCENT', 'moda', 12.5);\n \n   INSERT INTO promotions (store_id, type, code, amount_cents, min_purchase_cents) VALUES\n     ('online', 'COUPON_FIXED', 'BIENVENIDA', 5000, 20000);\ndiff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts\nindex e3d4aff..e4f03f1 100644\n--- a/storefront-demo/src/pricing.ts\n+++ b/storefront-demo/src/pricing.ts\n@@ -9,7 +9,7 @@ export interface CartLine {\n }\n \n export type Promotion =\n-  | { type: 'CATEGORY_PERCENT'; category: string; percent: number }\n+  | { type: 'CATEGORY_PERCENT'; category: string; /** Admite decimales, ej. 12.5 */ percent: number }\n   | { type: 'COUPON_FIXED'; code: string; amountCents: number; minPurchaseCents: number };\n \n export interface PricedLine extends CartLine {\n@@ -45,7 +45,7 @@ export function priceCart(\n       .filter((p) => p.category === line.category)\n       .reduce((max, p) => Math.max(max, p.percent), 0);\n     const gross = line.unitPriceCents * line.qty;\n-    return { ...line, discountCents: Math.round((gross * best) / 100) };\n+    return { ...line, discountCents: (gross * best) / 100 };\n   });\n \n   const subtotalCents = pricedLines.reduce((sum, l) => sum + l.unitPriceCents * l.qty, 0);\n",
+      "report": {
+        "label": "01-decimal-discount",
+        "title": "feat(promos): soportar porcentajes decimales en promociones de categoría",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "[high] Falta redondeo con Math.round en el cálculo de descuentos por porcentaje — storefront-demo/src/pricing.ts:48 (fix validado disponible)"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 15299,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 13721,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (8 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  13 passed (13)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "llm-1",
+            "source": "llm",
+            "severity": "high",
+            "category": "money",
+            "file": "storefront-demo/src/pricing.ts",
+            "line": 48,
+            "title": "Falta redondeo con Math.round en el cálculo de descuentos por porcentaje",
+            "explanation": "Según las convenciones del equipo, todo cálculo que pueda producir fracciones (porcentajes) debe redondearse con `Math.round` en el momento de calcularlo. Al remover `Math.round` en el diff, los montos de descuento pueden resultar en números decimales (ej. fracciones de céntimos), lo que puede generar discrepancias y errores monetarios al sumar y redondear los totales.",
+            "suggestion": "Restaurar `Math.round` en el cálculo del descuento de la línea: `discountCents: Math.round((gross * best) / 100)`.",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "llm-1",
+            "status": "validated",
+            "attempts": 1,
+            "explanation": "Se restauró el uso de Math.round en el cálculo de los descuentos por porcentaje dentro de storefront-demo/src/pricing.ts para asegurar que los montos se mantengan como céntimos enteros y cumplan con las convenciones del equipo.",
+            "patch": "diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts\nindex e4f03f1..34ee00b 100644\n--- a/storefront-demo/src/pricing.ts\n+++ b/storefront-demo/src/pricing.ts\n@@ -45,7 +45,7 @@ export function priceCart(\n       .filter((p) => p.category === line.category)\n       .reduce((max, p) => Math.max(max, p.percent), 0);\n     const gross = line.unitPriceCents * line.qty;\n-    return { ...line, discountCents: (gross * best) / 100 };\n+    return { ...line, discountCents: Math.round((gross * best) / 100) };\n   });\n \n   const subtotalCents = pricedLines.reduce((sum, l) => sum + l.unitPriceCents * l.qty, 0);\ndiff --git a/storefront-demo/test/guardian-llm-1.test.ts b/storefront-demo/test/guardian-llm-1.test.ts\nnew file mode 100644\nindex 0000000..6bf0a2d\n--- /dev/null\n+++ b/storefront-demo/test/guardian-llm-1.test.ts\n@@ -0,0 +1,18 @@\n+import { describe, expect, it } from 'vitest';\n+import { priceCart, Promotion } from '../src/pricing';\n+\n+describe('pricing rounding', () => {\n+  it('redondea correctamente los descuentos por porcentaje usando Math.round', () => {\n+    const lines = [\n+      { sku: 'TEST-1', qty: 1, unitPriceCents: 3990, category: 'moda' },\n+    ];\n+    const promotions: Promotion[] = [\n+      { type: 'CATEGORY_PERCENT', category: 'moda', percent: 12.5 },\n+    ];\n+\n+    const result = priceCart(lines, promotions);\n+    // 3990 * 12.5 / 100 = 498.75 -> Math.round debe ser 499\n+    expect(result.lines[0].discountCents).toBe(499);\n+    expect(result.discountCents).toBe(499);\n+  });\n+});\n"
+          }
+        ],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 1114,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 29024,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 14,
+            "llmCalls": 1,
+            "inputTokens": 4302,
+            "outputTokens": 226
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 24868,
+            "llmCalls": 1,
+            "inputTokens": 3825,
+            "outputTokens": 1089
+          }
+        ],
+        "totalMs": 55026,
+        "costUsd": 0.0057256
+      },
+      "real": {
+        "id": "01-decimal-discount",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 91.24,
+        "inputTokens": 8127,
+        "outputTokens": 1315,
+        "costUsd": 0.0057256,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 45
+    },
+    {
+      "id": "02-stacked-promos",
+      "title": "refactor(pricing): simplificar cálculo de descuento por categoría",
+      "body": "Simplifica el reduce del cálculo de descuentos por categoría. Sin cambios funcionales esperados.",
+      "expected": {
+        "verdict": "BLOCK",
+        "findings": [
+          {
+            "category": "money",
+            "file": "storefront-demo/src/pricing.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts\nindex e3d4aff..0baedbe 100644\n--- a/storefront-demo/src/pricing.ts\n+++ b/storefront-demo/src/pricing.ts\n@@ -43,7 +43,7 @@ export function priceCart(\n   const pricedLines: PricedLine[] = lines.map((line) => {\n     const best = categoryPromos\n       .filter((p) => p.category === line.category)\n-      .reduce((max, p) => Math.max(max, p.percent), 0);\n+      .reduce((total, p) => total + p.percent, 0);\n     const gross = line.unitPriceCents * line.qty;\n     return { ...line, discountCents: Math.round((gross * best) / 100) };\n   });\n",
+      "report": {
+        "label": "02-stacked-promos",
+        "title": "refactor(pricing): simplificar cálculo de descuento por categoría",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "Hay tests fallando.",
+            "[high] Las promociones por categoría se están acumulando en lugar de tomar la mayor — storefront-demo/src/pricing.ts:46 (fix validado disponible)"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 4703,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": false,
+            "durationMs": 3878,
+            "output": "  Object {\n-   \"discountCents\": 1396,\n+   \"discountCents\": 2094,\n    \"subtotalCents\": 6980,\n-   \"totalCents\": 5584,\n+   \"totalCents\": 4886,\n  }\n\n ❯ test/api.test.ts:55:22\n     53| \n     54|     expect(res.status).toBe(201);\n     55|     expect(res.body).toMatchObject({ subtotalCents: 6980, discountCent…\n       |                      ^\n     56| \n     57|     const { qty } = db\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯\n\n FAIL  test/pricing.test.ts > priceCart > aplica solo la mejor promoción de categoría (no acumulables)\nAssertionError: expected 2094 to be 1396 // Object.is equality\n\n- Expected\n+ Received\n\n- 1396\n+ 2094\n\n ❯ test/pricing.test.ts:25:34\n     23|       promos,\n     24|     );\n     25|     expect(totals.discountCents).toBe(1396); // 20% de 6980\n       |                                  ^\n     26|     expect(totals.totalCents).toBe(5584);\n     27|   });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯\n\n FAIL  test/pricing.test.ts > priceCart > aplica el cupón solo si el subtotal descontado alcanza el mínimo\nAssertionError: expected 5235 to be 3490 // Object.is equality\n\n- Expected\n+ Received\n\n- 3490\n+ 5235\n\n ❯ test/pricing.test.ts:36:33\n     34|     );\n     35|     // 17450 - 20% = 13960 < 20000 → sin cupón\n     36|     expect(below.discountCents).toBe(3490);\n       |                                 ^\n     37| \n     38|     const above = priceCart(\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯\n\n Test Files  2 failed (2)\n      Tests  3 failed | 10 passed (13)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "llm-1",
+            "source": "llm",
+            "severity": "high",
+            "category": "money",
+            "file": "storefront-demo/src/pricing.ts",
+            "line": 46,
+            "title": "Las promociones por categoría se están acumulando en lugar de tomar la mayor",
+            "explanation": "El cambio en el reduce reemplazó la obtención del porcentaje máximo por una suma de todos los porcentajes de la categoría. Esto viola la regla de negocio que indica que las promociones por categoría no son acumulables y otorga descuentos incorrectos a los clientes.",
+            "suggestion": "Revertir el cambio del reduce para utilizar Math.max y obtener únicamente el mayor porcentaje vigente por categoría: `.reduce((max, p) => Math.max(max, p.percent), 0)`",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "llm-1",
+            "status": "validated",
+            "attempts": 1,
+            "explanation": "Se corrigió el cálculo de promociones por categoría en `priceCart` para usar `Math.max` en lugar de sumar todos los porcentajes, asegurando que no se acumulen y se aplique únicamente el mayor porcentaje vigente.",
+            "patch": "diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts\nindex 0baedbe..e3d4aff 100644\n--- a/storefront-demo/src/pricing.ts\n+++ b/storefront-demo/src/pricing.ts\n@@ -43,7 +43,7 @@ export function priceCart(\n   const pricedLines: PricedLine[] = lines.map((line) => {\n     const best = categoryPromos\n       .filter((p) => p.category === line.category)\n-      .reduce((total, p) => total + p.percent, 0);\n+      .reduce((max, p) => Math.max(max, p.percent), 0);\n     const gross = line.unitPriceCents * line.qty;\n     return { ...line, discountCents: Math.round((gross * best) / 100) };\n   });\ndiff --git a/storefront-demo/test/guardian-llm-1.test.ts b/storefront-demo/test/guardian-llm-1.test.ts\nnew file mode 100644\nindex 0000000..dafaddf\n--- /dev/null\n+++ b/storefront-demo/test/guardian-llm-1.test.ts\n@@ -0,0 +1,17 @@\n+import { describe, expect, it } from 'vitest';\n+import { priceCart, type Promotion } from '../src/pricing';\n+\n+describe('regression category promotions', () => {\n+  it('no acumula promociones por categoría y toma la mayor', () => {\n+    const lines = [\n+      { sku: 'POLO-ALG-M', qty: 1, unitPriceCents: 10000, category: 'moda' },\n+    ];\n+    const promotions: Promotion[] = [\n+      { type: 'CATEGORY_PERCENT', category: 'moda', percent: 10 },\n+      { type: 'CATEGORY_PERCENT', category: 'moda', percent: 20 },\n+    ];\n+\n+    const totals = priceCart(lines, promotions);\n+    expect(totals.discountCents).toBe(2000);\n+  });\n+});\n"
+          }
+        ],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 660,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 8582,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 12,
+            "llmCalls": 1,
+            "inputTokens": 2660,
+            "outputTokens": 200
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 12201,
+            "llmCalls": 1,
+            "inputTokens": 3764,
+            "outputTokens": 1038
+          }
+        ],
+        "totalMs": 21467,
+        "costUsd": 0.0050222
+      },
+      "real": {
+        "id": "02-stacked-promos",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 29.685,
+        "inputTokens": 6424,
+        "outputTokens": 1238,
+        "costUsd": 0.0050222,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 45
+    },
+    {
+      "id": "03-negative-stock",
+      "title": "perf(orders): simplificar UPDATE de reserva de stock",
+      "body": "La condición sobre qty en el WHERE impide usar el índice de forma óptima. Se simplifica el UPDATE de reserva.",
+      "expected": {
+        "verdict": "BLOCK",
+        "findings": [
+          {
+            "category": "inventory",
+            "file": "storefront-demo/src/modules/orders.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts\nindex 2dac633..4ff2b4a 100644\n--- a/storefront-demo/src/modules/orders.ts\n+++ b/storefront-demo/src/modules/orders.ts\n@@ -58,7 +58,7 @@ export function ordersRouter(db: DB): Router {\n   `);\n   const reserveStock = db.prepare(`\n     UPDATE inventory SET qty = qty - @qty\n-    WHERE store_id = @storeId AND sku = @sku AND qty >= @qty\n+    WHERE store_id = @storeId AND sku = @sku\n   `);\n   const findPromotions = db.prepare('SELECT * FROM promotions WHERE store_id = ?');\n   const insertOrder = db.prepare(`\n",
+      "report": {
+        "label": "03-negative-stock",
+        "title": "perf(orders): simplificar UPDATE de reserva de stock",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "Hay tests fallando.",
+            "[critical] Eliminación de validación de stock en UPDATE permite stock negativo — storefront-demo/src/modules/orders.ts:59 (fix validado disponible)"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 4338,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": false,
+            "durationMs": 3792,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ❯ test/api.test.ts (8 tests | 1 failed) <t>\n   × checkout > rechaza con 409 si no hay stock y no deja la orden a medias <t>\n     → expected 201 to be 409 // Object.is equality\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  test/api.test.ts > checkout > rechaza con 409 si no hay stock y no deja la orden a medias\nAssertionError: expected 201 to be 409 // Object.is equality\n\n- Expected\n+ Received\n\n- 409\n+ 201\n\n ❯ test/api.test.ts:73:24\n     71|         ],\n     72|       });\n     73|     expect(res.status).toBe(409);\n       |                        ^\n     74| \n     75|     const { qty } = db\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n Test Files  1 failed | 1 passed (2)\n      Tests  1 failed | 12 passed (13)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "llm-1",
+            "source": "llm",
+            "severity": "critical",
+            "category": "inventory",
+            "file": "storefront-demo/src/modules/orders.ts",
+            "line": 59,
+            "title": "Eliminación de validación de stock en UPDATE permite stock negativo",
+            "explanation": "Al remover la condición `qty >= @qty` del `UPDATE`, la sentencia ahora descuenta stock incluso si este resulta en un valor negativo, violando directamente la regla de negocio de que el stock nunca puede quedar negativo. Además, esto rompe la validación de stock y causa que los tests fallen.",
+            "suggestion": "Restaurar la condición `AND qty >= @qty` en el WHERE de la sentencia `reserveStock` para garantizar que no se permita un inventario negativo.",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "llm-1",
+            "status": "validated",
+            "attempts": 1,
+            "explanation": "Se restauró la condición `AND qty >= @qty` en la sentencia `reserveStock` para evitar que el stock quede en valores negativos durante la actualización.",
+            "patch": "diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts\nindex 4ff2b4a..2dac633 100644\n--- a/storefront-demo/src/modules/orders.ts\n+++ b/storefront-demo/src/modules/orders.ts\n@@ -58,7 +58,7 @@ export function ordersRouter(db: DB): Router {\n   `);\n   const reserveStock = db.prepare(`\n     UPDATE inventory SET qty = qty - @qty\n-    WHERE store_id = @storeId AND sku = @sku\n+    WHERE store_id = @storeId AND sku = @sku AND qty >= @qty\n   `);\n   const findPromotions = db.prepare('SELECT * FROM promotions WHERE store_id = ?');\n   const insertOrder = db.prepare(`\ndiff --git a/storefront-demo/test/guardian-llm-1.test.ts b/storefront-demo/test/guardian-llm-1.test.ts\nnew file mode 100644\nindex 0000000..f03c8fe\n--- /dev/null\n+++ b/storefront-demo/test/guardian-llm-1.test.ts\n@@ -0,0 +1,30 @@\n+import request from 'supertest';\n+import { beforeEach, describe, expect, it } from 'vitest';\n+import { createApp } from '../src/app';\n+import { createDb, type DB } from '../src/db';\n+\n+let db: DB;\n+let app: ReturnType<typeof createApp>;\n+\n+const ANA = { Authorization: 'Bearer token-ana' };\n+\n+beforeEach(() => {\n+  db = createDb();\n+  app = createApp(db);\n+});\n+\n+describe('regresión stock negativo', () => {\n+  it('rechaza con 409 y evita stock negativo cuando se solicita más cantidad de la disponible', async () => {\n+    const res = await request(app)\n+      .post('/stores/lima-centro/orders')\n+      .set(ANA)\n+      .send({ items: [{ sku: 'TV-55-4K', qty: 5 }] }); // Lima-centro tiene qty = 3\n+\n+    expect(res.status).toBe(409);\n+\n+    const { qty } = db\n+      .prepare(\"SELECT qty FROM inventory WHERE store_id = 'lima-centro' AND sku = 'TV-55-4K'\")\n+      .get() as { qty: number };\n+    expect(qty).toBe(3);\n+  });\n+});\n"
+          }
+        ],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 577,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 8130,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 14,
+            "llmCalls": 1,
+            "inputTokens": 3296,
+            "outputTokens": 154
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 12958,
+            "llmCalls": 1,
+            "inputTokens": 4442,
+            "outputTokens": 1859
+          }
+        ],
+        "totalMs": 21682,
+        "costUsd": 0.0073539
+      },
+      "real": {
+        "id": "03-negative-stock",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 39.265,
+        "inputTokens": 7738,
+        "outputTokens": 2013,
+        "costUsd": 0.0073539,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 45
+    },
+    {
+      "id": "04-cross-store-price",
+      "title": "refactor(orders): simplificar consulta de producto en checkout",
+      "body": "El SKU ya es único, así que no hace falta filtrar por tienda al buscar el producto.",
+      "expected": {
+        "verdict": "BLOCK",
+        "findings": [
+          {
+            "category": "money",
+            "file": "storefront-demo/src/modules/orders.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts\nindex 2dac633..9c2dea9 100644\n--- a/storefront-demo/src/modules/orders.ts\n+++ b/storefront-demo/src/modules/orders.ts\n@@ -54,7 +54,7 @@ export function ordersRouter(db: DB): Router {\n     SELECT p.sku, p.category, sp.price_cents AS unitPriceCents\n     FROM products p\n     JOIN store_prices sp ON sp.sku = p.sku\n-    WHERE p.sku = ? AND sp.store_id = ?\n+    WHERE p.sku = ?\n   `);\n   const reserveStock = db.prepare(`\n     UPDATE inventory SET qty = qty - @qty\n@@ -77,7 +77,7 @@ export function ordersRouter(db: DB): Router {\n   const checkout = db.transaction(\n     (userId: number, storeId: string, input: z.infer<typeof checkoutSchema>) => {\n       const lines: CartLine[] = input.items.map(({ sku, qty }) => {\n-        const product = findPricedProduct.get(sku, storeId) as\n+        const product = findPricedProduct.get(sku) as\n           | Omit<CartLine, 'qty'>\n           | undefined;\n         if (!product) throw new CheckoutError(404, 'PRODUCT_NOT_FOUND');\n",
+      "report": {
+        "label": "04-cross-store-price",
+        "title": "refactor(orders): simplificar consulta de producto en checkout",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "Hay tests fallando.",
+            "[high] Omisión de filtro por tienda en la consulta de precios — storefront-demo/src/modules/orders.ts:57 (fix validado disponible)"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 5076,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": false,
+            "durationMs": 4748,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ❯ test/api.test.ts (8 tests | 1 failed) <t>\n   × checkout > crea la orden con precios de la tienda y descuenta stock <t>\n     → expected { orderId: 1, …(4) } to match object { subtotalCents: 6980, …(2) }\n(2 matching properties omitted from actual)\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  test/api.test.ts > checkout > crea la orden con precios de la tienda y descuenta stock\nAssertionError: expected { orderId: 1, …(4) } to match object { subtotalCents: 6980, …(2) }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"discountCents\": 1396,\n-   \"subtotalCents\": 6980,\n-   \"totalCents\": 5584,\n+   \"discountCents\": 1596,\n+   \"subtotalCents\": 7980,\n+   \"totalCents\": 6384,\n  }\n\n ❯ test/api.test.ts:55:22\n     53| \n     54|     expect(res.status).toBe(201);\n     55|     expect(res.body).toMatchObject({ subtotalCents: 6980, discountCent…\n       |                      ^\n     56| \n     57|     const { qty } = db\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n Test Files  1 failed | 1 passed (2)\n      Tests  1 failed | 12 passed (13)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "llm-1",
+            "source": "llm",
+            "severity": "high",
+            "category": "money",
+            "file": "storefront-demo/src/modules/orders.ts",
+            "line": 57,
+            "title": "Omisión de filtro por tienda en la consulta de precios",
+            "explanation": "Según las convenciones de multitienda, cada tienda tiene su propio precio por SKU. Al remover el filtro `sp.store_id = ?`, la consulta devuelve un precio arbitrario (o falla si hay múltiples precios para el mismo SKU en distintas tiendas), afectando el cálculo del monto de la orden.",
+            "suggestion": "Restaurar el filtro por tienda en la sentencia `findPricedProduct` pasando el `store_id` como parámetro adicional.",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "llm-1",
+            "status": "validated",
+            "attempts": 1,
+            "explanation": "Se agregó el filtro por tienda `sp.store_id = ?` en la consulta `findPricedProduct` para asegurar que el precio del producto corresponda a la tienda correcta según las reglas de multitienda.",
+            "patch": "diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts\nindex 9c2dea9..2dac633 100644\n--- a/storefront-demo/src/modules/orders.ts\n+++ b/storefront-demo/src/modules/orders.ts\n@@ -54,7 +54,7 @@ export function ordersRouter(db: DB): Router {\n     SELECT p.sku, p.category, sp.price_cents AS unitPriceCents\n     FROM products p\n     JOIN store_prices sp ON sp.sku = p.sku\n-    WHERE p.sku = ?\n+    WHERE p.sku = ? AND sp.store_id = ?\n   `);\n   const reserveStock = db.prepare(`\n     UPDATE inventory SET qty = qty - @qty\n@@ -77,7 +77,7 @@ export function ordersRouter(db: DB): Router {\n   const checkout = db.transaction(\n     (userId: number, storeId: string, input: z.infer<typeof checkoutSchema>) => {\n       const lines: CartLine[] = input.items.map(({ sku, qty }) => {\n-        const product = findPricedProduct.get(sku) as\n+        const product = findPricedProduct.get(sku, storeId) as\n           | Omit<CartLine, 'qty'>\n           | undefined;\n         if (!product) throw new CheckoutError(404, 'PRODUCT_NOT_FOUND');\ndiff --git a/storefront-demo/test/guardian-llm-1.test.ts b/storefront-demo/test/guardian-llm-1.test.ts\nnew file mode 100644\nindex 0000000..41381c4\n--- /dev/null\n+++ b/storefront-demo/test/guardian-llm-1.test.ts\n@@ -0,0 +1,34 @@\n+import request from 'supertest';\n+import { beforeEach, describe, expect, it } from 'vitest';\n+import { createApp } from '../src/app';\n+import { createDb, type DB } from '../src/db';\n+\n+let db: DB;\n+let app: ReturnType<typeof createApp>;\n+\n+const ANA = { Authorization: 'Bearer token-ana' };\n+\n+beforeEach(() => {\n+  db = createDb();\n+  app = createApp(db);\n+});\n+\n+describe('multitienda precios', () => {\n+  it('utiliza el precio correspondiente a la tienda en el checkout', async () => {\n+    const res = await request(app)\n+      .post('/stores/online/orders')\n+      .set(ANA)\n+      .send({ items: [{ sku: 'TV-55-4K', qty: 1 }] });\n+\n+    expect(res.status).toBe(201);\n+    expect(res.body.subtotalCents).toBe(179990);\n+\n+    const resLima = await request(app)\n+      .post('/stores/lima-centro/orders')\n+      .set(ANA)\n+      .send({ items: [{ sku: 'TV-55-4K', qty: 1 }] });\n+\n+    expect(resLima.status).toBe(201);\n+    expect(resLima.body.subtotalCents).toBe(189990);\n+  });\n+});\n"
+          }
+        ],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 829,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 9824,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 16,
+            "llmCalls": 1,
+            "inputTokens": 3576,
+            "outputTokens": 148
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 13007,
+            "llmCalls": 1,
+            "inputTokens": 4431,
+            "outputTokens": 1909
+          }
+        ],
+        "totalMs": 23678,
+        "costUsd": 0.0075446
+      },
+      "real": {
+        "id": "04-cross-store-price",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "tests",
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 30.119,
+        "inputTokens": 8007,
+        "outputTokens": 2057,
+        "costUsd": 0.0075446,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 45
+    },
+    {
+      "id": "05-sqli-category",
+      "title": "feat(catalog): filtro por categoría en la búsqueda",
+      "body": "Agrega el query param `category` al listado de productos para el nuevo menú por categorías. Incluye test.",
+      "expected": {
+        "verdict": "BLOCK",
+        "findings": [
+          {
+            "category": "security",
+            "file": "storefront-demo/src/modules/catalog.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts\nindex 842e30a..7f4f433 100644\n--- a/storefront-demo/src/modules/catalog.ts\n+++ b/storefront-demo/src/modules/catalog.ts\n@@ -32,6 +32,20 @@ export function catalogRouter(db: DB): Router {\n   // GET /stores/:storeId/products?q=texto\n   router.get('/stores/:storeId/products', (req, res) => {\n     const q = typeof req.query.q === 'string' ? req.query.q : '';\n+    const category = typeof req.query.category === 'string' ? req.query.category : '';\n+    if (category) {\n+      const rows = db\n+        .prepare(\n+          `SELECT p.sku, p.name, p.category, sp.price_cents AS priceCents, i.qty AS stock\n+           FROM products p\n+           JOIN store_prices sp ON sp.sku = p.sku AND sp.store_id = @storeId\n+           JOIN inventory    i  ON i.sku  = p.sku AND i.store_id  = @storeId\n+           WHERE p.name LIKE @pattern AND p.category = '${category}'\n+           ORDER BY p.name`,\n+        )\n+        .all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];\n+      return res.json({ items: rows });\n+    }\n     const rows = search.all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];\n     res.json({ items: rows });\n   });\ndiff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts\nindex a6878fc..2482bb6 100644\n--- a/storefront-demo/test/api.test.ts\n+++ b/storefront-demo/test/api.test.ts\n@@ -23,6 +23,12 @@ describe('catálogo', () => {\n     ]);\n   });\n \n+  it('filtra por categoría', async () => {\n+    const res = await request(app).get('/stores/online/products?category=moda');\n+    expect(res.status).toBe(200);\n+    expect(res.body.items).toHaveLength(2);\n+  });\n+\n   it('trata la búsqueda como texto literal', async () => {\n     const res = await request(app).get(\n       `/stores/online/products?q=${encodeURIComponent(\"' OR '1'='1\")}`,\n",
+      "report": {
+        "label": "05-sqli-category",
+        "title": "feat(catalog): filtro por categoría en la búsqueda",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "[critical] SQL construido con interpolación de strings (sql-interpolation) — storefront-demo/src/modules/catalog.ts:43 (fix validado disponible)"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 4614,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 3923,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (9 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  14 passed (14)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "static-1",
+            "source": "static",
+            "severity": "critical",
+            "category": "security",
+            "file": "storefront-demo/src/modules/catalog.ts",
+            "line": 43,
+            "title": "SQL construido con interpolación de strings (sql-interpolation)",
+            "explanation": "Interpolar valores en una consulta SQL permite inyección SQL si el valor viene del usuario.",
+            "suggestion": "Usar parámetros del driver (`?` o `@nombre`) en lugar de `${...}`.",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "static-1",
+            "status": "validated",
+            "attempts": 1,
+            "explanation": "Se corrigió la consulta SQL en el endpoint de filtrado por categoría en `storefront-demo/src/modules/catalog.ts` para evitar la interpolación de strings directa con la variable `category`. Se preparó la sentencia de forma segura usando un parámetro `@category` en lugar de `${category}` y se pasó dicho parámetro en el objeto de ejecución junto con `storeId` y `pattern`. Además, se creó el test de regresión correspondiente para verificar que la inyección o filtrado por categoría funcione correctamente mediante parámetros seguros.",
+            "patch": "diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts\nindex 7f4f433..8bfdc55 100644\n--- a/storefront-demo/src/modules/catalog.ts\n+++ b/storefront-demo/src/modules/catalog.ts\n@@ -21,6 +21,15 @@ export function catalogRouter(db: DB): Router {\n     ORDER BY p.name\n   `);\n \n+  const searchByCategory = db.prepare(`\n+    SELECT p.sku, p.name, p.category, sp.price_cents AS priceCents, i.qty AS stock\n+    FROM products p\n+    JOIN store_prices sp ON sp.sku = p.sku AND sp.store_id = @storeId\n+    JOIN inventory    i  ON i.sku  = p.sku AND i.store_id  = @storeId\n+    WHERE p.name LIKE @pattern AND p.category = @category\n+    ORDER BY p.name\n+  `);\n+\n   const findOne = db.prepare(`\n     SELECT p.sku, p.name, p.category, sp.price_cents AS priceCents, i.qty AS stock\n     FROM products p\n@@ -34,16 +43,7 @@ export function catalogRouter(db: DB): Router {\n     const q = typeof req.query.q === 'string' ? req.query.q : '';\n     const category = typeof req.query.category === 'string' ? req.query.category : '';\n     if (category) {\n-      const rows = db\n-        .prepare(\n-          `SELECT p.sku, p.name, p.category, sp.price_cents AS priceCents, i.qty AS stock\n-           FROM products p\n-           JOIN store_prices sp ON sp.sku = p.sku AND sp.store_id = @storeId\n-           JOIN inventory    i  ON i.sku  = p.sku AND i.store_id  = @storeId\n-           WHERE p.name LIKE @pattern AND p.category = '${category}'\n-           ORDER BY p.name`,\n-        )\n-        .all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];\n+      const rows = searchByCategory.all({ storeId: req.params.storeId, pattern: `%${q}%`, category }) as ProductRow[];\n       return res.json({ items: rows });\n     }\n     const rows = search.all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];\ndiff --git a/storefront-demo/test/guardian-static-1.test.ts b/storefront-demo/test/guardian-static-1.test.ts\nnew file mode 100644\nindex 0000000..587d0ed\n--- /dev/null\n+++ b/storefront-demo/test/guardian-static-1.test.ts\n@@ -0,0 +1,22 @@\n+import request from 'supertest';\n+import { beforeEach, describe, expect, it } from 'vitest';\n+import { createApp } from '../src/app';\n+import { createDb, type DB } from '../src/db';\n+\n+let db: DB;\n+let app: ReturnType<typeof createApp>;\n+\n+beforeEach(() => {\n+  db = createDb();\n+  app = createApp(db);\n+});\n+\n+describe('regresión sql-interpolation en categoría', () => {\n+  it('previene inyección sql y maneja correctamente caracteres especiales en category', async () => {\n+    const res = await request(app).get(\n+      `/stores/online/products?category=${encodeURIComponent(\"moda' OR '1'='1\")}`,\n+    );\n+    expect(res.status).toBe(200);\n+    expect(res.body.items).toEqual([]);\n+  });\n+});\n"
+          }
+        ],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 545,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 8538,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 12,
+            "llmCalls": 1,
+            "inputTokens": 4126,
+            "outputTokens": 204
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 12979,
+            "llmCalls": 1,
+            "inputTokens": 3795,
+            "outputTokens": 1157
+          }
+        ],
+        "totalMs": 22076,
+        "costUsd": 0.005778799999999999
+      },
+      "real": {
+        "id": "05-sqli-category",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "static"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 25.559,
+        "inputTokens": 7921,
+        "outputTokens": 1361,
+        "costUsd": 0.005778799999999999,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 45
+    },
+    {
+      "id": "06-idor-order-history",
+      "title": "feat(orders): endpoint de historial de órdenes",
+      "body": "Agrega GET /orders para que la app muestre el historial. Soporte puede consultar el historial de un cliente con ?userId=. Incluye test.",
+      "expected": {
+        "verdict": "BLOCK",
+        "findings": [
+          {
+            "category": "authz",
+            "file": "storefront-demo/src/modules/orders.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts\nindex 2dac633..d1abbb4 100644\n--- a/storefront-demo/src/modules/orders.ts\n+++ b/storefront-demo/src/modules/orders.ts\n@@ -129,5 +129,12 @@ export function ordersRouter(db: DB): Router {\n     res.json({ ...order, items: findOrderItems.all(Number(req.params.id)) });\n   });\n \n+  // GET /orders?userId=123 — historial de órdenes (app y soporte)\n+  const findOrdersByUser = db.prepare('SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC');\n+  router.get('/orders', (req, res) => {\n+    const userId = Number(req.query.userId ?? req.user!.id);\n+    res.json({ items: findOrdersByUser.all(userId) });\n+  });\n+\n   return router;\n }\ndiff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts\nindex a6878fc..d5e885a 100644\n--- a/storefront-demo/test/api.test.ts\n+++ b/storefront-demo/test/api.test.ts\n@@ -101,4 +101,14 @@ describe('órdenes', () => {\n     const other = await request(app).get(`/orders/${created.body.orderId}`).set(BRUNO);\n     expect(other.status).toBe(404);\n   });\n+\n+  it('lista el historial de órdenes del usuario', async () => {\n+    await request(app)\n+      .post('/stores/online/orders')\n+      .set(ANA)\n+      .send({ items: [{ sku: 'TV-55-4K', qty: 1 }] });\n+    const res = await request(app).get('/orders').set(ANA);\n+    expect(res.status).toBe(200);\n+    expect(res.body.items).toHaveLength(1);\n+  });\n });\n",
+      "report": {
+        "label": "06-idor-order-history",
+        "title": "feat(orders): endpoint de historial de órdenes",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "[critical] Violación de control de acceso en historial de órdenes mediante parámetros — storefront-demo/src/modules/orders.ts:134 (fix validado disponible)"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 4714,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 4283,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (9 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  14 passed (14)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "llm-1",
+            "source": "llm",
+            "severity": "critical",
+            "category": "authz",
+            "file": "storefront-demo/src/modules/orders.ts",
+            "line": 134,
+            "title": "Violación de control de acceso en historial de órdenes mediante parámetros",
+            "explanation": "Cualquier usuario autenticado puede pasar el parámetro `userId` en la query string (ej: ?userId=1) y consultar el historial de órdenes de cualquier otro cliente, infringiendo la regla de negocio que establece que un usuario solo puede acceder a sus propios recursos y que el ID debe obtenerse estrictamente del token.",
+            "suggestion": "Eliminar la lectura de `req.query.userId` y usar siempre `req.user!.id` para filtrar las órdenes del usuario autenticado.",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "llm-1",
+            "status": "validated",
+            "attempts": 1,
+            "explanation": "Se corrigió la ruta GET /orders para que ignore cualquier parámetro `userId` enviado en la query string, utilizando estrictamente `req.user!.id` para filtrar las órdenes del usuario autenticado y prevenir la violación de control de acceso.",
+            "patch": "diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts\nindex d1abbb4..ced4477 100644\n--- a/storefront-demo/src/modules/orders.ts\n+++ b/storefront-demo/src/modules/orders.ts\n@@ -129,10 +129,10 @@ export function ordersRouter(db: DB): Router {\n     res.json({ ...order, items: findOrderItems.all(Number(req.params.id)) });\n   });\n \n-  // GET /orders?userId=123 — historial de órdenes (app y soporte)\n+  // GET /orders — historial de órdenes del usuario autenticado\n   const findOrdersByUser = db.prepare('SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC');\n   router.get('/orders', (req, res) => {\n-    const userId = Number(req.query.userId ?? req.user!.id);\n+    const userId = req.user!.id;\n     res.json({ items: findOrdersByUser.all(userId) });\n   });\n \ndiff --git a/storefront-demo/test/guardian-llm-1.test.ts b/storefront-demo/test/guardian-llm-1.test.ts\nnew file mode 100644\nindex 0000000..225ae37\n--- /dev/null\n+++ b/storefront-demo/test/guardian-llm-1.test.ts\n@@ -0,0 +1,31 @@\n+import request from 'supertest';\n+import { beforeEach, describe, expect, it } from 'vitest';\n+import { createApp } from '../src/app';\n+import { createDb, type DB } from '../src/db';\n+\n+let db: DB;\n+let app: ReturnType<typeof createApp>;\n+\n+const ANA = { Authorization: 'Bearer token-ana' };\n+const BRUNO = { Authorization: 'Bearer token-bruno' };\n+\n+beforeEach(() => {\n+  db = createDb();\n+  app = createApp(db);\n+});\n+\n+describe('control de acceso en historial de órdenes', () => {\n+  it('impide que un usuario consulte las órdenes de otro pasando userId en la query string', async () => {\n+    // Ana crea una orden\n+    await request(app)\n+      .post('/stores/online/orders')\n+      .set(ANA)\n+      .send({ items: [{ sku: 'TV-55-4K', qty: 1 }] });\n+\n+    // Bruno intenta listar las órdenes de Ana pasando ?userId=1\n+    const res = await request(app).get('/orders?userId=1').set(BRUNO);\n+    expect(res.status).toBe(200);\n+    // Debe retornar las órdenes de Bruno (id 2) y no las de Ana (id 1)\n+    expect(res.body.items).toHaveLength(0);\n+  });\n+});\n"
+          }
+        ],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 805,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 8998,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 6,
+            "llmCalls": 1,
+            "inputTokens": 5158,
+            "outputTokens": 201
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 11289,
+            "llmCalls": 1,
+            "inputTokens": 4668,
+            "outputTokens": 1991
+          }
+        ],
+        "totalMs": 21100,
+        "costUsd": 0.0084278
+      },
+      "real": {
+        "id": "06-idor-order-history",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 26.542,
+        "inputTokens": 9826,
+        "outputTokens": 2192,
+        "costUsd": 0.0084278,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 45
+    },
+    {
+      "id": "07-hardcoded-secret",
+      "title": "feat(payments): cliente de la pasarela de pagos",
+      "body": "Primer paso de la integración con la pasarela: cliente HTTP para crear cobros.",
+      "expected": {
+        "verdict": "BLOCK",
+        "findings": [
+          {
+            "category": "secrets",
+            "file": "storefront-demo/src/payments.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/payments.ts b/storefront-demo/src/payments.ts\nnew file mode 100644\nindex 0000000..5105941\n--- /dev/null\n+++ b/storefront-demo/src/payments.ts\n@@ -0,0 +1,19 @@\n+// Cliente de la pasarela de pagos.\n+const PAYMENTS_API_URL = 'https://api.pagos-demo.example/v1';\n+const PAYMENTS_API_KEY = 'pgw_live_9f8a7c6b5e4d3c2b1a0f9e8d7c6b5a4f';\n+\n+export interface ChargeRequest {\n+  orderId: number;\n+  amountCents: number;\n+  currency: 'PEN';\n+}\n+\n+export async function charge(req: ChargeRequest): Promise<{ id: string; status: string }> {\n+  const res = await fetch(`${PAYMENTS_API_URL}/charges`, {\n+    method: 'POST',\n+    headers: { Authorization: `Bearer ${PAYMENTS_API_KEY}`, 'Content-Type': 'application/json' },\n+    body: JSON.stringify(req),\n+  });\n+  if (!res.ok) throw new Error(`payment failed: ${res.status}`);\n+  return res.json() as Promise<{ id: string; status: string }>;\n+}\n",
+      "report": {
+        "label": "07-hardcoded-secret",
+        "title": "feat(payments): cliente de la pasarela de pagos",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "[critical] Secreto asignado a una variable en el código (generic-secret) — storefront-demo/src/payments.ts:3 (fix validado disponible)"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 3798,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 3416,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (8 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  13 passed (13)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "secret-1",
+            "source": "secrets",
+            "severity": "critical",
+            "category": "secrets",
+            "file": "storefront-demo/src/payments.ts",
+            "line": 3,
+            "title": "Secreto asignado a una variable en el código (generic-secret)",
+            "explanation": "Un secreto commiteado queda en el historial de git aunque se borre después. Cualquiera con acceso al repo puede usarlo.",
+            "suggestion": "Leerlo de una variable de entorno o gestor de secretos y rotar la credencial expuesta.",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "secret-1",
+            "status": "validated",
+            "attempts": 1,
+            "explanation": "Se reemplazó el secreto hardcodeado PAYMENTS_API_KEY por una lectura desde process.env.PAYMENTS_API_KEY, agregando una validación explícita para asegurar que la variable esté definida antes de su uso.",
+            "patch": "diff --git a/storefront-demo/src/payments.ts b/storefront-demo/src/payments.ts\nindex 5105941..9657692 100644\n--- a/storefront-demo/src/payments.ts\n+++ b/storefront-demo/src/payments.ts\n@@ -1,6 +1,10 @@\n // Cliente de la pasarela de pagos.\n const PAYMENTS_API_URL = 'https://api.pagos-demo.example/v1';\n-const PAYMENTS_API_KEY = 'pgw_live_9f8a7c6b5e4d3c2b1a0f9e8d7c6b5a4f';\n+const PAYMENTS_API_KEY = process.env.PAYMENTS_API_KEY;\n+\n+if (!PAYMENTS_API_KEY) {\n+  throw new Error('PAYMENTS_API_KEY environment variable is not defined');\n+}\n \n export interface ChargeRequest {\n   orderId: number;\n"
+          }
+        ],
+        "redactions": 2,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 523,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 7214,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 12,
+            "llmCalls": 1,
+            "inputTokens": 1404,
+            "outputTokens": 4
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 7419,
+            "llmCalls": 1,
+            "inputTokens": 779,
+            "outputTokens": 333
+          }
+        ],
+        "totalMs": 15170,
+        "costUsd": 0.0014974
+      },
+      "real": {
+        "id": "07-hardcoded-secret",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "secrets"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 18.803,
+        "inputTokens": 2183,
+        "outputTokens": 337,
+        "costUsd": 0.0014974,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 45
+    },
+    {
+      "id": "08-n-plus-one",
+      "title": "feat(catalog): mostrar promociones vigentes en el listado",
+      "body": "El front necesita mostrar el badge de promoción en cada producto del listado.",
+      "expected": {
+        "verdict": "REVIEW",
+        "findings": [
+          {
+            "category": "performance",
+            "file": "storefront-demo/src/modules/catalog.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts\nindex 842e30a..e654308 100644\n--- a/storefront-demo/src/modules/catalog.ts\n+++ b/storefront-demo/src/modules/catalog.ts\n@@ -33,7 +33,13 @@ export function catalogRouter(db: DB): Router {\n   router.get('/stores/:storeId/products', (req, res) => {\n     const q = typeof req.query.q === 'string' ? req.query.q : '';\n     const rows = search.all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];\n-    res.json({ items: rows });\n+    const items = rows.map((row) => ({\n+      ...row,\n+      promotions: db\n+        .prepare('SELECT type, percent FROM promotions WHERE store_id = ? AND category = ?')\n+        .all(req.params.storeId, row.category),\n+    }));\n+    res.json({ items });\n   });\n \n   // GET /stores/:storeId/products/:sku\n",
+      "report": {
+        "label": "08-n-plus-one",
+        "title": "feat(catalog): mostrar promociones vigentes en el listado",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "[high] Consulta SQL dentro de un bucle (problema N+1) — storefront-demo/src/modules/catalog.ts:38"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 3759,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 3590,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (8 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  13 passed (13)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "llm-1",
+            "source": "llm",
+            "severity": "high",
+            "category": "performance",
+            "file": "storefront-demo/src/modules/catalog.ts",
+            "line": 38,
+            "title": "Consulta SQL dentro de un bucle (problema N+1)",
+            "explanation": "Se está ejecutando `db.prepare(...).all(...)` dentro del método `.map()`, lo que genera una consulta SQL por cada producto devuelto en la búsqueda. Según las convenciones de performance, no se deben ejecutar consultas dentro de loops sobre resultados; las sentencias deben prepararse una sola vez al crear el router.",
+            "suggestion": "Preparar la sentencia fuera de la ruta y realizar una única consulta agrupada (o un JOIN) para obtener las promociones de todos los productos en una sola pasada.",
+            "confidence": 0.95
+          }
+        ],
+        "fixes": [],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 625,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 7350,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 14,
+            "llmCalls": 1,
+            "inputTokens": 1872,
+            "outputTokens": 205
+          }
+        ],
+        "totalMs": 7990,
+        "costUsd": 0.0010741
+      },
+      "real": {
+        "id": "08-n-plus-one",
+        "expectedVerdict": "REVIEW",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 12.904,
+        "inputTokens": 1872,
+        "outputTokens": 205,
+        "costUsd": 0.0010741,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 15
+    },
+    {
+      "id": "09-error-leak",
+      "title": "chore: mejorar diagnóstico de errores 500",
+      "body": "Cuando hay un 500 en QA no sabemos qué pasó. Se agrega el detalle del error a la respuesta.",
+      "expected": {
+        "verdict": "BLOCK",
+        "findings": [
+          {
+            "category": "security",
+            "file": "storefront-demo/src/app.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/app.ts b/storefront-demo/src/app.ts\nindex 0803e91..fe59dda 100644\n--- a/storefront-demo/src/app.ts\n+++ b/storefront-demo/src/app.ts\n@@ -11,10 +11,10 @@ export function createApp(db: DB = createDb()) {\n   app.use(catalogRouter(db));\n   app.use(ordersRouter(db));\n \n-  // Manejo centralizado de errores: nunca exponer detalles internos al cliente.\n+  // Manejo centralizado de errores: incluimos el detalle para facilitar el debugging.\n   app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {\n     console.error(err);\n-    res.status(500).json({ error: 'INTERNAL_ERROR' });\n+    res.status(500).json({ error: 'INTERNAL_ERROR', message: err.message, stack: err.stack });\n   });\n \n   return app;\n",
+      "report": {
+        "label": "09-error-leak",
+        "title": "chore: mejorar diagnóstico de errores 500",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "[high] Stack trace expuesto en la respuesta HTTP (stack-in-response) — storefront-demo/src/app.ts:17"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 3828,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 3429,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (8 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  13 passed (13)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "static-1",
+            "source": "static",
+            "severity": "high",
+            "category": "security",
+            "file": "storefront-demo/src/app.ts",
+            "line": 17,
+            "title": "Stack trace expuesto en la respuesta HTTP (stack-in-response)",
+            "explanation": "El stack revela rutas internas, versiones y estructura del código a cualquier cliente.",
+            "suggestion": "Loguear el detalle en el servidor y devolver solo un código de error genérico.",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "static-1",
+            "status": "failed",
+            "attempts": 2,
+            "reason": "No se logró una corrección validada en 2 intentos. Último error:\n\n ❯ test/guardian-static-1.test.ts:21:22\n     19|     const res = await request(app).get('/error-test');\n     20|     expect(res.status).toBe(500);\n     21|     expect(res.body).toEqual({ error: 'INTERNAL_ERROR' });\n       |                      ^\n     22|     expect(res.body.stack).toBeUndefined();\n     23|     expect(res.body.message).toBeUndefined();\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n Test Files  1 failed | 2 passed (3)\n      Tests  1 failed | 13 passed (14)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 542,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 7257,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 13,
+            "llmCalls": 1,
+            "inputTokens": 1386,
+            "outputTokens": 160
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 22623,
+            "llmCalls": 2,
+            "inputTokens": 6919,
+            "outputTokens": 1250
+          }
+        ],
+        "totalMs": 30437,
+        "costUsd": 0.0060165
+      },
+      "real": {
+        "id": "09-error-leak",
+        "expectedVerdict": "BLOCK",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "static"
+        ],
+        "falsePositives": 0,
+        "fixValidated": false,
+        "seconds": 46.854,
+        "inputTokens": 8305,
+        "outputTokens": 1410,
+        "costUsd": 0.0060165,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 15
+    },
+    {
+      "id": "10-coupon-boundary",
+      "title": "refactor(pricing): extraer cálculo del cupón a una función",
+      "body": "Extrae la lógica del cupón para poder reutilizarla en el carrito. Sin cambios funcionales.",
+      "expected": {
+        "verdict": "REVIEW",
+        "findings": [
+          {
+            "category": "money",
+            "file": "storefront-demo/src/pricing.ts"
+          }
+        ]
+      },
+      "diff": "diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts\nindex e3d4aff..95b22b9 100644\n--- a/storefront-demo/src/pricing.ts\n+++ b/storefront-demo/src/pricing.ts\n@@ -51,16 +51,7 @@ export function priceCart(\n   const subtotalCents = pricedLines.reduce((sum, l) => sum + l.unitPriceCents * l.qty, 0);\n   const lineDiscounts = pricedLines.reduce((sum, l) => sum + l.discountCents, 0);\n \n-  let couponDiscount = 0;\n-  if (couponCode) {\n-    const coupon = promotions.find(\n-      (p): p is Extract<Promotion, { type: 'COUPON_FIXED' }> =>\n-        p.type === 'COUPON_FIXED' && p.code === couponCode,\n-    );\n-    if (coupon && subtotalCents - lineDiscounts >= coupon.minPurchaseCents) {\n-      couponDiscount = coupon.amountCents;\n-    }\n-  }\n+  const couponDiscount = couponDiscountFor(promotions, couponCode, subtotalCents - lineDiscounts);\n \n   const discountCents = Math.min(lineDiscounts + couponDiscount, subtotalCents);\n   return {\n@@ -70,3 +61,16 @@ export function priceCart(\n     totalCents: subtotalCents - discountCents,\n   };\n }\n+\n+function couponDiscountFor(\n+  promotions: Promotion[],\n+  code: string | undefined,\n+  eligibleCents: number,\n+): number {\n+  if (!code) return 0;\n+  const coupon = promotions.find(\n+    (p): p is Extract<Promotion, { type: 'COUPON_FIXED' }> =>\n+      p.type === 'COUPON_FIXED' && p.code === code,\n+  );\n+  return coupon && eligibleCents > coupon.minPurchaseCents ? coupon.amountCents : 0;\n+}\n",
+      "report": {
+        "label": "10-coupon-boundary",
+        "title": "refactor(pricing): extraer cálculo del cupón a una función",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "BLOCK",
+          "reasons": [
+            "[high] Validación incorrecta de la compra mínima en el cupón — storefront-demo/src/pricing.ts:75 (fix validado disponible)"
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 3688,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 3205,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (8 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  13 passed (13)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [
+          {
+            "id": "llm-1",
+            "source": "llm",
+            "severity": "high",
+            "category": "logic",
+            "file": "storefront-demo/src/pricing.ts",
+            "line": 75,
+            "title": "Validación incorrecta de la compra mínima en el cupón",
+            "explanation": "Al extraer la función, se cambió la condición de mayor o igual (>=) a estrictamente mayor (>). Según las reglas de negocio, el cupón debe aplicarse si el subtotal ya descontado es mayor o igual a la compra mínima.",
+            "suggestion": "Cambiar la condición `eligibleCents > coupon.minPurchaseCents` por `eligibleCents >= coupon.minPurchaseCents` en la función `couponDiscountFor`.",
+            "confidence": 1
+          }
+        ],
+        "fixes": [
+          {
+            "findingId": "llm-1",
+            "status": "validated",
+            "attempts": 1,
+            "explanation": "Se corrigió la condición de validación del cupón en `couponDiscountFor` para usar `eligibleCents >= coupon.minPurchaseCents` en lugar de un operador estrictamente mayor, cumpliendo con la regla de negocio.",
+            "patch": "diff --git a/storefront-demo/src/pricing.ts b/storefront-demo/src/pricing.ts\nindex 95b22b9..feae560 100644\n--- a/storefront-demo/src/pricing.ts\n+++ b/storefront-demo/src/pricing.ts\n@@ -72,5 +72,5 @@ function couponDiscountFor(\n     (p): p is Extract<Promotion, { type: 'COUPON_FIXED' }> =>\n       p.type === 'COUPON_FIXED' && p.code === code,\n   );\n-  return coupon && eligibleCents > coupon.minPurchaseCents ? coupon.amountCents : 0;\n+  return coupon && eligibleCents >= coupon.minPurchaseCents ? coupon.amountCents : 0;\n }\ndiff --git a/storefront-demo/test/guardian-llm-1.test.ts b/storefront-demo/test/guardian-llm-1.test.ts\nnew file mode 100644\nindex 0000000..c33a3c0\n--- /dev/null\n+++ b/storefront-demo/test/guardian-llm-1.test.ts\n@@ -0,0 +1,18 @@\n+import { describe, expect, it } from 'vitest';\n+import { priceCart, Promotion } from '../src/pricing';\n+\n+describe('regresión de cupón mínimo', () => {\n+  it('aplica el cupón cuando el subtotal descontado es exactamente igual a la compra mínima', () => {\n+    const promotions: Promotion[] = [\n+      { type: 'COUPON_FIXED', code: 'MINIMO', amountCents: 1000, minPurchaseCents: 5000 },\n+    ];\n+\n+    const lines = [\n+      { sku: 'TEST', qty: 1, unitPriceCents: 5000, category: 'general' },\n+    ];\n+\n+    const result = priceCart(lines, promotions, 'MINIMO');\n+    expect(result.discountCents).toBe(1000);\n+    expect(result.totalCents).toBe(4000);\n+  });\n+});\n"
+          }
+        ],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 612,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 6893,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 27,
+            "llmCalls": 1,
+            "inputTokens": 2349,
+            "outputTokens": 188
+          },
+          {
+            "stage": "corrección IA",
+            "durationMs": 10124,
+            "llmCalls": 1,
+            "inputTokens": 3792,
+            "outputTokens": 1102
+          }
+        ],
+        "totalMs": 17657,
+        "costUsd": 0.0050673
+      },
+      "real": {
+        "id": "10-coupon-boundary",
+        "expectedVerdict": "REVIEW",
+        "verdict": "BLOCK",
+        "isBug": true,
+        "detected": true,
+        "detectedBy": [
+          "llm"
+        ],
+        "falsePositives": 0,
+        "fixValidated": true,
+        "seconds": 29.238,
+        "inputTokens": 6141,
+        "outputTokens": 1290,
+        "costUsd": 0.0050673,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 45
+    },
+    {
+      "id": "11-clean-list-stores",
+      "title": "feat(catalog): endpoint para listar tiendas",
+      "body": "Agrega GET /stores para el selector de tienda del front. Incluye test.",
+      "expected": {
+        "verdict": "APPROVE",
+        "findings": []
+      },
+      "diff": "diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts\nindex 842e30a..5b64d5a 100644\n--- a/storefront-demo/src/modules/catalog.ts\n+++ b/storefront-demo/src/modules/catalog.ts\n@@ -29,6 +29,13 @@ export function catalogRouter(db: DB): Router {\n     WHERE p.sku = @sku\n   `);\n \n+  const listStores = db.prepare('SELECT id, name FROM stores ORDER BY name');\n+\n+  // GET /stores\n+  router.get('/stores', (_req, res) => {\n+    res.json({ items: listStores.all() });\n+  });\n+\n   // GET /stores/:storeId/products?q=texto\n   router.get('/stores/:storeId/products', (req, res) => {\n     const q = typeof req.query.q === 'string' ? req.query.q : '';\ndiff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts\nindex a6878fc..9a60a1d 100644\n--- a/storefront-demo/test/api.test.ts\n+++ b/storefront-demo/test/api.test.ts\n@@ -31,6 +31,12 @@ describe('catálogo', () => {\n     expect(res.body.items).toEqual([]);\n   });\n \n+  it('lista las tiendas disponibles', async () => {\n+    const res = await request(app).get('/stores');\n+    expect(res.status).toBe(200);\n+    expect(res.body.items.map((s: { id: string }) => s.id)).toEqual(['lima-centro', 'online']);\n+  });\n+\n   it('devuelve 404 para un SKU inexistente', async () => {\n     const res = await request(app).get('/stores/online/products/NOPE');\n     expect(res.status).toBe(404);\n",
+      "report": {
+        "label": "11-clean-list-stores",
+        "title": "feat(catalog): endpoint para listar tiendas",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "APPROVE",
+          "reasons": [
+            "Compila, los tests pasan y no se encontraron problemas relevantes."
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 3642,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 3263,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (9 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  14 passed (14)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [],
+        "fixes": [],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 582,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 6905,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 22,
+            "llmCalls": 1,
+            "inputTokens": 3772,
+            "outputTokens": 4
+          }
+        ],
+        "totalMs": 7511,
+        "costUsd": 0.0011416
+      },
+      "real": {
+        "id": "11-clean-list-stores",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 18.021,
+        "inputTokens": 3772,
+        "outputTokens": 4,
+        "costUsd": 0.0011416,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 15
+    },
+    {
+      "id": "12-clean-pagination",
+      "title": "feat(catalog): paginación en la búsqueda de productos",
+      "body": "Agrega limit/offset (máx. 50) al listado de productos. Incluye test.",
+      "expected": {
+        "verdict": "APPROVE",
+        "findings": []
+      },
+      "diff": "diff --git a/storefront-demo/src/modules/catalog.ts b/storefront-demo/src/modules/catalog.ts\nindex 842e30a..b96128b 100644\n--- a/storefront-demo/src/modules/catalog.ts\n+++ b/storefront-demo/src/modules/catalog.ts\n@@ -19,6 +19,7 @@ export function catalogRouter(db: DB): Router {\n     JOIN inventory    i  ON i.sku  = p.sku AND i.store_id  = @storeId\n     WHERE p.name LIKE @pattern\n     ORDER BY p.name\n+    LIMIT @limit OFFSET @offset\n   `);\n \n   const findOne = db.prepare(`\n@@ -32,7 +33,14 @@ export function catalogRouter(db: DB): Router {\n   // GET /stores/:storeId/products?q=texto\n   router.get('/stores/:storeId/products', (req, res) => {\n     const q = typeof req.query.q === 'string' ? req.query.q : '';\n-    const rows = search.all({ storeId: req.params.storeId, pattern: `%${q}%` }) as ProductRow[];\n+    const limit = Math.min(Math.max(Number(req.query.limit) || 20, 1), 50);\n+    const offset = Math.max(Number(req.query.offset) || 0, 0);\n+    const rows = search.all({\n+      storeId: req.params.storeId,\n+      pattern: `%${q}%`,\n+      limit,\n+      offset,\n+    }) as ProductRow[];\n     res.json({ items: rows });\n   });\n \ndiff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts\nindex a6878fc..d7b79ad 100644\n--- a/storefront-demo/test/api.test.ts\n+++ b/storefront-demo/test/api.test.ts\n@@ -31,6 +31,13 @@ describe('catálogo', () => {\n     expect(res.body.items).toEqual([]);\n   });\n \n+  it('pagina los resultados', async () => {\n+    const page1 = await request(app).get('/stores/online/products?limit=3');\n+    const page2 = await request(app).get('/stores/online/products?limit=3&offset=3');\n+    expect(page1.body.items).toHaveLength(3);\n+    expect(page2.body.items).toHaveLength(1);\n+  });\n+\n   it('devuelve 404 para un SKU inexistente', async () => {\n     const res = await request(app).get('/stores/online/products/NOPE');\n     expect(res.status).toBe(404);\n",
+      "report": {
+        "label": "12-clean-pagination",
+        "title": "feat(catalog): paginación en la búsqueda de productos",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "APPROVE",
+          "reasons": [
+            "Compila, los tests pasan y no se encontraron problemas relevantes."
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 3982,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 3377,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/api.test.ts (9 tests) <t>\n\n Test Files  2 passed (2)\n      Tests  14 passed (14)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [],
+        "fixes": [],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 568,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 7359,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 11,
+            "llmCalls": 1,
+            "inputTokens": 4015,
+            "outputTokens": 4
+          }
+        ],
+        "totalMs": 7939,
+        "costUsd": 0.0012145
+      },
+      "real": {
+        "id": "12-clean-pagination",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 26.332,
+        "inputTokens": 4015,
+        "outputTokens": 4,
+        "costUsd": 0.0012145,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 15
+    },
+    {
+      "id": "13-clean-bearer-refactor",
+      "title": "refactor(auth): extraer parseo del token Bearer",
+      "body": "Extrae el parseo del header Authorization a una función pura y la cubre con tests unitarios.",
+      "expected": {
+        "verdict": "APPROVE",
+        "findings": []
+      },
+      "diff": "diff --git a/storefront-demo/src/auth.ts b/storefront-demo/src/auth.ts\nindex ce2842b..0ce544e 100644\n--- a/storefront-demo/src/auth.ts\n+++ b/storefront-demo/src/auth.ts\n@@ -15,12 +15,17 @@ declare global {\n   }\n }\n \n+/** Devuelve el token de un header \"Bearer <token>\", o cadena vacía si no aplica. */\n+export function extractBearerToken(header: string | undefined): string {\n+  if (!header?.startsWith('Bearer ')) return '';\n+  return header.slice(7).trim();\n+}\n+\n /** Autenticación simplificada por token Bearer (suficiente para la demo). */\n export function requireAuth(db: DB) {\n   const findUser = db.prepare('SELECT id, name FROM users WHERE token = ?');\n   return (req: Request, res: Response, next: NextFunction) => {\n-    const header = req.header('authorization') ?? '';\n-    const token = header.startsWith('Bearer ') ? header.slice(7) : '';\n+    const token = extractBearerToken(req.header('authorization'));\n     const user = token ? (findUser.get(token) as AuthUser | undefined) : undefined;\n     if (!user) {\n       return res.status(401).json({ error: 'UNAUTHORIZED' });\ndiff --git a/storefront-demo/test/auth.test.ts b/storefront-demo/test/auth.test.ts\nnew file mode 100644\nindex 0000000..2cb5351\n--- /dev/null\n+++ b/storefront-demo/test/auth.test.ts\n@@ -0,0 +1,13 @@\n+import { describe, expect, it } from 'vitest';\n+import { extractBearerToken } from '../src/auth';\n+\n+describe('extractBearerToken', () => {\n+  it('extrae el token', () => {\n+    expect(extractBearerToken('Bearer abc')).toBe('abc');\n+  });\n+\n+  it('devuelve vacío si falta o no es Bearer', () => {\n+    expect(extractBearerToken(undefined)).toBe('');\n+    expect(extractBearerToken('Basic abc')).toBe('');\n+  });\n+});\n",
+      "report": {
+        "label": "13-clean-bearer-refactor",
+        "title": "refactor(auth): extraer parseo del token Bearer",
+        "base": "HEAD",
+        "provider": "replay",
+        "model": "gemini/gemini-3.5-flash-lite (grabado)",
+        "decision": {
+          "verdict": "APPROVE",
+          "reasons": [
+            "Compila, los tests pasan y no se encontraron problemas relevantes."
+          ]
+        },
+        "checks": [
+          {
+            "name": "typecheck",
+            "ok": true,
+            "durationMs": 3758,
+            "output": ""
+          },
+          {
+            "name": "tests",
+            "ok": true,
+            "durationMs": 3538,
+            "output": "\n RUN  v2.1.9 <repo>/storefront-demo\n\n ✓ test/pricing.test.ts (5 tests) <t>\n ✓ test/auth.test.ts (2 tests) <t>\n ✓ test/api.test.ts (8 tests) <t>\n\n Test Files  3 passed (3)\n      Tests  15 passed (15)\n   Start at  <hh:mm:ss>\n   Duration  <t> (transform <t>, setup <t>, collect <t>, tests <t>, environment <t>, prepare <t>)"
+          }
+        ],
+        "findings": [],
+        "fixes": [],
+        "redactions": 0,
+        "stages": [
+          {
+            "stage": "preparación",
+            "durationMs": 529,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "chequeos determinísticos",
+            "durationMs": 7296,
+            "llmCalls": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          {
+            "stage": "revisión IA",
+            "durationMs": 9,
+            "llmCalls": 1,
+            "inputTokens": 1980,
+            "outputTokens": 4
+          }
+        ],
+        "totalMs": 7836,
+        "costUsd": 0.000604
+      },
+      "real": {
+        "id": "13-clean-bearer-refactor",
+        "expectedVerdict": "APPROVE",
+        "verdict": "APPROVE",
+        "isBug": false,
+        "detected": false,
+        "detectedBy": [],
+        "falsePositives": 0,
+        "fixValidated": null,
+        "seconds": 16.909,
+        "inputTokens": 1980,
+        "outputTokens": 4,
+        "costUsd": 0.000604,
+        "model": "gemini-3.5-flash-lite"
+      },
+      "minutesSaved": 15
+    }
+  ]
+}
