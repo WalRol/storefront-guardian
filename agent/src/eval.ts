@@ -196,6 +196,8 @@ async function main() {
         provider,
         fix: !values['no-fix'],
       });
+      // En producción una IA caída degrada a revisión humana; en el eval, invalida la medición del caso.
+      if (report.aiUnavailable) throw new Error(`IA no disponible: ${report.aiUnavailable}`);
       const result = evaluate(c, report, equivalentCostUsd(report, policy));
       results.push(result);
       console.error(`${result.verdict} (esperado ${c.expected.verdict}) en ${result.seconds.toFixed(1)} s`);

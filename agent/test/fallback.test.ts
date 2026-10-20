@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { FallbackProvider, LlmError, type LlmProvider } from '../src/llm/provider';
+import { FallbackProvider, LlmError, postJson, type LlmProvider } from '../src/llm/provider';
 
 function fake(model: string, behavior: () => void): LlmProvider & { calls: number } {
   return {
@@ -52,5 +52,30 @@ describe('FallbackProvider', () => {
     });
     const chain = new FallbackProvider([broken, fake('b', () => undefined)]);
     await expect(chain.complete(req)).rejects.toThrow('bad request');
+  });
+});
+
+describe('postJson', () => {
+  it('convierte un timeout en un error que la cadena puede saltear', async () => {
+    const original = globalThis.fetch;
+    globalThis.fetch = (async () => {
+      throw Object.assign(new Error('aborted'), { name: 'TimeoutError' });
+    }) as typeof fetch;
+    try {
+      await expect(postJson('https://api.example/x', {}, {}, { timeoutMs: 1000 })).rejects.toMatchObject({
+        status: 504,
+        message: expect.stringContaining('sin respuesta en 1 s'),
+      });
+    } finally {
+      globalThis.fetch = original;
+    }
+  });
+
+  it('la cadena pasa al siguiente modelo ante un timeout', async () => {
+    const slow = fake('a', () => {
+      throw new LlmError('sin respuesta', 504);
+    });
+    const chain = new FallbackProvider([slow, fake('b', () => undefined)]);
+    expect((await chain.complete(req)).text).toBe('b');
   });
 });

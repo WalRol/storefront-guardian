@@ -74,6 +74,8 @@ export interface RunReport {
   findings: Finding[];
   fixes: FixResult[];
   redactions: number;
+  /** Si la revisión IA se intentó y ningún modelo respondió: el motivo. */
+  aiUnavailable?: string;
   stages: StageMetric[];
   totalMs: number;
 }

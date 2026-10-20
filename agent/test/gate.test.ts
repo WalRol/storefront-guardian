@@ -82,3 +82,11 @@ describe('gate', () => {
     });
   });
 });
+
+describe('IA no disponible', () => {
+  it('no aprueba solo si la revisión IA no respondió', () => {
+    const decision = decide(green, [], [], policy, [], 'sin respuesta en 120 s');
+    expect(decision.verdict).toBe('REVIEW');
+    expect(decision.reasons[0]).toContain('La revisión IA no respondió');
+  });
+});

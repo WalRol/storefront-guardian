@@ -12,6 +12,7 @@ export function decide(
   fixes: FixResult[],
   policy: Policy,
   changedPaths: string[] = [],
+  aiUnavailable?: string,
 ): GateDecision {
   const { blockOn, reviewOn, sensitivePaths = [] } = policy.gate;
   const block: string[] = [];
@@ -41,6 +42,11 @@ export function decide(
   const sensitive = changedPaths.filter((p) => sensitivePaths.some((glob) => globToRegExp(glob).test(p)));
   if (block.length === 0 && sensitive.length > 0) {
     review.push(`Toca archivos sensibles (${sensitive.join(', ')}): requieren revisión humana aunque no haya hallazgos.`);
+  }
+
+  // Sin revisión IA no hay quien vea bugs de autorización o de negocio: no se aprueba solo.
+  if (block.length === 0 && aiUnavailable) {
+    review.push(`La revisión IA no respondió (${aiUnavailable}): solo corrió la capa determinística.`);
   }
 
   const verdict: Verdict = block.length > 0 ? 'BLOCK' : review.length > 0 ? 'REVIEW' : 'APPROVE';

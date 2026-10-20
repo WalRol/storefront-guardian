@@ -108,8 +108,11 @@ porque el modelo ve el contexto; lo acoté con el presupuesto de caracteres.
 - `npm run setup` + `npm run demo` corren el sistema completo **sin API key**: el modo *replay* reproduce respuestas
   reales grabadas.
 - Un devcontainer permite abrirlo en GitHub Codespaces sin instalar nada.
-- Una GitHub Action comenta el reporte en cada PR y falla el check si el veredicto es BLOQUEADO. Sin la key (PRs desde
-  forks), degrada a la capa determinística en vez de fallar.
+- Una GitHub Action comenta el reporte en cada PR y falla el check si el veredicto es BLOQUEADO. `main` exige ese check
+  y un review aprobado, así que REVISIÓN HUMANA tampoco se mergea sola. Sin la key (PRs desde forks) corre solo la capa
+  determinística. Si la key está pero ningún modelo responde (saturación o timeout del tier gratuito, que pasó en las
+  primeras corridas en CI), degrada igual en vez de fallar, y el PR va a revisión humana: sin IA nadie mira los bugs de
+  autorización o de negocio.
 - Cada corrida queda en `runs.jsonl` y se envía a un webhook autenticado, que un workflow de n8n usa para alertar al
   equipo y armar un resumen semanal de valor (PRs revisados, bloqueados, horas estimadas ahorradas).
 

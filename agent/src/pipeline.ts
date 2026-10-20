@@ -7,6 +7,7 @@ import { scanStaticRules } from './checks/static-rules';
 import { parseDiff } from './diff';
 import { decide } from './gate';
 import type { LlmProvider } from './llm';
+import { LlmError } from './llm/provider';
 import { Meter } from './meter';
 import { loadContext, type Policy } from './policy';
 import type { CheckResult, Finding, FixResult, RunReport } from './types';
@@ -66,6 +67,7 @@ export async function runPipeline(opts: PipelineOptions): Promise<RunReport> {
 
     let llmFindings: Finding[] = [];
     let redactions = 0;
+    let aiUnavailable: string | undefined;
     if (provider) {
       log(`Revisión IA (${provider.name})…`);
       const input = {
@@ -80,26 +82,38 @@ export async function runPipeline(opts: PipelineOptions): Promise<RunReport> {
         deterministic,
         maxContextChars: policy.review.maxContextChars,
       };
-      ({ findings: llmFindings, redactions } = await meter.stage('revisión IA', () =>
-        review(input, provider, meter),
-      ));
+      try {
+        ({ findings: llmFindings, redactions } = await meter.stage('revisión IA', () =>
+          review(input, provider, meter),
+        ));
+      } catch (err) {
+        // Sin IA disponible el PR igual recibe la capa determinística; el gate lo manda a revisión humana.
+        if (!(err instanceof LlmError)) throw err;
+        aiUnavailable = err.message.split('\n')[0];
+        log(`Revisión IA no disponible: ${aiUnavailable}`);
+      }
     }
     const findings = dedupe(deterministic, llmFindings);
 
     const fixes: FixResult[] = [];
-    const fixable = provider && opts.fix && policy.fix.enabled ? selectFixable(findings, policy) : [];
+    const fixable = provider && !aiUnavailable && opts.fix && policy.fix.enabled ? selectFixable(findings, policy) : [];
     if (provider && fixable.length > 0) {
       await meter.stage('corrección IA', async () => {
         for (const finding of fixable) {
           log(`Corrigiendo ${finding.id}: ${finding.title}…`);
-          fixes.push(
-            await fixFinding(finding, { ws, policy, provider, meter, context, keyPrefix: label }),
-          );
+          try {
+            fixes.push(await fixFinding(finding, { ws, policy, provider, meter, context, keyPrefix: label }));
+          } catch (err) {
+            // Un fix que no se pudo generar no cambia el veredicto: el hallazgo ya está reportado.
+            if (!(err instanceof LlmError)) throw err;
+            await ws.reset();
+            fixes.push({ findingId: finding.id, status: 'skipped', attempts: 0, reason: `IA no disponible: ${err.message.split('\n')[0]}` });
+          }
         }
       });
     }
 
-    const decision = decide(checks, findings, fixes, policy, changedFiles.map((f) => f.path));
+    const decision = decide(checks, findings, fixes, policy, changedFiles.map((f) => f.path), aiUnavailable);
     return {
       label,
       title: opts.title,
@@ -111,6 +125,7 @@ export async function runPipeline(opts: PipelineOptions): Promise<RunReport> {
       findings,
       fixes,
       redactions,
+      aiUnavailable,
       stages: meter.stages,
       totalMs: Date.now() - started,
     };

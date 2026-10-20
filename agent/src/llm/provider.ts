@@ -58,7 +58,7 @@ export class FallbackProvider implements LlmProvider {
         this.active = index;
         return res;
       } catch (err) {
-        const unavailable = err instanceof LlmError && [404, 429, 503].includes(err.status ?? 0);
+        const unavailable = err instanceof LlmError && [404, 429, 503, 504].includes(err.status ?? 0);
         if (!unavailable) throw err;
         if (err.status === 429) {
           // Cuota agotada: respetar el retryDelay que informa la API (puede ser horas en cuotas diarias).
@@ -87,12 +87,19 @@ export async function postJson(
   { retries = 1, timeoutMs = 120_000 } = {},
 ): Promise<unknown> {
   for (let attempt = 0; ; attempt++) {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...headers },
-      body: JSON.stringify(body),
-      signal: AbortSignal.timeout(timeoutMs),
-    });
+    let res: Response;
+    try {
+      res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...headers },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+    } catch (err) {
+      // Timeout o red caída: como un 504, para que la cadena pase al siguiente modelo.
+      const reason = err instanceof Error && err.name === 'TimeoutError' ? `sin respuesta en ${timeoutMs / 1000} s` : String(err);
+      throw new LlmError(`${new URL(url).host}: ${reason}`, 504);
+    }
     if (res.ok) return res.json();
 
     const retryable = res.status === 429 || res.status >= 500;
