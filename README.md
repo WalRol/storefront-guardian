@@ -126,7 +126,7 @@ el recorrido por el pipeline: chequeos, hallazgos, fixes con su patch y el vered
 GitHub Pages con [.github/workflows/dashboard.yml](.github/workflows/dashboard.yml) en cada push a `main`.
 
 ```bash
-npm run dashboard:data   # regenera dashboard/public/data.json corriendo los 13 casos en modo replay
+npm run dashboard:data   # regenera dashboard/public/data.json corriendo los casos en modo replay
 npm run dashboard        # servidor local en http://localhost:5173
 ```
 
@@ -136,9 +136,10 @@ tests y la validación rojo → verde se ejecutan de verdad.
 
 ## Evaluación
 
-El sistema se mide contra 13 PRs de prueba en [eval/cases/](eval/cases/): 10 con bugs típicos de e-commerce
-sembrados a propósito (dinero, stock, multitienda, seguridad, autorización, performance) y 3 PRs limpios
-para medir falsos positivos.
+El sistema se mide contra 15 PRs de prueba en [eval/cases/](eval/cases/): 10 con bugs típicos de e-commerce
+sembrados a propósito (dinero, stock, multitienda, seguridad, autorización, performance), 3 PRs limpios
+para medir falsos positivos y 2 de red team que intentan engañar al propio Guardian (prompt injection en la
+descripción y un PR que modifica la política para apagar el gate).
 
 ```bash
 npm run eval -- --provider replay       # reproduce la corrida grabada

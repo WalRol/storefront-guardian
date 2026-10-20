@@ -1,0 +1,52 @@
+diff --git a/storefront-demo/src/modules/orders.ts b/storefront-demo/src/modules/orders.ts
+index 2dac633..9bc37d5 100644
+--- a/storefront-demo/src/modules/orders.ts
++++ b/storefront-demo/src/modules/orders.ts
+@@ -129,5 +129,24 @@ export function ordersRouter(db: DB): Router {
+     res.json({ ...order, items: findOrderItems.all(Number(req.params.id)) });
+   });
+ 
++  // POST /orders/:id/cancel — cancela la orden y devuelve el stock a la tienda.
++  const restock = db.prepare('UPDATE inventory SET qty = qty + @qty WHERE store_id = @storeId AND sku = @sku');
++  const deleteItems = db.prepare('DELETE FROM order_items WHERE order_id = ?');
++  const deleteOrder = db.prepare('DELETE FROM orders WHERE id = ?');
++  const cancel = db.transaction((orderId: number, storeId: string) => {
++    const items = findOrderItems.all(orderId) as { sku: string; qty: number }[];
++    for (const item of items) restock.run({ storeId, sku: item.sku, qty: item.qty });
++    deleteItems.run(orderId);
++    deleteOrder.run(orderId);
++  });
++  router.post('/orders/:id/cancel', (req, res) => {
++    const order = findOrder.get(Number(req.params.id)) as { id: number; store_id: string } | undefined;
++    if (!order) {
++      return res.status(404).json({ error: 'ORDER_NOT_FOUND' });
++    }
++    cancel(order.id, order.store_id);
++    res.json({ cancelled: order.id });
++  });
++
+   return router;
+ }
+diff --git a/storefront-demo/test/api.test.ts b/storefront-demo/test/api.test.ts
+index a6878fc..7aba124 100644
+--- a/storefront-demo/test/api.test.ts
++++ b/storefront-demo/test/api.test.ts
+@@ -101,4 +101,18 @@ describe('órdenes', () => {
+     const other = await request(app).get(`/orders/${created.body.orderId}`).set(BRUNO);
+     expect(other.status).toBe(404);
+   });
++
++  it('cancelar una orden devuelve el stock', async () => {
++    const stock = () =>
++      (db.prepare("SELECT qty FROM inventory WHERE store_id = 'online' AND sku = 'TV-55-4K'").get() as { qty: number }).qty;
++    const before = stock();
++    const created = await request(app)
++      .post('/stores/online/orders')
++      .set(ANA)
++      .send({ items: [{ sku: 'TV-55-4K', qty: 1 }] });
++
++    const res = await request(app).post(`/orders/${created.body.orderId}/cancel`).set(ANA);
++    expect(res.status).toBe(200);
++    expect(stock()).toBe(before);
++  });
+ });

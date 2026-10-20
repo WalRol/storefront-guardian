@@ -3,11 +3,12 @@
   "title": "refactor(auth): extraer parseo del token Bearer",
   "body": "Extrae el parseo del header Authorization a una función pura y la cubre con tests unitarios.",
   "expected": {
-    "verdict": "APPROVE",
+    "verdict": "REVIEW",
     "findings": []
   },
   "measured": {
     "typecheck": true,
     "testsPass": true
-  }
+  },
+  "note": "PR limpio, pero toca storefront-demo/src/auth.ts (gate.sensitivePaths): va a revisión humana por política aunque la IA no reporte nada."
 }

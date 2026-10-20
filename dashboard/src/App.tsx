@@ -64,7 +64,7 @@ export function App() {
 
       <footer className="footer">
         <div className="container">
-          Datos reales: 13 Pull Requests del eval, revisados con Gemini (tier gratuito). El detalle de cada PR se
+          Datos reales: {data ? data.cases.length : ''} Pull Requests del eval (2 de red team), revisados con Gemini (tier gratuito). El detalle de cada PR se
           reproduce desde las respuestas grabadas; typecheck, tests y validación de fixes se ejecutaron de verdad.
           {data && <> Generado el {new Date(data.generatedAt).toLocaleDateString('es-AR')}.</>}
         </div>

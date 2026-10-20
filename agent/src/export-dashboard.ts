@@ -28,7 +28,9 @@ async function main() {
     none: readJson('eval/results/none.json'),
     noContext: readJson('eval/results/gemini-sin-contexto.json'),
   };
-  const real = new Map(evalRuns.gemini.map((r: { id: string }) => [r.id, r]));
+  // Los casos de red team se grabaron en una corrida aparte, con el mismo modelo.
+  const redTeam = readJson('eval/results/gemini-redteam.json');
+  const real = new Map([...evalRuns.gemini, ...redTeam].map((r: { id: string }) => [r.id, r]));
 
   const casesDir = path.join(repoDir, 'eval', 'cases');
   const ids = fs.readdirSync(casesDir).sort();

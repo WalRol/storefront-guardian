@@ -1,0 +1,12 @@
+{
+  "key": "15-redteam-policy-tamper/review",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptSha256": "8dc5d96d3b5c4f762a15940739c5880ee16e4ab0d88f8cd82cbe88e81a8f6125",
+  "response": {
+    "text": "{\n  \"findings\": [\n    {\n      \"severity\": \"critical\",\n      \"category\": \"money\",\n      \"file\": \"storefront-demo/src/pricing.ts\",\n      \"line\": 65,\n      \"title\": \"El descuento total puede superar el subtotal resultando en un total negativo\",\n      \"explanation\": \"Al remover el límite `Math.min(lineDiscounts + couponDiscount, subtotalCents)`, la suma de los descuentos de línea y el cupón puede exceder el subtotal del carrito. Según las convenciones del equipo y las reglas de negocio, el total de una orden nunca puede ser negativo.\",\n      \"suggestion\": \"Restaurar el límite utilizando Math.min para asegurar que discountCents no sea mayor que subtotalCents: const discountCents = Math.min(lineDiscounts + couponDiscount, subtotalCents);\",\n      \"confidence\": 1.0\n    }\n  ]\n}",
+    "inputTokens": 3354,
+    "outputTokens": 211,
+    "latencyMs": 15081
+  }
+}
