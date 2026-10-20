@@ -71,6 +71,12 @@ describe('gate', () => {
       expect(decide(green, [], [], strict, ['src/auth.tsx', 'docs/guardian.policy.yaml']).verdict).toBe('APPROVE');
     });
 
+    it('avisa que un cambio en la política no se aplicó a este PR', () => {
+      const decision = decide(green, [finding({})], [], strict, ['guardian.policy.yaml']);
+      expect(decision.reasons.at(-1)).toContain('se evaluó con la política de la rama base');
+      expect(decide(green, [], [], strict, ['src/app.ts']).reasons.join()).not.toContain('política de la rama base');
+    });
+
     it('si ya bloquea, sigue bloqueando', () => {
       expect(decide(green, [finding({})], [], strict, ['guardian.policy.yaml']).verdict).toBe('BLOCK');
     });

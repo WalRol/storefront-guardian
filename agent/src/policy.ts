@@ -72,6 +72,9 @@ const policySchema = z.object({
 
 export type Policy = z.infer<typeof policySchema>;
 
+/** Ruta de la política, relativa a la raíz del repo. */
+export const POLICY_FILE = 'guardian.policy.yaml';
+
 export function loadPolicy(file: string): Policy {
   const raw = parse(fs.readFileSync(file, 'utf8'));
   return policySchema.parse(raw);

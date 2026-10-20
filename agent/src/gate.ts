@@ -1,4 +1,4 @@
-import type { Policy } from './policy';
+import { POLICY_FILE, type Policy } from './policy';
 import type { CheckResult, Finding, FixResult, GateDecision, Verdict } from './types';
 
 /**
@@ -45,6 +45,10 @@ export function decide(
 
   const verdict: Verdict = block.length > 0 ? 'BLOCK' : review.length > 0 ? 'REVIEW' : 'APPROVE';
   const reasons = [...block, ...review];
+  // No cambia el veredicto: deja explícito que el PR no pudo cambiar las reglas con las que se lo evaluó.
+  if (changedPaths.includes(POLICY_FILE)) {
+    reasons.push(`Este PR modifica ${POLICY_FILE}: se evaluó con la política de la rama base. El cambio rige recién después del merge.`);
+  }
   if (verdict === 'APPROVE') reasons.push('Compila, los tests pasan y no se encontraron problemas relevantes.');
   return { verdict, reasons };
 }

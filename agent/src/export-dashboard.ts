@@ -3,7 +3,7 @@ import path from 'node:path';
 import { git } from './exec';
 import { createProvider } from './llm';
 import { runPipeline } from './pipeline';
-import { loadPolicy } from './policy';
+import { loadPolicy, POLICY_FILE } from './policy';
 import { equivalentCostUsd } from './report';
 
 /**
@@ -16,7 +16,7 @@ import { equivalentCostUsd } from './report';
  */
 async function main() {
   const repoDir = (await git(['rev-parse', '--show-toplevel'], process.cwd())).trim();
-  const policy = loadPolicy(path.join(repoDir, 'guardian.policy.yaml'));
+  const policy = loadPolicy(path.join(repoDir, POLICY_FILE));
   const provider = createProvider('replay', {
     cassetteDir: path.join(repoDir, 'agent', 'cassettes', 'eval'),
     record: false,

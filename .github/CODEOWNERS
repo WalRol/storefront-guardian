@@ -1,0 +1,7 @@
+# Cambios a las reglas con las que Guardian evalúa los PRs: siempre con review del dueño.
+# Junto con la branch protection de main ("Require review from Code Owners"), un PR no
+# puede editar el workflow, el agente ni la política y mergearse sin que alguien lo apruebe.
+/.github/                        @WalRol
+/agent/                          @WalRol
+/guardian.policy.yaml            @WalRol
+/storefront-demo/CONVENCIONES.md @WalRol

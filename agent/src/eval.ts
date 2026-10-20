@@ -4,7 +4,7 @@ import { parseArgs } from 'node:util';
 import { git } from './exec';
 import { createProvider, PROVIDERS, type ProviderName } from './llm';
 import { runPipeline } from './pipeline';
-import { loadPolicy } from './policy';
+import { loadPolicy, POLICY_FILE } from './policy';
 import { equivalentCostUsd } from './report';
 import type { Category, Finding, RunReport, Verdict } from './types';
 
@@ -152,7 +152,7 @@ async function main() {
 
   const providerName = (values.provider ?? process.env.GUARDIAN_PROVIDER ?? 'replay') as ProviderName;
   if (!PROVIDERS.includes(providerName)) throw new Error(`Proveedor inválido: ${providerName}`);
-  const policy = loadPolicy(path.join(repoDir, 'guardian.policy.yaml'));
+  const policy = loadPolicy(path.join(repoDir, POLICY_FILE));
   if (values['no-context']) policy.contextFile = undefined;
 
   const variant = values['no-context'] ? '-sin-contexto' : '';

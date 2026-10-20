@@ -1,8 +1,8 @@
 name: Storefront Guardian
 
+# Sin filtro de paths: es un check obligatorio de main y tiene que reportar en todos los PRs.
 on:
   pull_request:
-    paths: ['storefront-demo/**']
 
 permissions:
   contents: read

@@ -5,7 +5,7 @@ import { parseArgs } from 'node:util';
 import { git } from './exec';
 import { createProvider, PROVIDERS, type ProviderName } from './llm';
 import { runPipeline } from './pipeline';
-import { loadPolicy } from './policy';
+import { loadPolicy, POLICY_FILE } from './policy';
 import { buildRunEvent, notifyWebhook } from './notify';
 import { renderMarkdown } from './report';
 
@@ -78,7 +78,7 @@ async function main() {
   const providerName = (values.provider ?? process.env.GUARDIAN_PROVIDER ?? 'replay') as ProviderName;
   if (!PROVIDERS.includes(providerName)) throw new Error(`Proveedor inválido: ${providerName}`);
 
-  const policy = loadPolicy(path.join(repoDir, 'guardian.policy.yaml'));
+  const policy = loadPolicy(path.join(repoDir, POLICY_FILE));
   const provider = createProvider(providerName, {
     cassetteDir: path.join(repoDir, 'agent', values.cassettes),
     record: values.record,
