@@ -21,7 +21,8 @@ jobs:
       # puede cambiar las reglas con las que se lo evalúa (p. ej. apagar blockOn).
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.sha }}
+          # Por nombre, no base.sha: base.sha no se actualiza cuando la rama base avanza.
+          ref: ${{ github.base_ref }}
           fetch-depth: 0
 
       # El código del PR solo entra como ref (el merge con la base, igual que el checkout
@@ -50,7 +51,9 @@ jobs:
           # de entorno, nunca interpolados en el script, para evitar inyección de comandos.
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY: ${{ github.event.pull_request.body }}
-          BASE_REF: ${{ github.event.pull_request.base.sha }}
+          # Primer padre del merge commit: la base exacta con la que GitHub armó el merge,
+          # así el diff es solo lo que trae el PR.
+          BASE_REF: pr/merge^1
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_URL: ${{ github.event.pull_request.html_url }}
           # Opcional: webhook de n8n que recibe el resultado (notificaciones y métricas).
