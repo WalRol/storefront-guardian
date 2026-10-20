@@ -119,6 +119,13 @@ Cada corrida también queda registrada localmente en `.guardian-out/runs.jsonl`.
 El workflow de n8n que notifica al equipo y arma el resumen semanal de valor está documentado en
 [docs/n8n/](docs/n8n/README.md).
 
+### Power Platform (Power Automate, SharePoint, Teams y Power BI)
+
+El mismo webhook alimenta un flujo de Power Automate que registra cada corrida en una lista de SharePoint,
+avisa en Teams solo cuando el PR queda BLOQUEADO o en REVISIÓN HUMANA, y manda un correo si el registro
+falla. Sobre la lista, un reporte de Power BI muestra PRs revisados, porcentaje bloqueado, costo y horas
+estimadas ahorradas. Capturas, decisiones y cómo replicarlo: [docs/power-platform/](docs/power-platform/README.md).
+
 ## Panel web
 
 [dashboard/](dashboard/) es un sitio estático (React + Vite) que muestra las métricas del eval y, para cada PR,
@@ -177,6 +184,8 @@ agent/
 dashboard/             Panel web (React + Vite), publicado en GitHub Pages
 eval/cases/            15 PRs de prueba (patch + resultado esperado)
 eval/results/          Resultados del eval por proveedor
+docs/n8n/              Workflow de n8n: alertas y resumen semanal
+docs/power-platform/   Power Automate + SharePoint + Teams + Power BI
 guardian.policy.yaml   Política del gate
 ```
 

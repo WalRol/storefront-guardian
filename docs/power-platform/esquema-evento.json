@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "event": { "type": "string" },
+    "at": { "type": "string" },
+    "repo": { "type": ["string", "null"] },
+    "pr": {
+      "type": "object",
+      "properties": {
+        "number": { "type": ["integer", "null"] },
+        "title": { "type": "string" },
+        "url": { "type": ["string", "null"] }
+      }
+    },
+    "label": { "type": "string" },
+    "verdict": { "type": "string", "enum": ["APPROVE", "REVIEW", "BLOCK"] },
+    "reasons": { "type": "array", "items": { "type": "string" } },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": { "type": "string" },
+          "category": { "type": "string" },
+          "source": { "type": "string" },
+          "file": { "type": "string" },
+          "line": { "type": ["integer", "null"] },
+          "title": { "type": "string" }
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "properties": {
+        "findings": { "type": "integer" },
+        "critical": { "type": "integer" },
+        "high": { "type": "integer" },
+        "fixesValidated": { "type": "integer" },
+        "fixesFailed": { "type": "integer" }
+      }
+    },
+    "seconds": { "type": "integer" },
+    "model": { "type": "string" },
+    "costUsd": { "type": "number" },
+    "minutesSavedEstimate": { "type": "integer" }
+  },
+  "required": ["event", "verdict", "label"]
+}

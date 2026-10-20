@@ -36,7 +36,7 @@ PR → [1] Chequeos determinísticos → [2] Agente revisor → [3] Agente corre
 **Principio rector: la IA solo donde las reglas no llegan.** Lo que se puede detectar con un patrón (un secreto,
 SQL interpolado, un stack trace en la respuesta) se detecta con código: es gratis, instantáneo y no varía entre
 corridas. El modelo recibe esos resultados como "ya detectado" y se concentra en lo que requiere entender el negocio.
-El eval lo confirma: la capa determinística sola detecta 6 de 10 bugs; la IA cierra los 4 restantes.
+El eval lo confirma: la capa determinística sola detecta 7 de 12 bugs; la IA cierra los 5 restantes.
 
 **Decisiones de diseño clave:**
 
@@ -86,8 +86,8 @@ costo es irrelevante y elimina la incertidumbre de cuota.
 
 **Tiempo de respuesta — objetivo: menos de 2 minutos por PR.** Lo considero razonable porque es el orden de un
 pipeline de CI: el resultado llega mientras el desarrollador todavía tiene el contexto del cambio. Una revisión humana
-suele tardar horas en empezar. Medido en una laptop de 2018 (i5, 8 GB): **32 s en promedio, 91 s el peor caso**; la
-capa determinística sola tarda ~14 s. La validación rojo→verde agrega ~20–30 s por fix. Ahí la tensión fue tiempo
+suele tardar horas en empezar. Medido en una laptop de 2018 (i5, 8 GB): **37 s en promedio** (26 s sin un caso con
+reintentos por errores 503); la capa determinística sola tarda ~8 s. La validación rojo→verde agrega ~20–30 s por fix. Ahí la tensión fue tiempo
 contra confianza, y elegí confianza: un fix sin validar le traslada el trabajo de verificación al desarrollador.
 
 **Privacidad — el código sale lo mínimo, y nunca los secretos.**
@@ -192,12 +192,12 @@ Lectura honesta del resto:
    casos. Mide el sistema contra bugs que el equipo efectivamente cometió.
 2. **Medir en producción, no solo en el eval:** reacciones 👍/👎 en cada comentario del bot para calcular la precisión
    real y calibrar severidades y umbrales con el equipo.
-3. **Dashboard de valor en Power BI** sobre el historial de corridas: horas liberadas, bugs bloqueados por categoría,
-   adopción por equipo.
-4. **Fixes como "suggested changes" de GitHub**, aplicables con un clic desde el PR.
-5. **Ruteo de modelos:** el modelo más barato para revisar y uno más capaz solo cuando el fix falla en el primer intento.
-6. **Integración nativa en el ecosistema Microsoft:** notificaciones en Teams vía Power Automate, y un agente de
-   Copilot Studio que responda preguntas usando `CONVENCIONES.md` y el historial de hallazgos.
+3. **Fixes como "suggested changes" de GitHub**, aplicables con un clic desde el PR.
+4. **Ruteo de modelos:** el modelo más barato para revisar y uno más capaz solo cuando el fix falla en el primer intento.
+5. **Un agente de Copilot Studio** que responda preguntas usando `CONVENCIONES.md` y el historial de hallazgos.
+
+Ya hecho fuera del núcleo: el webhook alimenta un flujo de Power Automate (SharePoint, avisos en Teams, manejo de
+errores) y un reporte de Power BI con el valor generado ([docs/power-platform/](docs/power-platform/README.md)).
 
 ## 7. Qué resolví con IA y qué es mío
 

@@ -1,0 +1,53 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Storefront Guardian",
+      "size": "Small",
+      "isSubtle": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "@{if(equals(triggerBody()?['verdict'], 'BLOCK'), 'BLOQUEADO', 'REVISIÓN HUMANA')}",
+      "size": "Large",
+      "weight": "Bolder",
+      "color": "@{if(equals(triggerBody()?['verdict'], 'BLOCK'), 'Attention', 'Warning')}"
+    },
+    {
+      "type": "TextBlock",
+      "text": "@{triggerBody()?['pr']?['title']}",
+      "weight": "Bolder",
+      "wrap": true
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        { "title": "Hallazgos", "value": "@{triggerBody()?['counts']?['findings']} (críticos: @{triggerBody()?['counts']?['critical']}, altos: @{triggerBody()?['counts']?['high']})" },
+        { "title": "Fixes validados", "value": "@{triggerBody()?['counts']?['fixesValidated']}" },
+        { "title": "Tiempo", "value": "@{triggerBody()?['seconds']} s" },
+        { "title": "Modelo", "value": "@{triggerBody()?['model']}" }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "Motivos",
+      "weight": "Bolder",
+      "spacing": "Medium"
+    },
+    {
+      "type": "TextBlock",
+      "text": "@{join(triggerBody()?['reasons'], decodeUriComponent('%0A%0A'))}",
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Ver en el panel",
+      "url": "https://walrol.github.io/storefront-guardian/"
+    }
+  ]
+}
