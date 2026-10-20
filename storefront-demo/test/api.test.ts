@@ -31,6 +31,12 @@ describe('catálogo', () => {
     expect(res.body.items).toEqual([]);
   });
 
+  it('lista las tiendas disponibles', async () => {
+    const res = await request(app).get('/stores');
+    expect(res.status).toBe(200);
+    expect(res.body.items.map((s: { id: string }) => s.id)).toEqual(['lima-centro', 'online']);
+  });
+
   it('devuelve 404 para un SKU inexistente', async () => {
     const res = await request(app).get('/stores/online/products/NOPE');
     expect(res.status).toBe(404);
